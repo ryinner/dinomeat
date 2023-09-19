@@ -1,0 +1,24 @@
+@mixin _fixed-or-absolute-center {
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-center {
+  position: absolute;
+
+  @include _fixed-or-absolute-center();
+}
+
+@mixin fixed-center {
+  position: fixed;
+
+  @include _fixed-or-absolute-center();
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

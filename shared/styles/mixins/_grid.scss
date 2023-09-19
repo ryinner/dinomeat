@@ -1,0 +1,9 @@
+@mixin grid-row($columns: 12, $size: 1fr) {
+  display: grid;
+  grid-template-columns: repeat($columns, $size);
+}
+
+@mixin grid-column($rows: 12, $size: 1fr) {
+  display: grid;
+  grid-template-rows: repeat($rows, $size);
+}

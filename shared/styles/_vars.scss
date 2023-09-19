@@ -1,5 +1,4 @@
-$big-desktop: 1440px;
-$desktop: 1025px;
-$tablet: 1024px;
-$small-tablet: 768px;
-$mobile: 576px;
+@import "./vars/indent";
+@import "./vars/z-index";
+@import "./vars/viewport";
+@import "./vars/border";
