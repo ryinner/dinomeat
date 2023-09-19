@@ -1,0 +1,7 @@
+@import "../vars";
+
+@mixin site-container {
+  margin: 0 auto;
+
+  max-width: $big-desktop;
+}
