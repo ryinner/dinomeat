@@ -10,5 +10,21 @@ export const authConfig: AuthOptions = {
       clientId: process.env.VK_ID!,
       clientSecret: process.env.VK_SECRET!
     })
-  ]
+  ],
+  callbacks: {
+    // Занимаюсь мутацией т.к. вк возвращает ломающие штуки
+    async signIn ({ user, account, profile, email, credentials }) {
+      if (account !== null) {
+        if (user && typeof account.email === 'string') {
+          user.email = account.email;
+          delete account.email;
+        }
+        if (account.user_id !== undefined && account.user_id !== null) {
+          delete account.user_id;
+        }
+      }
+
+      return true;
+    }
+  }
 }
