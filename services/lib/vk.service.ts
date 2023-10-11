@@ -7,7 +7,7 @@ export function init (): void {
   });
 }
 
-export function createCommunityMessageWidget (): vk.OpenApi.Widgets.CommunityMessages.Widget {
+export function createCommunityMessageWidget (): VK.OpenApi.Widgets.CommunityMessages.Widget {
   return VK.Widgets.CommunityMessages(VK_COMMUNITY_MESSAGES_ID, Number(process.env.NEXT_PUBLIC_VK_GROUP_ID), {
     onCanNotWrite: () => { console.log('Вы не можете писать, открыть попап') }, //TODO
     buttonType: 'blue_circle',
