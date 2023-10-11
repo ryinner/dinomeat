@@ -1,6 +1,6 @@
-declare var VK: vk.OpenApi.Api;
+declare var VK: VK.OpenApi.Api;
 
-declare namespace vk {
+declare namespace VK {
   namespace OpenApi {
     type NumericBoolean = 0 | 1;
     interface Api {

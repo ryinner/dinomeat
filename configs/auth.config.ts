@@ -7,8 +7,8 @@ export const authConfig: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     VkProvider({
-      clientId: process.env.NEXT_PUBLIC_VK_ID!,
-      clientSecret: process.env.VK_SECRET!
+      clientId: process.env.NEXT_PUBLIC_VK_ID,
+      clientSecret: process.env.VK_SECRET
     })
   ],
   callbacks: {
