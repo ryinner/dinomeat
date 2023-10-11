@@ -83,6 +83,7 @@ model Product {
   properties ProductProperty[]
   seo        ProductSeo[]
   images     ProductImage[]
+  movements  ProductMovement[]
 
   @@map("products")
 }
@@ -177,13 +178,15 @@ model Image {
   @@map("images")
 }
 
-model ProductMovemnt {
+model ProductMovement {
   id           Int       @id @default(autoincrement())
   productId    Int       @map("product_id")
   status       Int       @default(0)
   sellingPrice Float     @map("selling_price")
   createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt    DateTime  @updatedAt @map("upduted_at") @db.Timestamp(0)
+
+  product Product @relation(fields: [productId], references: [id], onUpdate: Restrict, onDelete: Restrict)
 
   @@map("products_movement")
 }
