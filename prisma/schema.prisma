@@ -176,3 +176,14 @@ model Image {
 
   @@map("images")
 }
+
+model ProductMovemnt {
+  id           Int       @id @default(autoincrement())
+  productId    Int       @map("product_id")
+  status       Int       @default(0)
+  sellingPrice Float     @map("selling_price")
+  createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt    DateTime  @updatedAt @map("upduted_at") @db.Timestamp(0)
+
+  @@map("products_movement")
+}
