@@ -71,7 +71,7 @@ model Product {
   name        String
   slug        String?
   price       Float    @default(0)
-  description String   @db.Text
+  description String?  @db.Text
   published   Boolean  @default(false)
   length      Float    @default(1) /// В см
   width       Float    @default(1) /// В см
