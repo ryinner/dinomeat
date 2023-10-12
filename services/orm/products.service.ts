@@ -30,7 +30,7 @@ export async function createProduct(
 export async function updateProduct(
   id: number,
   productDto: Prisma.ProductUpdateInput & { price?: number },
-  { withMargin = false }: ProductCreateUpdateSettings
+  { withMargin = false }: ProductCreateUpdateSettings = {}
 ) {
   const mutableProductDto = { ...productDto };
   const { price: priceBuffer } = mutableProductDto;
