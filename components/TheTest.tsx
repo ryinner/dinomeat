@@ -1,12 +1,29 @@
-import { prisma } from '@/services/lib/prisma.service';
-import Image from 'next/image';
+'use client'
+import { useForm, type SubmitHandler } from "react-hook-form";
 
-export async function TheTest () {
-  const image = await prisma.image.findFirst();
+interface Inputs {
+  image: File;
+  alt: string;
+}
 
-  return <form name='test' method='POST' action='/api/products/1/images' encType="multipart/form-data">
-    <input type='file' name='image' required />
-    <button type='submit'>Save</button>
-    <Image width={500} height={500} src={process.env.NEXT_PUBLIC_APP_PATH! + image?.url ?? ''} alt='123'/>
-  </form>
+export function TheTest() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data, e) => console.log(data, e);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="file" {...(register("image"), { required: true })} />
+      {errors.image && <span>This field is required</span>}
+      <input
+        type="text"
+        {...register("alt", { required: true, minLength: 3 })}
+      />
+      {errors.alt && <span>{errors.alt.message}</span>}
+      <button type="submit">Save</button>
+    </form>
+  );
 }
