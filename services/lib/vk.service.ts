@@ -12,7 +12,6 @@ export function createCommunityMessageWidget (): VK.OpenApi.Widgets.CommunityMes
     onCanNotWrite: () => { console.log('Вы не можете писать, открыть попап') }, //TODO
     buttonType: 'blue_circle',
     welcomeScreen: 1,
-    expandTimeout: 300,
     widgetPosition: 'right',
     tooltipButtonText: 'Есть вопросы?',
     disableTitleChange: 1,

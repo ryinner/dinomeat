@@ -3,11 +3,15 @@ import fs from "fs/promises";
 import path from "path";
 
 function getResourcesPath(): string {
-  return path.join(process.cwd(), "resources");
+  return path.join(process.cwd(), "public");
+}
+
+function getImagesPath (): string {
+  return path.join(getResourcesPath(), "images");
 }
 
 function getProductsImagesPath() {
-  return path.join(getResourcesPath(), "products");
+  return path.join(getImagesPath(), "products");
 }
 
 export function getProductImagesPath(id: number | string): string {
@@ -35,6 +39,6 @@ export async function writeFile(
   return {
     size: file.size,
     filename: file.name,
-    filepath: fullFilePath,
+    filepath: fullFilePath.replace(process.cwd(), ''),
   };
 }
