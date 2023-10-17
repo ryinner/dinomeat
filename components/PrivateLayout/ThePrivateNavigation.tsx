@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import styles from './ThePrivateNavigation.module.scss';
 
 const DEFAULT_PREFIX = '/admin';
 
@@ -23,9 +24,9 @@ const routes = [
 
 export default function ThePrivateNavigation() {
   return (
-    <nav>
-      <ul>
-        {routes.map(route => <li key={route.label}><Link href={DEFAULT_PREFIX  + route.link}>{route.label}</Link></li>)}
+    <nav className={styles.nav}>
+      <ul className={styles['nav-list']}>
+        {routes.map(route => <li key={route.label}><Link className={styles['nav-item']} href={DEFAULT_PREFIX  + route.link}>{route.label}</Link></li>)}
       </ul>
     </nav>
   );
