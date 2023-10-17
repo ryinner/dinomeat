@@ -17,9 +17,9 @@ export default async function TheCategoriesListView () {
     <table>
       <thead>
         <tr>
-          <th>id</th>
-          <th>Наименование</th>
-          <th />
+          <th style={{width: '5%'}}>id</th>
+          <th style={{width: '85%'}}>Наименование</th>
+          <th style={{width: '10%'}} />
         </tr>
       </thead>
       <tbody>
