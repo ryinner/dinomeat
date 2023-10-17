@@ -2,7 +2,6 @@
 const nextConfig = {
     reactStrictMode: true,
     sassOptions: {
-        
     },
     images: {
       domains: [process.env.DOMAIN]

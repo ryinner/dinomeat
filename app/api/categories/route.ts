@@ -9,6 +9,10 @@ export async function POST (req: NextRequest) {
   return NextResponse.json({ code: 200, message: 'Создано', category });
 }
 
+export async function GET () {
+  return  NextResponse.json({ code: 200 });
+}
+
 interface InputsPost {
   name: string;
 }
