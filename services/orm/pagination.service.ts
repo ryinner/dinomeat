@@ -1,12 +1,12 @@
-interface PaginationSettings<T> {
+interface PaginationSettings {
   limit: number;
   page: number;
   count: number;
   maxPages?: number;
 }
 
-export async function pagination <T>({ page, limit, count, maxPages = 11 }: PaginationSettings<T>) {
-  const last = Math.round(count / limit);
+export function pagination ({ page, limit, count, maxPages = 11 }: PaginationSettings) {
+  const last = Math.floor(count / limit);
   const first = 1;
 
   let start = first;

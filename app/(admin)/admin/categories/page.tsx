@@ -1,5 +1,6 @@
 import CategoryTr from '@/components/Categories/CategoryTr';
 import { getData } from '@/services/api/api.service';
+import { Category } from '@prisma/client';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,10 +10,8 @@ export const metadata: Metadata = {
 
 export default async function TheCategoriesListView () {
   const { categories } = await getData(process.env.NEXT_PUBLIC_APP_PATH + '/api/categories', {
-    next: {
-      revalidate: 60
-    }
-  });
+    cache: 'no-cache'
+  }) as CategoriesList;
 
   return <>
     <table>
@@ -23,8 +22,12 @@ export default async function TheCategoriesListView () {
         </tr>
       </thead>
       <tbody>
-        <CategoryTr />
+        { categories.map(category => <CategoryTr key={category.id} category={category} />) }
       </tbody>
     </table>
   </>
+}
+
+interface CategoriesList {
+  categories: Category[]
 }

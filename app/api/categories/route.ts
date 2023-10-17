@@ -1,4 +1,4 @@
-import { createCategory } from '@/services/orm/categories.service';
+import { createCategory, getCategoriesPaginated } from '@/services/orm/categories.service';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST (req: NextRequest) {
@@ -9,8 +9,14 @@ export async function POST (req: NextRequest) {
   return NextResponse.json({ code: 200, message: 'Создано', category });
 }
 
-export async function GET () {
-  return  NextResponse.json({ code: 200 });
+export async function GET (req: NextRequest) {
+  const { searchParams } = req.nextUrl;
+  const categoriesPaginated = await getCategoriesPaginated({
+    page: Number(searchParams.get('page') ?? 1)
+  });
+
+  
+  return  NextResponse.json({ code: 200, ...categoriesPaginated });
 }
 
 interface InputsPost {

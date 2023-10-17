@@ -1,6 +1,12 @@
-export default function CategoryTr() {
+import { Category } from '@prisma/client';
+
+export default function CategoryTr({ category }: Props) {
   return <tr>
-    <td></td>
-    <td></td>
+    <td>{ category.id }</td>
+    <td>{ category.name }</td>
   </tr>
+}
+
+interface Props {
+  category: Category
 }
