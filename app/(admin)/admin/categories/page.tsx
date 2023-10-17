@@ -19,6 +19,7 @@ export default async function TheCategoriesListView () {
         <tr>
           <th>id</th>
           <th>Наименование</th>
+          <th />
         </tr>
       </thead>
       <tbody>

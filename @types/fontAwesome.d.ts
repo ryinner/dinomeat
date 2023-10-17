@@ -1,0 +1,1 @@
+export type FontAwesomeIconPropsCleaned = Omit<FontAwesomeIconProps, 'icon'>
