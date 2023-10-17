@@ -1,3 +1,4 @@
+import { MuseoSansCyrl } from '@/app/styles/fonts';
 import ThePrivateFooter from "@/components/PrivateLayout/ThePrivateFooter";
 import ThePrivateHeader from "@/components/PrivateLayout/ThePrivateHeader";
 
@@ -8,7 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body>
+      <body className={MuseoSansCyrl.className}>
         <ThePrivateHeader />
         <main>{children}</main>
         <ThePrivateFooter />
