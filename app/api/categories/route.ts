@@ -15,7 +15,6 @@ export async function GET (req: NextRequest) {
     page: Number(searchParams.get('page') ?? 1)
   });
 
-  
   return  NextResponse.json({ code: 200, ...categoriesPaginated });
 }
 
