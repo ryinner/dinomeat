@@ -11,7 +11,10 @@ export async function getCategoriesPaginated ({
 }) {
   const categories = await prisma.category.findMany({
     skip: (page-1) * LIMIT,
-    take: LIMIT
+    take: LIMIT,
+    orderBy: {
+      id: 'desc'
+    }
   })
   const count = await prisma.category.count();
   return {

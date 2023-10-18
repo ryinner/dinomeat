@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import EditIcon from "../Icons/EditIcon";
 import SaveIcon from '../Icons/SaveIcon';
 
-export default function CategoryTr({ category }: Props) {
+export default function CategoryTr({ category, onUpdate }: Props) {
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState(category.name);
 
@@ -21,6 +21,7 @@ export default function CategoryTr({ category }: Props) {
 
   const saveHandler = () => {
     setIsEdit(false);
+    onUpdate({ ...category, name });
   };
 
   return (
@@ -36,4 +37,5 @@ export default function CategoryTr({ category }: Props) {
 
 interface Props {
   category: Category;
+  onUpdate: (e: Category) => void;
 }
