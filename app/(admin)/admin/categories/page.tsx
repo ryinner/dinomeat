@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   description: "Страница редактирования категорий",
 };
 
-export default async function TheCategoriesListView() {
+export default async function TheCategoriesListView({ searchParams }: Params) {
   const { categories: initialCategories } = (await request<CategoriesList>(
-    "/api/categories",
+    `/api/categories?page=${searchParams.page ?? 1}`,
     {
       cache: "no-cache",
     }
@@ -23,4 +23,10 @@ export default async function TheCategoriesListView() {
 
 interface CategoriesList {
   categories: Category[];
+}
+
+interface Params {
+  searchParams: {
+    page?: number;
+  }
 }

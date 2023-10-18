@@ -1,3 +1,5 @@
+import { request } from '@/services/api/api.service';
+import { Property, Value } from '@prisma/client';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -5,6 +7,20 @@ export const metadata: Metadata = {
   description: 'Страница редактирования параметров'
 }
 
-export default function TheParamsListView () {
+export default async function ThePropertiesListView ({ searchParams }: Params) {
+  const { properties } = (await request<PropertiesList>(`/api/properties?page=${searchParams.page ?? 1}`, {
+    cache: "no-cache",
+  }));
+  console.log(properties);
   return <></>
+}
+
+interface PropertiesList {
+  properties: (Property & { values: Value[] })[]
+}
+
+interface Params {
+  searchParams: {
+    page?: number;
+  }
 }
