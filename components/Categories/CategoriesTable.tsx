@@ -1,30 +1,68 @@
-'use client';
+"use client";
 
+import { request } from '@/services/api/api.service';
 import { Category } from "@prisma/client";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import AddIcon from "../Icons/AddIcon";
+import SaveIcon from '../Icons/SaveIcon';
 import CategoryTr from "./CategoryTr";
 
 export default function CategoriesTable({
   categories: initialCategories,
 }: Props) {
-  const [categories, updateCategories] = useState(initialCategories);
+  const [categories, setCategories] = useState(initialCategories);
+  const [newCategoryName, setNewCategoryName] = useState<null | string>(null);
 
   const updateHandler = (e: Category) => {
-    updateCategories(() =>
+    setCategories(() =>
       categories.map((c) => {
         return c.id === e.id ? e : c;
       })
     );
   };
 
+  const addHandler = () => {
+    if (newCategoryName === null) {
+      setNewCategoryName("");
+    }
+  };
+
+  const inputHandler = (e: FormEvent<HTMLInputElement>) => {
+    if (e.target instanceof HTMLInputElement) {
+      setNewCategoryName(e.target.value);
+    }
+  };
+
+  const saveHandler = () => {
+    request<{ category: Category }>('/api/categories', {
+      method: 'POST',
+      body: JSON.stringify({ name: newCategoryName })
+    }).then(res => {
+      setCategories([
+        res.category,
+        ...categories
+      ]);
+      setNewCategoryName(null);
+    });
+  }
+
   return (
     <table>
       <thead>
         <tr>
-          <th style={{ width: '5%' }}>id</th>
-          <th style={{ width: '75%' }}>Наименование</th>
-          <th style={{ width: '10%' }}>Публикация</th>
-          <th style={{ width: '10%' }} />
+          <th style={{ width: "5%" }}>id</th>
+          <th style={{ width: "75%" }}>Наименование</th>
+          <th style={{ width: "10%" }}>Публикация</th>
+          <th style={{ width: "10%" }}>
+            {newCategoryName === null ? (
+              <AddIcon onClick={addHandler} title="Добавить категорию" />
+            ) : (
+              <>
+                <input value={newCategoryName} onInput={inputHandler} />
+                <SaveIcon onClick={saveHandler} />
+              </>
+            )}
+          </th>
         </tr>
       </thead>
       <tbody>
