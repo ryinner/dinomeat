@@ -1,5 +1,6 @@
+import type { PropertyWithValues } from '@/@types/private';
+import PropertiesTable from '@/components/Private/Properties/PropertiesTable';
 import { request } from '@/services/api/api.service';
-import { Property, Value } from '@prisma/client';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -11,12 +12,11 @@ export default async function ThePropertiesListView ({ searchParams }: Params) {
   const { properties } = (await request<PropertiesList>(`/api/properties?page=${searchParams.page ?? 1}`, {
     cache: "no-cache",
   }));
-  console.log(properties);
-  return <></>
+  return <PropertiesTable properties={properties} />
 }
 
 interface PropertiesList {
-  properties: (Property & { values: Value[] })[]
+  properties: PropertyWithValues[]
 }
 
 interface Params {

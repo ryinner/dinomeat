@@ -1,10 +1,10 @@
 "use client";
 
-import { request } from '@/services/api/api.service';
+import { request } from "@/services/api/api.service";
 import { Category } from "@prisma/client";
 import { FormEvent, useState } from "react";
-import AddIcon from "../Icons/AddIcon";
-import SaveIcon from '../Icons/SaveIcon';
+import AddIcon from "../../Icons/AddIcon";
+import SaveIcon from "../../Icons/SaveIcon";
 import CategoryTr from "./CategoryTr";
 
 export default function CategoriesTable({
@@ -34,17 +34,14 @@ export default function CategoriesTable({
   };
 
   const saveHandler = () => {
-    request<{ category: Category }>('/api/categories', {
-      method: 'POST',
-      body: JSON.stringify({ name: newCategoryName })
-    }).then(res => {
-      setCategories([
-        res.category,
-        ...categories
-      ]);
+    request<{ category: Category }>("/api/categories", {
+      method: "POST",
+      body: JSON.stringify({ name: newCategoryName }),
+    }).then((res) => {
+      setCategories([res.category, ...categories]);
       setNewCategoryName(null);
     });
-  }
+  };
 
   return (
     <table>

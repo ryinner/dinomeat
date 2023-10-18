@@ -1,6 +1,6 @@
 import { MuseoSansCyrl } from '@/app/styles/fonts';
-import ThePrivateFooter from "@/components/PrivateLayout/ThePrivateFooter";
-import ThePrivateHeader from "@/components/PrivateLayout/ThePrivateHeader";
+import ThePrivateFooter from "@/components/Private/PrivateLayout/ThePrivateFooter";
+import ThePrivateHeader from "@/components/Private/PrivateLayout/ThePrivateHeader";
 import '../../globals.scss';
 import styles from './layout.module.scss';
 
