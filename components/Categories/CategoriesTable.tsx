@@ -21,9 +21,10 @@ export default function CategoriesTable({
     <table>
       <thead>
         <tr>
-          <th style={{ width: "5%" }}>id</th>
-          <th style={{ width: "85%" }}>Наименование</th>
-          <th style={{ width: "10%" }} />
+          <th style={{ width: '5%' }}>id</th>
+          <th style={{ width: '75%' }}>Наименование</th>
+          <th style={{ width: '10%' }}>Публикация</th>
+          <th style={{ width: '10%' }} />
         </tr>
       </thead>
       <tbody>
