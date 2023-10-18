@@ -1,7 +1,7 @@
 import { updateCategory } from '@/services/orm/categories.service';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT (req: NextRequest, params: Params)  {
+export async function PUT (req: NextRequest, { params }: { params: Params })  {
   const data = await req.json() as InputsPut;
 
   const category = await updateCategory(Number(params.id), data);

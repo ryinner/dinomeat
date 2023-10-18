@@ -1,5 +1,6 @@
 'use client';
 
+import { request } from '@/services/api/api.service';
 import { Category } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import EditIcon from "../Icons/EditIcon";
@@ -20,8 +21,17 @@ export default function CategoryTr({ category, onUpdate }: Props) {
   }
 
   const saveHandler = () => {
-    setIsEdit(false);
-    onUpdate({ ...category, name });
+    const categoryDto = { ...category, name };
+    request(`/api/categories/${category.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(categoryDto)
+    }).then(res => {
+      console.log(res)
+      if (res.status === 200) {
+        setIsEdit(false);
+        onUpdate(categoryDto);
+      }
+    });
   };
 
   return (
