@@ -52,9 +52,9 @@ export default function CategoryTr({ category, onUpdate }: Props) {
         )}
       </td>
       <td>
-        {!category.published && (
+        {!category.published ? (
           <Button onClick={publishHandler}>Опубликовать</Button>
-        )}
+        ) : <span>Опубликовано</span>}
       </td>
       <td>
         {!isEdit ? (
