@@ -7,7 +7,7 @@ const LIMIT = 50;
 export async function createProperty (
   propertyDto: Prisma.PropertyCreateInput
 ) {
-  return await prisma.property.create({ data: propertyDto });
+  return await prisma.property.create({ data: propertyDto, include: { values: true } });
 }
 
 export async function updateProperty (
