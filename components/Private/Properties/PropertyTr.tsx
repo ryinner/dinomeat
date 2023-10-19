@@ -4,7 +4,9 @@ import { PropertyWithValues } from "@/@types/private";
 import EditIcon from "@/components/Icons/EditIcon";
 import SaveIcon from "@/components/Icons/SaveIcon";
 import { request } from '@/services/api/api.service';
+import { Value } from '@prisma/client';
 import { FormEvent, useState } from "react";
+import ValuePin from '../Values/ValuePin';
 
 export default function PropertyTr({ property, onUpdate }: Props) {
   const [isEdit, setIsEdit] = useState(false);
@@ -30,13 +32,23 @@ export default function PropertyTr({ property, onUpdate }: Props) {
     });
   };
 
+  const saveValueHandler = (e: Value) => {
+    onUpdate({ ...property, values: property.values.map(v => {
+      return v.id === e.id ? e : v;
+    })});
+  }
+
+  const removeValueHandler = (e: Value) => {
+
+  }
+
   return (
     <tr>
       <td>{property.id}</td>
       <td>{!isEdit ? property.name : <input value={name} onInput={inputHandler} />}</td>
       <td>
         {property.values.map((v) => (
-          <span key={v.id}>{v.value}</span>
+          <ValuePin key={v.id} value={v} onUpdate={saveValueHandler} onRemove={removeValueHandler} />
         ))}
       </td>
       <td>{!isEdit ? <EditIcon onClick={editHandle} /> : <SaveIcon onClick={saveHandler} />}</td>

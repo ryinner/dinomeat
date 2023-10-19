@@ -1,0 +1,12 @@
+@import "/shared/styles/vars/colors";
+@import "/shared/styles/vars/indent";
+@import "/shared/styles/vars/border";
+
+.value {
+  display: inline-block;
+
+  padding: $indent-1 $indent-2;
+
+  border: 1px solid $black;
+  border-radius: $border-radius;
+}
