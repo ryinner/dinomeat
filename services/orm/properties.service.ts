@@ -12,7 +12,7 @@ export async function createProperty (
 
 export async function updateProperty (
   id: number,
-  propertyDto: Prisma.PropertyCreateInput
+  propertyDto: Prisma.PropertyUpdateInput
 ) {
   return await prisma.property.update({ data: propertyDto, where: { id } });
 }

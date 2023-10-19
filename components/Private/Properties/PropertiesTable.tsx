@@ -35,6 +35,14 @@ export default function PropertiesTable({
     });
   };
 
+  const updateHandler = (e: PropertyWithValues) => {
+    setProperties(() =>
+      properties.map((p) => {
+        return p.id === e.id ? e : p;
+      })
+    );
+  };
+
   return (
     <table>
       <thead>
@@ -56,7 +64,7 @@ export default function PropertiesTable({
       </thead>
       <tbody>
         {properties.map((p) => (
-          <PropertyTr key={p.id} property={p} />
+          <PropertyTr key={p.id} property={p} onUpdate={updateHandler} />
         ))}
       </tbody>
     </table>
