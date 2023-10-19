@@ -14,7 +14,7 @@ export async function updateProperty (
   id: number,
   propertyDto: Prisma.PropertyUpdateInput
 ) {
-  return await prisma.property.update({ data: propertyDto, where: { id } });
+  return await prisma.property.update({ data: propertyDto, where: { id }, include: { values: true } });
 }
 
 export async function getPropertiesPaginated ({
