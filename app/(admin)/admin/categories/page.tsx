@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function TheCategoriesListView({ searchParams }: Params) {
   const { categories: initialCategories } = (await request<CategoriesList>(
-    `/api/categories?page=${searchParams.page ?? 1}`,
+    `/api/admin/categories?page=${searchParams.page ?? 1}`,
     {
       cache: "no-cache",
     }

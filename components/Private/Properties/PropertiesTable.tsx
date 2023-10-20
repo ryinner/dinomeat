@@ -26,7 +26,7 @@ export default function PropertiesTable({
   };
 
   const saveHandler = () => {
-    request<{ property: PropertyWithValues }>("/api/properties", {
+    request<{ property: PropertyWithValues }>("/api/admin/properties", {
       method: "POST",
       body: JSON.stringify({ name: newPropertyName }),
     }).then((res) => {

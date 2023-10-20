@@ -34,7 +34,7 @@ export default function CategoriesTable({
   };
 
   const saveHandler = () => {
-    request<{ category: Category }>("/api/categories", {
+    request<{ category: Category }>("/api/admin/categories", {
       method: "POST",
       body: JSON.stringify({ name: newCategoryName }),
     }).then((res) => {

@@ -21,7 +21,7 @@ export default function ValuePin ({ value, onUpdate, onRemove }: Props) {
   };
 
   const saveHandler = () => {
-    request(`/api/values/${value.id}`, {
+    request(`/api/admin/values/${value.id}`, {
       method: "PUT",
       body: JSON.stringify({ value: name }),
     }).then(() => {
@@ -31,7 +31,7 @@ export default function ValuePin ({ value, onUpdate, onRemove }: Props) {
   }
 
   const removeHandler = () => {
-    request(`/api/values/${value.id}`, {
+    request(`/api/admin/values/${value.id}`, {
       method: "DELETE",
     }).then(() => {
       onRemove(value);

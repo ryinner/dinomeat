@@ -22,7 +22,7 @@ export default function CategoryTr({ category, onUpdate }: Props) {
   };
 
   const saveHandler = () => {
-    request(`/api/categories/${category.id}`, {
+    request(`/api/admin/categories/${category.id}`, {
       method: "PUT",
       body: JSON.stringify({ name }),
     }).then(() => {
@@ -32,7 +32,7 @@ export default function CategoryTr({ category, onUpdate }: Props) {
   };
 
   const publishHandler = () => {
-    request(`/api/categories/${category.id}`, {
+    request(`/api/admin/categories/${category.id}`, {
       method: "PUT",
       body: JSON.stringify({ published: true }),
     }).then(() => {

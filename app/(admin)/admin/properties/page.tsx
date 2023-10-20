@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ThePropertiesListView ({ searchParams }: Params) {
-  const { properties } = (await request<PropertiesList>(`/api/properties?page=${searchParams.page ?? 1}`, {
+  const { properties } = (await request<PropertiesList>(`/api/admin/properties?page=${searchParams.page ?? 1}`, {
     cache: "no-cache",
   }));
   return <PropertiesTable properties={properties} />

@@ -25,7 +25,7 @@ export default function PropertyTr({ property, onUpdate }: Props) {
   };
 
   const saveHandler = () => {
-    request(`/api/properties/${property.id}`, {
+    request(`/api/admin/properties/${property.id}`, {
       method: "PUT",
       body: JSON.stringify({ name }),
     }).then(() => {
@@ -63,7 +63,7 @@ export default function PropertyTr({ property, onUpdate }: Props) {
   };
 
   const saveNewValueHandler = () => {
-    request<{property: PropertyWithValues}>(`/api/properties/${property.id}`, {
+    request<{property: PropertyWithValues}>(`/api/admin/properties/${property.id}`, {
       method: "PUT",
       body: JSON.stringify({ values: { create: [{ value: newValueName }] } }),
     }).then((response) => {
