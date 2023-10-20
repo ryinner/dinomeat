@@ -1,8 +1,9 @@
-import { MuseoSansCyrl } from '@/app/styles/fonts';
+import { MuseoSansCyrl } from "@/app/styles/fonts";
 import ThePrivateFooter from "@/components/Private/PrivateLayout/ThePrivateFooter";
 import ThePrivateHeader from "@/components/Private/PrivateLayout/ThePrivateHeader";
-import '../../globals.scss';
-import styles from './layout.module.scss';
+import { TheProviders } from "@/components/TheProviders/TheProviders";
+import "../../globals.scss";
+import styles from "./layout.module.scss";
 
 export default function RootLayout({
   children,
@@ -12,9 +13,11 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={MuseoSansCyrl.className}>
-        <ThePrivateHeader />
-        <main className={styles.main}>{children}</main>
-        <ThePrivateFooter />
+        <TheProviders>
+          <ThePrivateHeader />
+          <main className={styles.main}>{children}</main>
+          <ThePrivateFooter />
+        </TheProviders>
       </body>
     </html>
   );

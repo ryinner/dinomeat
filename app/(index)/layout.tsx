@@ -1,22 +1,21 @@
-import TheFooter from '@/components/Layout/TheFooter';
-import TheHeader from '@/components/Layout/TheHeader';
-import TheIntegrationsInitializations from '@/components/Layout/TheIntegrationsInitializations';
-import TheIntegrationsScripts from '@/components/Layout/TheIntegrationsScripts';
-import type { Metadata } from 'next';
-import '../globals.scss';
-import { MuseoSansCyrl } from '../styles/fonts';
+import TheFooter from "@/components/Layout/TheFooter";
+import TheHeader from "@/components/Layout/TheHeader";
+import TheIntegrationsInitializations from "@/components/Layout/TheIntegrationsInitializations";
+import TheIntegrationsScripts from "@/components/Layout/TheIntegrationsScripts";
+import { TheProviders } from "@/components/TheProviders/TheProviders";
+import type { Metadata } from "next";
+import "../globals.scss";
+import { MuseoSansCyrl } from "../styles/fonts";
 
 export const metadata: Metadata = {
-  title: 'Denomeat',
-  description: 'Компания denomeat - лучшая одежда в России.',
-}
-
-
+  title: "Denomeat",
+  description: "Компания denomeat - лучшая одежда в России.",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="ru">
@@ -24,11 +23,13 @@ export default function RootLayout({
         <TheIntegrationsScripts />
       </head>
       <body className={MuseoSansCyrl.className}>
-        <TheHeader />
+        <TheProviders>
+          <TheHeader />
           {children}
-        <TheFooter />
+          <TheFooter />
+        </TheProviders>
         <TheIntegrationsInitializations />
       </body>
     </html>
-  )
+  );
 }

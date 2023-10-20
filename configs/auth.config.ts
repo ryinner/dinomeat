@@ -52,6 +52,6 @@ export const authConfig: AuthOptions = {
         }
       }
       return true;
-    }
+    },
   }
 }
