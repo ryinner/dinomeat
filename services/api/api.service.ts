@@ -1,10 +1,11 @@
-export async function request<T>(url: string, fetchSettings?: RequestInit): Promise<BaseAnswer<T>> {
+export async function request<T>(url: string, fetchSettings: RequestInit = {}): Promise<BaseAnswer<T>> {
   return new Promise(async (resolve, reject) => {
     if (!url.includes('http')) {
-      url = process.env.NEXT_PUBLIC_APP_PATH + url;
+      url = window.location.origin + url;
     }
+
     const res = await fetch(url, fetchSettings);
-  
+
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }

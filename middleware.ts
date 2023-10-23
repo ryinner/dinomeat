@@ -8,8 +8,7 @@ export default withAuth(
     callbacks: {
       authorized: ({ token, req }) => {
         Boolean(token?.is_admin) === true
-        console.log(token?.name);
-        console.log(req);
+        // console.log(token?.name);
         return true;
       }
     },

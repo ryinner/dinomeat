@@ -1,6 +1,6 @@
 import type { PropertyWithValues } from '@/@types/private';
 import PropertiesTable from '@/components/Private/Properties/PropertiesTable';
-import { request } from '@/services/api/api.service';
+import { getPropertiesPaginated } from '@/services/orm/properties.service';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,9 +9,10 @@ export const metadata: Metadata = {
 }
 
 export default async function ThePropertiesListView ({ searchParams }: Params) {
-  const { properties } = (await request<PropertiesList>(`/api/admin/properties?page=${searchParams.page ?? 1}`, {
-    cache: "no-cache",
+  const { properties } = ( await getPropertiesPaginated({
+    page: Number(searchParams.page ?? 1),
   }));
+
   return <PropertiesTable properties={properties} />
 }
 
