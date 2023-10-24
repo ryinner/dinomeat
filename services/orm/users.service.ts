@@ -50,3 +50,12 @@ export async function getUsersPaginated ({
     })
   };
 }
+
+export async function updateUser (id: string, userDto: Prisma.UserUpdateInput) {
+  return await prisma.user.update({
+    data: userDto,
+    where: {
+      id
+    }
+  });
+}
