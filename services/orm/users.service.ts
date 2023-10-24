@@ -1,8 +1,11 @@
 import { Prisma } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { prisma } from '../lib/prisma.service';
+import { pagination } from './pagination.service';
 
 const DEFAULT_SALT = 10;
+const LIMIT = 50;
+
 
 export async function signUp (userDto: Prisma.UserCreateInput) {
   const mutableUserDto = {...userDto};
@@ -23,4 +26,27 @@ export async function userFindOne (userDto: Prisma.UserFindFirstArgs) {
 
 export async function checkPassword (userPassword: string, dbPassword: string): Promise<boolean> {
   return await bcrypt.compare(userPassword, dbPassword);
+}
+
+export async function getUsersPaginated ({
+  page = 1
+}: {
+  page: number
+}) {
+  const users = await prisma.user.findMany({
+    skip: (page-1) * LIMIT,
+    take: LIMIT,
+    orderBy: {
+      id: 'desc'
+    }
+  })
+  const count = await prisma.user.count();
+  return {
+    users,
+    pagination: pagination({
+      page,
+      limit: LIMIT,
+      count
+    })
+  };
 }
