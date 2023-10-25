@@ -3,9 +3,11 @@ import { withAuth } from 'next-auth/middleware';
 export default withAuth(
   {
     callbacks: {
-      authorized: ({ token, req }) => {
+      authorized: async ({ token, req }) => {
         if (req.nextUrl.href.includes('/admin')) {
-          console.log(token);
+          if (token === null) {
+            return false;
+          }
         }
         return true;
       }

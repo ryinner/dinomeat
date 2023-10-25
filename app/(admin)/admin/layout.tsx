@@ -1,4 +1,5 @@
 import { MuseoSansCyrl } from "@/app/styles/fonts";
+import OnlyAdmins from '@/components/Helpers/OnlyAdmins';
 import ThePrivateFooter from "@/components/Private/PrivateLayout/ThePrivateFooter";
 import ThePrivateHeader from "@/components/Private/PrivateLayout/ThePrivateHeader";
 import { TheProviders } from "@/components/TheProviders/TheProviders";
@@ -14,9 +15,11 @@ export default function RootLayout({
     <html lang="ru">
       <body className={MuseoSansCyrl.className}>
         <TheProviders>
-          <ThePrivateHeader />
-          <main className={styles.main}>{children}</main>
-          <ThePrivateFooter />
+          <OnlyAdmins>
+            <ThePrivateHeader />
+            <main className={styles.main}>{children}</main>
+            <ThePrivateFooter />
+          </OnlyAdmins>
         </TheProviders>
       </body>
     </html>
