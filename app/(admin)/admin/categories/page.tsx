@@ -1,6 +1,6 @@
+import Pagination from '@/components/Pagination/Pagination';
 import CategoriesTable from '@/components/Private/Categories/CategoriesTable';
 import { getCategoriesPaginated } from '@/services/orm/categories.service';
-import { Category } from "@prisma/client";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,17 +9,16 @@ export const metadata: Metadata = {
 };
 
 export default async function TheCategoriesListView({ searchParams }: Params) {
-  const { categories: initialCategories } = (await getCategoriesPaginated({
+  const { categories: initialCategories, pagination } = (await getCategoriesPaginated({
     page: Number(searchParams.page ?? 1)
   }));
 
-  return (
-    <CategoriesTable categories={initialCategories}/>
-  );
-}
+  console.log(pagination);
 
-interface CategoriesList {
-  categories: Category[];
+  return (<>
+    <CategoriesTable categories={initialCategories}/>
+    <Pagination {...pagination} />
+  </>);
 }
 
 interface Params {

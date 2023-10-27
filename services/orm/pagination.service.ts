@@ -6,11 +6,11 @@ interface PaginationSettings {
 }
 
 export function pagination ({ page, limit, count, maxPages = 11 }: PaginationSettings) {
-  const last = Math.floor(count / limit);
+  const last = Math.ceil(count / limit);
   const first = 1;
 
   let start = first;
-  let end!: number;
+  let end = last;
 
   if (last > maxPages) {
     const middle = Math.floor(maxPages / 2);
@@ -20,10 +20,10 @@ export function pagination ({ page, limit, count, maxPages = 11 }: PaginationSet
     start = (leftBound < 1 ? 1 : leftBound) - (rightBound > last ? rightBound - last : 0);
     end = (rightBound > last ? last : rightBound) + (leftBound < 1 ? 1 - leftBound : 0);
 
-    if (start != 1) {
+    if (start !== 1) {
       start += 2;
     }
-    if (end != last) {
+    if (end !== last) {
       end -= 2;
     }
   }

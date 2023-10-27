@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma.service';
 import { pagination } from './pagination.service';
 
-const LIMIT = 50;
+const LIMIT = 10;
 
 export async function getCategoriesPaginated ({
   page = 1
