@@ -15,7 +15,7 @@ export default async function OnlyAdmins ({ children }: Props) {
     id: session.user.id
   }});
 
-  if (!user || !user?.isAdmin) {
+  if (process.env.NODE_ENV !== 'development' && (!user || !user?.isAdmin)) {
     redirect('/');
   }
 
