@@ -59,3 +59,7 @@ export async function updateUser (id: string, userDto: Prisma.UserUpdateInput) {
     }
   });
 }
+
+export async function userIsAdmin(userDto: Prisma.UserFindFirstArgs): Promise<boolean> {
+  return ((await userFindOne(userDto))?.isAdmin || process.env.NODE_ENV === 'development') ?? false;
+}
