@@ -1,10 +1,9 @@
 import { Prisma } from "@prisma/client";
 import { addMargin } from "../lib/price.service";
 import { prisma } from "../lib/prisma.service";
+import { pagination } from './pagination.service';
 
-interface ProductCreateUpdateSettings {
-  withMargin?: boolean;
-}
+const LIMIT = 50;
 
 function workWithMargin(price?: number, withMargin: boolean = false) {
   if (typeof price !== "number") {
@@ -46,4 +45,31 @@ export async function updateProduct(
   });
 
   return product;
+}
+
+export async function getProductsPaginated({
+  page = 1
+}: {
+  page: number
+}) {
+  const products = await prisma.product.findMany({
+    skip: (page-1) * LIMIT,
+    take: LIMIT,
+    orderBy: {
+      id: 'desc'
+    }
+  })
+  const count = await prisma.category.count();
+  return {
+    products,
+    pagination: pagination({
+      page,
+      limit: LIMIT,
+      count
+    })
+  };
+}
+
+interface ProductCreateUpdateSettings {
+  withMargin?: boolean;
 }
