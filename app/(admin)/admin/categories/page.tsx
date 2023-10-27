@@ -9,14 +9,12 @@ export const metadata: Metadata = {
 };
 
 export default async function TheCategoriesListView({ searchParams }: Params) {
-  const { categories: initialCategories, pagination } = (await getCategoriesPaginated({
+  const { categories, pagination } = (await getCategoriesPaginated({
     page: Number(searchParams.page ?? 1)
   }));
 
-  console.log(pagination);
-
   return (<>
-    <CategoriesTable categories={initialCategories}/>
+    <CategoriesTable categories={categories}/>
     <Pagination {...pagination} />
   </>);
 }

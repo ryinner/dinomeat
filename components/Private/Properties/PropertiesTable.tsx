@@ -3,6 +3,7 @@
 import { PropertyWithValues } from "@/@types/private";
 import AddIcon from "@/components/Icons/AddIcon";
 import SaveIcon from "@/components/Icons/SaveIcon";
+import { usePropsState } from '@/hooks/StateHooks';
 import { request } from '@/services/api/api.service';
 import { FormEvent, useState } from "react";
 import PropertyTr from "./PropertyTr";
@@ -10,7 +11,7 @@ import PropertyTr from "./PropertyTr";
 export default function PropertiesTable({
   properties: initialProperties,
 }: Props) {
-  const [properties, setProperties] = useState(initialProperties);
+  const [properties, setProperties] = usePropsState(initialProperties);
   const [newPropertyName, setNewPropertyName] = useState<null | string>(null);
 
   const addHandler = () => {

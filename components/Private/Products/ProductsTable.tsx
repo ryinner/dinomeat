@@ -1,11 +1,11 @@
 "use client";
 
+import { usePropsState } from '@/hooks/StateHooks';
 import { Product } from "@prisma/client";
 import Link from 'next/link';
-import { useState } from "react";
 
 export default function ProductsTable({ products: initialProducts }: Props) {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = usePropsState(initialProducts);
 
   return (
     <table>

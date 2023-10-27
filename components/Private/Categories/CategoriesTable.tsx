@@ -1,5 +1,6 @@
 "use client";
 
+import { usePropsState } from '@/hooks/StateHooks';
 import { request } from "@/services/api/api.service";
 import { Category } from "@prisma/client";
 import { FormEvent, useState } from "react";
@@ -10,7 +11,7 @@ import CategoryTr from "./CategoryTr";
 export default function CategoriesTable({
   categories: initialCategories,
 }: Props) {
-  const [categories, setCategories] = useState(initialCategories);
+  const [categories, setCategories] = usePropsState(initialCategories);
   const [newCategoryName, setNewCategoryName] = useState<null | string>(null);
 
   const updateHandler = (e: Category) => {

@@ -1,11 +1,11 @@
 'use client';
 
+import { usePropsState } from '@/hooks/StateHooks';
 import { User } from '@prisma/client';
-import { useState } from 'react';
 import UserTr from './UserTr';
 
 export default function UsersTable ({ users: initialUsers }: Props) {
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = usePropsState(initialUsers);
 
   const userUpdateHandler = (user: User) => {
     setUsers(users.map(u => u.id === user.id ? user : u));
