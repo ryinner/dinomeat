@@ -70,6 +70,25 @@ export async function getProductsPaginated({
   };
 }
 
+export async function getProductForEdit({ id }: {id: number}) {
+  const product = await prisma.product.findFirst({
+    include: {
+      images: true,
+      properties: {
+        include: {
+          property: true,
+          value: true
+        }
+      },
+      seo: true
+    },
+    where: {
+      id
+    }
+  });
+  return { ...product };
+}
+
 interface ProductCreateUpdateSettings {
   withMargin?: boolean;
 }
