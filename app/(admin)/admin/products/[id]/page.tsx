@@ -1,12 +1,13 @@
+import type { ProductEdit } from '@/@types/private';
+import { ProductsEdit } from '@/components/Private/Products/ProductsEdit';
 import { request } from '@/services/api/api.service';
-import { Product, Seo } from '@prisma/client';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
 async function getData (id: number) {
   const cookie = cookies();
 
-  return await request<{product: Product & { seo: Seo[] }}>(`/api/admin/products/${id}`, {
+  return await request<{product: ProductEdit}>(`/api/admin/products/${id}`, {
     next: {
       revalidate: 60
     },
@@ -19,7 +20,7 @@ async function getData (id: number) {
 export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
   const { id } = params; 
 
-  const product = (await getData(Number(id))).product;
+  const { product } = (await getData(Number(id)));
 
   const [seo] = product.seo
 
@@ -32,8 +33,11 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
   }
 }
 
-export default function TheProductEdit ({ params }: { params: PageParams }) {
-  return <></>
+export default async function TheProductEdit ({ params }: { params: PageParams }) {
+  const { id } = params;
+  const { product } = (await getData(Number(id)));
+
+  return <ProductsEdit product={product} />
 }
 
 interface PageParams {
