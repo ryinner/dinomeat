@@ -7,15 +7,18 @@ import { useImmer } from 'use-immer';
 import styles from './ProductsEdit.module.scss';
 
 export function ProductsEdit ({ product: initialProduct }: Props) {
-  const { seo: initialSeo, images: initialImages, ...productData } = initialProduct;
+  const { seo: initialSeoList, images: initialImages, ...productData } = initialProduct;
+
+  const [initialSeo] = initialSeoList;
 
   const [product, updateProduct] = useImmer(productData);
   const [images, updateImages] = useImmer(initialImages);
-  const [seo, updateSeo] = useImmer(initialSeo);
+  const [seo, updateSeo] = useImmer(initialSeo ?? {});
 
   return <div className={styles.product}>
     <div className={styles.product__main}>
       <form>
+        <Button type='submit'>Сохранить</Button>
         <fieldset>
           <legend>Базовая информация</legend>
           <label>
@@ -50,15 +53,32 @@ export function ProductsEdit ({ product: initialProduct }: Props) {
             <input type='text' defaultValue={product.height} />
           </label>
         </fieldset>
+        <fieldset>
+          <legend>Описание</legend>
+          <ControlsEditor value={product.description ?? ''} onInput={(text) => { updateProduct((product) => { product.description = text; });} } />
+        </fieldset>
         <Button type='submit'>Сохранить</Button>
       </form>
-      <form>
-        <ControlsEditor text={product.description ?? ''} onUpdate={(text) => { updateProduct((product) => { product.description = text; });} } />
-      </form>
-      {product.description}
     </div>
     <div className={styles.product__additional}>
-
+      <form>
+        <fieldset>
+          <legend>seo</legend>
+          <label>
+            Название
+            <input defaultValue={seo.name} />
+          </label>
+          <label>
+            Ключевые слова
+            <input defaultValue={seo.keywords ?? ''} />
+          </label>
+          <label>
+            Описание
+            <ControlsEditor value={seo.description ?? ''} />
+          </label>
+          <Button type='submit'>Сохранить</Button>
+        </fieldset>
+      </form>
     </div>
   </div>;
 }
