@@ -71,7 +71,7 @@ model Product {
   id          Int      @id @default(autoincrement())
   name        String
   article     String?
-  slug        String?
+  slug        String?  @unique
   price       Float    @default(0)
   description String?  @db.Text
   published   Boolean  @default(false)
