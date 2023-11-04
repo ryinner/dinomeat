@@ -1,3 +1,30 @@
+@import '/shared/styles/vars/indent';
+@import "/shared/styles/vars/border";
+@import "/shared/styles/vars/colors";
+
 .button {
-  
+  font-size: 1rem;
+  font-family: inherit;
+
+  color: $white;
+
+  outline: none;
+  border: 2px solid $primary;
+  border-radius: $border-radius;
+
+  padding: $indent-1 $indent-4;
+
+  background: transparent;
+
+  transition: 300ms ease-in;
+
+  &:hover {
+    color: $primary;
+
+    background: linear-gradient(180deg, $white 0%, $toWhiteGradient 100%);
+
+    transition: 300ms ease-out;
+  }
 }
+
+

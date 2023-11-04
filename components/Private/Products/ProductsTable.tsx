@@ -30,6 +30,7 @@ export default function ProductsTable({ products: initialProducts }: Props) {
       body: JSON.stringify({ name: newProductName })
     }, { withMessage: true }).then(res => {
       setProducts([ res.product, ...products ]);
+      setNewProductName(null);
     });
   };
 

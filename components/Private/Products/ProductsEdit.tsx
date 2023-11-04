@@ -18,7 +18,6 @@ export function ProductsEdit ({ product: initialProduct }: Props) {
   return <div className={styles.product}>
     <div className={styles.product__main}>
       <form>
-        <Button type='submit'>Сохранить</Button>
         <fieldset>
           <legend>Базовая информация</legend>
           <label>

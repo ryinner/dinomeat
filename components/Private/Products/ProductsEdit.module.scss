@@ -1,8 +1,24 @@
+@import '/shared/styles/vars/indent';
+@import "/shared/styles/vars/border";
+@import "/shared/styles/vars/colors";
+
 .product {
+  gap: $gap-2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+
   &__main {
-
+    grid-column: 8 span;
   }
-  &__additional {
 
+  &__additional {
+    grid-column: 4 span;
+  }
+
+  &__main, &__additional {
+    border: 1px solid $black;
+    border-radius: $border-radius;
+
+    padding: $indent-2;
   }
 }
