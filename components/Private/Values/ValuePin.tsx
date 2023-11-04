@@ -1,7 +1,7 @@
 import EditIcon from '@/components/Icons/EditIcon';
 import RemoveIcon from '@/components/Icons/RemoveIcon';
 import SaveIcon from '@/components/Icons/SaveIcon';
-import { request } from '@/services/api/api.service';
+import { frontRequest } from '@/services/api/api.service';
 import { Value } from '@prisma/client';
 import { FormEvent, useState } from 'react';
 import styles from './ValuePin.module.scss';
@@ -21,19 +21,19 @@ export default function ValuePin ({ value, onUpdate, onRemove }: Props) {
   };
 
   const saveHandler = () => {
-    request(`/api/admin/values/${value.id}`, {
+    frontRequest(`/api/admin/values/${value.id}`, {
       method: "PUT",
       body: JSON.stringify({ value: name }),
-    }).then(() => {
+    }, { withMessage: true }).then(() => {
       setIsEdit(false);
       onUpdate({ ...value, value: name });
     });
   }
 
   const removeHandler = () => {
-    request(`/api/admin/values/${value.id}`, {
+    frontRequest(`/api/admin/values/${value.id}`, {
       method: "DELETE",
-    }).then(() => {
+    }, { withMessage: true }).then(() => {
       onRemove(value);
     });
   };

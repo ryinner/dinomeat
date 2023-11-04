@@ -1,15 +1,15 @@
 'use client'
 
 import Button from '@/components/Button/Button';
-import { request } from '@/services/api/api.service';
+import { frontRequest } from '@/services/api/api.service';
 import { User } from "@prisma/client";
 
 export default function UserTr({ user, onUpdate }: Props) {
   const changeIsAdminHandler = () => {
-    request(`/api/admin/users/${user.id}`, {
+    frontRequest(`/api/admin/users/${user.id}`, {
       method: 'PUT',
       body: JSON.stringify({ isAdmin: !user.isAdmin })
-    }).then(() => {
+    }, { withMessage: true }).then(() => {
       onUpdate({ ...user, isAdmin: !user.isAdmin });
     });
   }

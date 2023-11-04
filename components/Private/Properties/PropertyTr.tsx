@@ -4,7 +4,7 @@ import { PropertyWithValues } from "@/@types/private";
 import AddIcon from "@/components/Icons/AddIcon";
 import EditIcon from "@/components/Icons/EditIcon";
 import SaveIcon from "@/components/Icons/SaveIcon";
-import { request } from "@/services/api/api.service";
+import { frontRequest, request } from "@/services/api/api.service";
 import { Value } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import ValuePin from "../Values/ValuePin";
@@ -25,10 +25,10 @@ export default function PropertyTr({ property, onUpdate }: Props) {
   };
 
   const saveHandler = () => {
-    request(`/api/admin/properties/${property.id}`, {
+    frontRequest(`/api/admin/properties/${property.id}`, {
       method: "PUT",
       body: JSON.stringify({ name }),
-    }).then(() => {
+    }, { withMessage: true }).then(() => {
       setIsEdit(false);
       onUpdate({ ...property, name });
     });

@@ -4,7 +4,7 @@ import { PropertyWithValues } from "@/@types/private";
 import AddIcon from "@/components/Icons/AddIcon";
 import SaveIcon from "@/components/Icons/SaveIcon";
 import { usePropsState } from '@/hooks/StateHooks';
-import { request } from '@/services/api/api.service';
+import { frontRequest } from '@/services/api/api.service';
 import { FormEvent, useState } from "react";
 import PropertyTr from "./PropertyTr";
 
@@ -27,10 +27,10 @@ export default function PropertiesTable({
   };
 
   const saveHandler = () => {
-    request<{ property: PropertyWithValues }>("/api/admin/properties", {
+    frontRequest<{ property: PropertyWithValues }>("/api/admin/properties", {
       method: "POST",
       body: JSON.stringify({ name: newPropertyName }),
-    }).then((res) => {
+    }, { withMessage: true }).then((res) => {
       setProperties([res.property, ...properties]);
       setNewPropertyName(null);
     });

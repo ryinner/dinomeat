@@ -1,7 +1,7 @@
 "use client";
 
 import { usePropsState } from '@/hooks/StateHooks';
-import { request } from "@/services/api/api.service";
+import { frontRequest } from "@/services/api/api.service";
 import { Category } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import AddIcon from "../../Icons/AddIcon";
@@ -35,10 +35,10 @@ export default function CategoriesTable({
   };
 
   const saveHandler = () => {
-    request<{ category: Category }>("/api/admin/categories", {
+    frontRequest<{ category: Category }>("/api/admin/categories", {
       method: "POST",
       body: JSON.stringify({ name: newCategoryName }),
-    }).then((res) => {
+    }, { withMessage: true }).then((res) => {
       setCategories([res.category, ...categories]);
       setNewCategoryName(null);
     });

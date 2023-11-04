@@ -1,6 +1,6 @@
 "use client";
 
-import { request } from "@/services/api/api.service";
+import { frontRequest, request } from "@/services/api/api.service";
 import { Category } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import Button from "../../Button/Button";
@@ -22,10 +22,10 @@ export default function CategoryTr({ category, onUpdate }: Props) {
   };
 
   const saveHandler = () => {
-    request(`/api/admin/categories/${category.id}`, {
+    frontRequest(`/api/admin/categories/${category.id}`, {
       method: "PUT",
       body: JSON.stringify({ name }),
-    }).then(() => {
+    }, { withMessage: true }).then(() => {
       setIsEdit(false);
       onUpdate({ ...category, name });
     });

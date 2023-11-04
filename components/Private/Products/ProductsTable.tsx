@@ -3,7 +3,7 @@
 import AddIcon from '@/components/Icons/AddIcon';
 import SaveIcon from '@/components/Icons/SaveIcon';
 import { usePropsState } from '@/hooks/StateHooks';
-import { request } from '@/services/api/api.service';
+import { frontRequest } from '@/services/api/api.service';
 import { Product } from "@prisma/client";
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
@@ -25,10 +25,10 @@ export default function ProductsTable({ products: initialProducts }: Props) {
   };
 
   const saveHandler = () => {
-    request<{product: Product}>('/api/admin/products', {
+    frontRequest<{product: Product}>('/api/admin/products', {
       method: 'POST',
       body: JSON.stringify({ name: newProductName })
-    }).then(res => {
+    }, { withMessage: true }).then(res => {
       setProducts([ res.product, ...products ]);
     });
   };
