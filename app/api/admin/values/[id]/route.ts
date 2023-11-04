@@ -8,11 +8,11 @@ export async function PUT (req: NextRequest, { params }: { params: Params }) {
   const session = await getServerSession(authConfig);
   
   if (!session) {
-    return NextResponse.json({ code: 401, message: 'Unauthorized' });
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
   if (!(await userIsAdmin({ where: { id: session.user.id } }))) {
-    return NextResponse.json({ code: 403, message: 'Forbidden' });
+    return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
   }
 
   const data = await req.json() as InputPut;
@@ -26,11 +26,11 @@ export async function DELETE (req: NextRequest, { params }: { params: Params }) 
   const session = await getServerSession(authConfig);
   
   if (!session) {
-    return NextResponse.json({ code: 401, message: 'Unauthorized' });
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
   if (!(await userIsAdmin({ where: { id: session.user.id } }))) {
-    return NextResponse.json({ code: 403, message: 'Forbidden' });
+    return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
   }
 
   await deleteValue(Number(params.id));

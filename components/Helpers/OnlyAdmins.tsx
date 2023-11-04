@@ -6,7 +6,11 @@ import React from 'react';
 
 export default async function OnlyAdmins ({ children }: Props) {
   const session = await getServerSession(authConfig);
-  
+
+  if (process.env.NODE_ENV !== 'production') {
+    return <>{children}</>;
+  }
+
   if (!session) {
     redirect('/');
   }
@@ -15,7 +19,7 @@ export default async function OnlyAdmins ({ children }: Props) {
     id: session.user.id
   }});
 
-  if (process.env.NODE_ENV !== 'development' && (!user || !user?.isAdmin)) {
+  if (process.env.NODE_ENV === 'production' && (!user || !user?.isAdmin)) {
     redirect('/');
   }
 

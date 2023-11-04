@@ -13,11 +13,11 @@ export async function POST (req: NextRequest, { params }: { params: RouteRequire
   const alt = formData.get('alt')?.toString();
 
   if (!(file instanceof File)) {
-    return NextResponse.json({ status: 400, message: 'картинка обязательна' });
+    return NextResponse.json({ message: 'картинка обязательна' }, { status: 400 });
   }
 
   if (!alt || alt?.trim() === '') {
-    return NextResponse.json({ status: 400, message: 'alt is required' });
+    return NextResponse.json({ message: 'alt is required' }, { status: 400 });
   }
 
   const fileInfo = await writeFile(file, getProductImagesPath(params.id));
@@ -40,9 +40,9 @@ export async function POST (req: NextRequest, { params }: { params: RouteRequire
       const errorType = getPrismaErrorType(error);
       switch (errorType) {
         case PrismaErrorsTypes.unique:
-          return NextResponse.json({ status: 400, message: 'Картинка с таким именем уже загружена' });
+          return NextResponse.json({ message: 'Картинка с таким именем уже загружена' }, { status: 400 });
         default:
-          return NextResponse.json({ status: 400, message: 'Неизвестная ошибка БД' });
+          return NextResponse.json({ message: 'Неизвестная ошибка БД' }, { status: 400 });
       }
     }
   }

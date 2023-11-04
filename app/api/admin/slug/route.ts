@@ -8,18 +8,18 @@ export async function GET (req: NextRequest) {
   const session = await getServerSession(authConfig);
   
   if (!session) {
-    return NextResponse.json({ code: 401, message: 'Unauthorized' });
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
   if (!(await userIsAdmin({ where: { id: session.user.id } }))) {
-    return NextResponse.json({ code: 403, message: 'Forbidden' });
+    return NextResponse.json({ message: 'Forbidden' }, { status: 403 });
   }
 
   const { searchParams }= req.nextUrl;
   const text = searchParams.get('text');
 
   if (text === null) {
-    return NextResponse.json({ status: 400, message: 'Поле text обязательно для заполнения' })
+    return NextResponse.json({ message: 'Поле text обязательно для заполнения' }, { status: 400 });
   }
 
   return NextResponse.json({ code: 200, slug: generateSlug(text) })
