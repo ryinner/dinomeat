@@ -1,5 +1,10 @@
 @import '/shared/styles/vars/indent';
 
+.background {
+  color: #fff;
+  background-color: #222;
+}
+
 .main {
   padding: $indent-2 $indent-4;
 }

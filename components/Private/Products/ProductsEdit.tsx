@@ -3,11 +3,14 @@
 import { ProductEdit } from '@/@types/private';
 import Button from '@/components/Button/Button';
 import ControlsEditor from '@/components/Controls/ControlsEditor';
+import BoltIcon from '@/components/Icons/BoltIcon';
+import { frontRequest } from '@/services/api/api.service';
+import { FormEvent } from 'react';
 import { useImmer } from 'use-immer';
 import styles from './ProductsEdit.module.scss';
 
 export function ProductsEdit ({ product: initialProduct }: Props) {
-  const { seo: initialSeoList, images: initialImages, ...productData } = initialProduct;
+  const { seo: initialSeoList, images: initialImages, properties: initialProperties, ...productData } = initialProduct;
 
   const [initialSeo] = initialSeoList;
 
@@ -15,41 +18,67 @@ export function ProductsEdit ({ product: initialProduct }: Props) {
   const [images, updateImages] = useImmer(initialImages);
   const [seo, updateSeo] = useImmer(initialSeo ?? {});
 
+  async function getSlug () {
+    const { slug } = (await  frontRequest<{ slug: string }>(`/api/admin/slug?text=${product.name}`, { method: 'GET' }, { withMessage: true }));
+    updateProduct((product) => { product.slug = slug; })
+  }
+
+  async function updateProductField (e: FormEvent<HTMLInputElement>) {
+    const { target } = e;
+    if (target instanceof HTMLInputElement) {
+      const attrName = target.getAttribute('name');
+      const attrType = target.getAttribute('type');
+      console.log(attrType);
+      if (attrName !== null && attrName in product) {
+        //@ts-expect-error
+        updateProduct((product) => { product[attrName] = (attrType === 'number' ? Number(target.value) : target.value); })
+      }
+    }
+  }
+
+  async function update (e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    frontRequest(`/api/admin/products/${product.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(product)
+    }, { withMessage: true });
+  }
+
   return <div className={styles.product}>
     <div className={styles.product__main}>
-      <form>
+      <form onSubmit={update}>
         <fieldset>
           <legend>Базовая информация</legend>
           <label>
             Название:
-            <input type='text' defaultValue={product.name} />
+            <input name='name' type='text' value={product.name} onInput={updateProductField} />
           </label>
           <label>
             Артикул:
-            <input type='text' defaultValue={product.article ?? ''} />
+            <input name='article' type='text' value={product.article ?? ''} onInput={updateProductField} />
           </label>
           <label>
             Slug (Адрес):
-            <input type='text' disabled={true} defaultValue={product.slug ?? ''} />
+            <input name='slug' type='text' disabled={true} value={product.slug ?? ''} style={{ color: '#000' }} /> <BoltIcon title='Сгенерировать slug' onClick={getSlug} />
           </label>
         </fieldset>
         <fieldset>
           <legend>Размеры</legend>
           <label>
             Вес (кг):
-            <input type='text' defaultValue={product.weight} />
+            <input name='weight' type='number' value={product.weight} onInput={updateProductField} />
           </label>
           <label>
             Длина (см):
-            <input type='text' defaultValue={product.length} />
+            <input name='length' type='number' value={product.length} onInput={updateProductField} />
           </label>
           <label>
             Ширина (см):
-            <input type='text' defaultValue={product.width} />
+            <input name='width' type='number' value={product.width} onInput={updateProductField} />
           </label>
           <label>
             Высота (см):
-            <input type='text' defaultValue={product.height} />
+            <input name='height' type='number' value={product.height} onInput={updateProductField} />
           </label>
         </fieldset>
         <fieldset>
@@ -62,21 +91,23 @@ export function ProductsEdit ({ product: initialProduct }: Props) {
     <div className={styles.product__additional}>
       <form>
         <fieldset>
-          <legend>seo</legend>
+          <legend>Seo базовая информация</legend>
           <label>
-            Название
+            Название:
             <input defaultValue={seo.name} />
           </label>
           <label>
-            Ключевые слова
+            Ключевые слова:
             <input defaultValue={seo.keywords ?? ''} />
           </label>
-          <label>
-            Описание
-            <ControlsEditor value={seo.description ?? ''} />
-          </label>
-          <Button type='submit'>Сохранить</Button>
         </fieldset>
+        <fieldset>
+            <legend>
+              Seo описание
+            </legend>
+            <ControlsEditor value={seo.description ?? ''} />
+        </fieldset>
+        <Button type='submit'>Сохранить</Button>
       </form>
     </div>
   </div>;

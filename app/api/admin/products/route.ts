@@ -19,7 +19,7 @@ export async function POST (req: NextRequest) {
 
   const data = await req.json() as POSTInput;
 
-  const product = await createProduct(data, { withMargin: false});
+  const product = await createProduct(data);
 
   return NextResponse.json({ code: 200, product });
 }
