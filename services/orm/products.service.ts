@@ -16,15 +16,14 @@ export async function createProduct(
 
 export async function updateProduct(
   id: number,
-  productDto: Prisma.ProductUpdateInput
+  productDto: Prisma.ProductUpdateArgs
 ) {
   const product = await prisma.product.update({
-    data: productDto,
+    ...productDto,
     where: {
       id,
     },
   });
-
   return product;
 }
 
@@ -61,7 +60,11 @@ export async function getProductForEdit({ id }: {id: number}) {
           value: true
         }
       },
-      seo: true
+      seo: {
+        include: {
+          seo: true
+        }
+      }
     },
     where: {
       id

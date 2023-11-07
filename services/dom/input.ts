@@ -9,7 +9,7 @@ export function updateObjectField <T extends object, K extends keyof T>(
   if (target instanceof HTMLInputElement) {
     const attrName = target.getAttribute("name");
     const attrType = target.getAttribute("type") ?? 'text';
-    if (attrName !== null && attrName in o) {
+    if (attrName !== null) {
       onUpdate(<K> attrName, <T[K]> typeCastByType(target.value, attrType));
     }
   }
