@@ -5,6 +5,7 @@ import Button from '@/components/Button/Button';
 import ControlsEditor from '@/components/Controls/ControlsEditor';
 import BoltIcon from '@/components/Icons/BoltIcon';
 import { frontRequest } from '@/services/api/api.service';
+import { updateObjectField } from '@/services/dom/input';
 import { FormEvent } from 'react';
 import { useImmer } from 'use-immer';
 import styles from './ProductsEdit.module.scss';
@@ -24,16 +25,13 @@ export function ProductsEdit ({ product: initialProduct }: Props) {
   }
 
   async function updateProductField (e: FormEvent<HTMLInputElement>) {
-    const { target } = e;
-    if (target instanceof HTMLInputElement) {
-      const attrName = target.getAttribute('name');
-      const attrType = target.getAttribute('type');
-      console.log(attrType);
-      if (attrName !== null && attrName in product) {
-        //@ts-expect-error
-        updateProduct((product) => { product[attrName] = (attrType === 'number' ? Number(target.value) : target.value); })
-      }
-    }
+    updateObjectField(e, product, (p, v) => {
+      updateProduct((product) => {
+          if (typeof v === typeof product[p]) {
+            (product[p] as typeof v) = v;
+          }
+      });
+    })
   }
 
   async function update (e: FormEvent<HTMLFormElement>) {
