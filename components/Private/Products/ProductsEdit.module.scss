@@ -3,7 +3,7 @@
 @import "/shared/styles/vars/colors";
 
 .product {
-  gap: $gap-2;
+  gap: $gap-3;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 
@@ -15,7 +15,11 @@
     grid-column: 4 span;
   }
 
-  &__main, &__additional {
+  &__images {
+    grid-column: 12 span;
+  }
+
+  &__main, &__additional, &__images {
     border: 1px solid $white;
     border-radius: $border-radius;
 
