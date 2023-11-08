@@ -1,6 +1,8 @@
+import { Prisma } from '@prisma/client';
 import { existsSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
+import { prisma } from '../lib/prisma.service';
 
 function getResourcesPath(): string {
   return path.join(process.cwd(), "resources");
@@ -42,4 +44,31 @@ export async function writeFile(
     filename: file.name,
     filepath: fullFilePath.replace(process.cwd(), ''),
   };
+}
+
+export async function removeFile(filepath: string): Promise<void> {
+  if (existsSync(filepath)) {
+    await fs.rm(filepath);
+  }
+}
+
+export async function updateImage (id: number, imageDto: Omit<Prisma.ImageUpdateArgs, 'where'>) {
+  return await prisma.image.update({
+    ...imageDto,
+    where: {
+      id
+    }
+  });
+}
+
+export async function deleteImage (id: number) {
+  const image = await prisma.image.delete({
+    where: {
+      id
+    },
+    select: {
+      url: true
+    }
+  });
+  removeFile(image.url);
 }

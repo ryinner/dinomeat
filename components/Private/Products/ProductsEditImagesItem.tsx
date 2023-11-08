@@ -32,7 +32,10 @@ export default function ProductsEditImagesItem<T extends ProductImagesWithImages
     if (isFile) {
       onRemove(image);
     } else {
-      onRemove(image);
+      frontRequest(`/api/admin/images/${image.image.id}`, {
+        method: 'DELETE',
+        body: null
+      }, { withMessage: true }).then(() => onRemove(image));
     }
   }
 
@@ -57,7 +60,7 @@ export default function ProductsEditImagesItem<T extends ProductImagesWithImages
     if (!isFile) {
       frontRequest(`/api/admin/images/${image.image.id}`, {
         method: 'PUT',
-        body: JSON.stringify({ alt })
+        body: JSON.stringify({ data: { alt } })
       }, {  withMessage: true });
     }
   }
