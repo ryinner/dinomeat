@@ -1,0 +1,36 @@
+@import "/shared/styles/vars/indent";
+@import "/shared/styles/vars/border";
+@import "/shared/styles/vars/colors";
+
+.product-file-uploader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid $white;
+  border-radius: $border-radius;
+
+  padding: $indent-4 $indent-1;
+
+  user-select: none;
+
+  &--drag-active {
+    opacity: 0.8;
+
+    background-color: $gray-table-bg;
+  }
+}
+
+.product-file-uploaded-images {
+  margin-top: $indent-3;
+
+  &__list {
+    list-style-type: none;
+  }
+
+  &__item {
+    &:not(:last-child){
+      margin-top: $indent-2;
+    }
+  }
+}
