@@ -72,11 +72,12 @@ export default function ProductsEditProduct({
           <input
             name="slug"
             type="text"
-            disabled={true}
+            disabled={product.published}
             value={product.slug ?? ""}
+            onInput={updateProductField}
             style={{ color: "#000" }}
-          />{" "}
-          <BoltIcon onClick={clickSlugHandler} />
+          />
+          {!product.published && <BoltIcon onClick={clickSlugHandler} />}
         </label>
       </fieldset>
       <fieldset>
