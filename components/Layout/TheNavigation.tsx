@@ -1,16 +1,29 @@
 'use client';
+
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import styles from './TheNavigation.module.scss';
 
 const navigationLinks = [
   {
-    label: "Главная",
-    link: "/",
+    label: "Профиль",
+    link: "/profile",
+  },
+  {
+    label: "Корзина",
+    link: "/shop",
   },
   {
     label: "Каталог",
     link: "/catalog",
+  },
+  {
+    label: "Доставка",
+    link: "/delivery",
+  },
+  {
+    label: "Контакты",
+    link: "/contacts",
   },
 ];
 
@@ -23,7 +36,7 @@ export function TheNavigation() {
       <ul>
         {navigationLinks.map((link) => (
           <li className={`${styles.nav__link} ${pathname === link.label && styles['nav__link--active']}`} key={link.label}>
-            <Link href={link.link}>{link.label}</Link>
+            <Link href={link.link}>{link.label}</Link> {link.icon}
           </li>
         ))}
       </ul>
