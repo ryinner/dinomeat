@@ -8,6 +8,7 @@ import { usePropsState } from "@/hooks/StateHooks";
 import { frontRequest } from '@/services/api/api.service';
 import Image from "next/image";
 import { FormEvent } from "react";
+import styles from './ProductsEditImagesItem.module.scss';
 
 export default function ProductsEditImagesItem<T extends ProductImagesWithImages | File>({
   id,
@@ -58,11 +59,13 @@ export default function ProductsEditImagesItem<T extends ProductImagesWithImages
   }
 
   return (
-    <div>
+    <div className={styles['product-edit-images-item']}>
       <Image width={200} height={150} alt="" src={url} />
-      <input value={alt ?? ""} onInput={altInputHandler} />
-      {isFile ? <UploadIcon onClick={uploadHandler} /> : <SaveIcon onClick={updateHandler} />}
-      <RemoveIcon onClick={removeHandler} />
+      <input placeholder='Alt' value={alt ?? ""} onInput={altInputHandler} />
+      <form className={styles['product-edit-images-item__controls']}>
+        {isFile ? <UploadIcon onClick={uploadHandler} /> : <SaveIcon onClick={updateHandler} />}
+        <RemoveIcon onClick={removeHandler} />
+      </form>
     </div>
   );
 }

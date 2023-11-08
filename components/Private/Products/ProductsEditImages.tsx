@@ -39,6 +39,7 @@ export default function ProductsEditImages({
   }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   return (
     <div>
       <div>

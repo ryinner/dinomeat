@@ -1,0 +1,13 @@
+@import '/shared/styles/vars/indent';
+
+.product-edit-images-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: $gap-3;
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+  }
+}
