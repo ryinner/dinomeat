@@ -16,7 +16,7 @@ export async function createProduct(
 
 export async function updateProduct(
   id: number,
-  productDto: Prisma.ProductUpdateArgs
+  productDto: Omit<Prisma.ProductUpdateArgs, 'where'>
 ) {
   const product = await prisma.product.update({
     ...productDto,

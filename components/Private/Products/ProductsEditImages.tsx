@@ -1,19 +1,16 @@
 "use client";
 
 import { ProductImagesWithImages } from "@/@types/private";
-import RemoveIcon from '@/components/Icons/RemoveIcon';
-import UploadIcon from '@/components/Icons/UploadIcon';
-import { request } from '@/services/api/api.service';
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { useImmer } from "use-immer";
 import styles from "./ProductsEditImages.module.scss";
+import ProductsEditImagesItem from './ProductsEditImagesItem';
 
 export default function ProductsEditImages({
   id,
   images: initialImages,
 }: Props) {
-  const [images, updateImages] = useImmer(initialImages);
+  const [images, setImages] = useState(initialImages);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   const onDrop = useCallback(
@@ -33,8 +30,12 @@ export default function ProductsEditImages({
     setUploadedFiles((uploadedFiles) => uploadedFiles.filter((uf) => uf.name !== file.name));
   }
 
-  function uploadFileHandler (file: File) {
-    request(``);
+  function removeImagesHandler (image: ProductImagesWithImages) {
+    setImages((images) => images.filter((i) => i.image.id !== image.image.id));
+  }
+
+  function uploadFileHandler (image: ProductImagesWithImages) {
+    setImages((images) => [...images, image]);
   }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -53,12 +54,20 @@ export default function ProductsEditImages({
       </div>
       <div className={styles["product-file-uploaded-images"]}>
         <ul className={styles["product-file-uploaded-images__list"]}>
-          {uploadedFiles.map((file) => (
+          {images.map((i) => (
+            <li 
+              className={styles["product-file-uploaded-images__item"]}
+              key={i.id}
+            >
+              <ProductsEditImagesItem id={id} image={i} onRemove={removeImagesHandler} />
+            </li>
+          ))}
+          {uploadedFiles.map((f) => (
             <li
               className={styles["product-file-uploaded-images__item"]}
-              key={file.name}
+              key={f.name}
             >
-              {file.name} <form><input name='alt' defaultValue={file.name} /><UploadIcon onClick={() => uploadFileHandler(file)} /> <RemoveIcon onClick={() => removeFileHandler(file)} /></form>
+              <ProductsEditImagesItem id={id} image={f} onRemove={removeFileHandler} onUpload={uploadFileHandler} />
             </li>
           ))}
         </ul>
