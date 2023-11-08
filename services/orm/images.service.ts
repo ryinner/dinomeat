@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 
 function getResourcesPath(): string {
-  return path.join(process.cwd(), "public");
+  return path.join(process.cwd(), "resources");
 }
 
 function getImagesPath (): string {
@@ -26,10 +26,11 @@ interface FileInfo {
 
 export async function writeFile(
   file: File,
-  filepath: string
+  filepath: string,
+  filename?: string
 ): Promise<FileInfo> {
   const fileArrayBuffer = await file.arrayBuffer();
-  const fullFilePath = path.join(filepath, file.name);
+  const fullFilePath = path.join(filepath, filename ?? file.name);
 
   if (!existsSync(filepath)) {
     await fs.mkdir(filepath, { recursive: true });

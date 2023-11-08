@@ -30,11 +30,6 @@
 
     display: flex;
     flex-wrap: wrap;
-  }
-
-  &__item {
-    &:not(:last-child){
-      margin-top: $indent-2;
-    }
+    gap: $gap-2;
   }
 }

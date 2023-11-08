@@ -33,7 +33,7 @@ export async function POST(
   const fileInfo = await writeFile(file, getProductImagesPath(params.id));
 
   try {
-    await updateProduct(Number(params.id), {
+    const productWithImage = await updateProduct(Number(params.id), {
       data: {
         images: {
           create: {
@@ -46,7 +46,16 @@ export async function POST(
           },
         },
       },
+      select: {
+        images: {
+          include: {
+            image: true
+          }
+        }
+      }
     });
+    return NextResponse.json({ status: 200, product: productWithImage });
+
   } catch (error) {
     if (isPrismaError(error)) {
       const errorType = getPrismaErrorType(error);
@@ -64,6 +73,5 @@ export async function POST(
       }
     }
   }
-
-  return NextResponse.json({ status: 200, fileInfo });
+  return NextResponse.json({ status: 400, message: 'Неизвестная ошибка' }, { status: 400});
 }

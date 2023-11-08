@@ -38,7 +38,7 @@ export async function PUT (req: NextRequest, { params }: RouteParams) {
     }
   }
 
-  const productDto = await req.json() as Prisma.ProductUpdateInput;
+  const productDto = await req.json() as Prisma.ProductUpdateArgs;
 
   const { id } = params;
 

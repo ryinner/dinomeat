@@ -34,8 +34,8 @@ export default function ProductsEditImages({
     setImages((images) => images.filter((i) => i.image.id !== image.image.id));
   }
 
-  function uploadFileHandler (image: ProductImagesWithImages) {
-    setImages((images) => [...images, image]);
+  function uploadFileHandler (images: ProductImagesWithImages[]) {
+    setImages(images);
   }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -58,7 +58,7 @@ export default function ProductsEditImages({
           {images.map((i) => (
             <li 
               className={styles["product-file-uploaded-images__item"]}
-              key={i.id}
+              key={i.image.id}
             >
               <ProductsEditImagesItem id={id} image={i} onRemove={removeImagesHandler} />
             </li>

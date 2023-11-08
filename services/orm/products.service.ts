@@ -53,7 +53,11 @@ export async function getProductsPaginated({
 export async function getProductForEdit({ id }: {id: number}) {
   const product = await prisma.product.findFirst({
     include: {
-      images: true,
+      images: {
+        include: {
+          image: true
+        }
+      },
       properties: {
         include: {
           property: true,

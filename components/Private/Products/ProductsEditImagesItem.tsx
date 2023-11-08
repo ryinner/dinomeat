@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductImagesWithImages } from '@/@types/private';
+import { ProductEdit, ProductImagesWithImages } from '@/@types/private';
 import RemoveIcon from "@/components/Icons/RemoveIcon";
 import SaveIcon from "@/components/Icons/SaveIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
@@ -20,7 +20,7 @@ export default function ProductsEditImagesItem<T extends ProductImagesWithImages
 
   const [alt, setAlt] = usePropsState(isFile ? "" : image.image.alt);
 
-  const url = isFile ? URL.createObjectURL(image) : image.image.url;
+  const url = isFile ? URL.createObjectURL(image) : process.env.NEXT_PUBLIC_URL + image.image.url;
 
   function altInputHandler(e: FormEvent<HTMLInputElement>) {
     if (e.target instanceof HTMLInputElement) {
@@ -40,11 +40,15 @@ export default function ProductsEditImagesItem<T extends ProductImagesWithImages
     if (isFile) {
       const formData = new FormData();
       formData.append('image', image);
-      frontRequest(`/api/admin/products/${id}/images`, {
+      formData.append('alt', alt ?? '');
+      frontRequest<{product: ProductEdit}>(`/api/admin/products/${id}/images`, {
         method: 'POST',
         body: formData,
       }, { withMessage: true }).then(res => {
-
+        if (onUpload !== undefined) {
+          onUpload(res.product.images);
+        }
+        onRemove(image);
       });
     }
   }
@@ -75,5 +79,5 @@ interface Props <T extends ProductImagesWithImages | File> {
   id: number;
   image: T;
   onRemove: (image: T) => void;
-  onUpload?: (image: ProductImagesWithImages) => void;
+  onUpload?: (images: ProductImagesWithImages[]) => void;
 }
