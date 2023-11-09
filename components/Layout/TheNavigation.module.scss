@@ -1,0 +1,17 @@
+@import '/shared/styles/vars/indent';
+
+.nav {
+  &__list {
+    display: flex;
+    gap: $gap-3;
+
+    list-style-type: none;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+  }
+}

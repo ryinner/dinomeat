@@ -1,3 +1,13 @@
+@import '/shared/styles/vars/indent';
+
 .header {
   grid-area: header;
+
+  padding: $indent-2 0;
+
+  &__container {
+    width: clamp(576px, 80%, 1600px);
+
+    margin: 0 auto;
+  }
 }

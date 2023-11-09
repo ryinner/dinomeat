@@ -4,7 +4,7 @@ import { TheNavigation } from './TheNavigation';
 export default function TheHeader() {
   return (
     <header className={style.header}>
-      <div>
+      <div className={style.header__container}>
         <TheNavigation />
       </div>
     </header>

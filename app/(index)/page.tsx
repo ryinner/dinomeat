@@ -1,9 +1,5 @@
-import { TheTest } from '@/components/TheTest';
+import TheHero from "@/components/Index/TheHero";
 
 export default function Index() {
-  return (
-    <main>
-      <TheTest />
-    </main>
-  )
+  return <TheHero />;
 }
