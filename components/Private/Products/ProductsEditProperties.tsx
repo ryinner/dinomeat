@@ -9,7 +9,7 @@ export default function ProductsEditProperties ({id, properties: initialProperti
 
   return <fieldset>
       <legend>Характеристики</legend>
-      {properties.map(p => <ProductsEditPropertiesItem key={p.id} id={id} property={p} />)}
+      {properties.map(p => <ProductsEditPropertiesItem key={p.id} id={id} property={p} onUpdate={() => {}}/>)}
     </fieldset>
 }
 
