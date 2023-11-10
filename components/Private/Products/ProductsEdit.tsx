@@ -6,26 +6,26 @@ import ProductsEditImages from './ProductsEditImages';
 import ProductsEditProduct from './ProductsEditProduct';
 import ProductsEditSeo from './ProductsEditSeo';
 
-export function ProductsEdit({ product: initialProduct }: Props) {
+export function ProductsEdit({ product }: Props) {
   const {
-    seo: initialSeoList,
-    images: initialImages,
-    properties: initialProperties,
+    seo,
+    images,
+    properties,
     ...productData
-  } = initialProduct;
+  } = product;
 
-  const [initialSeo] = initialSeoList;
+  const [initialSeo] = seo;
 
   return (
     <div className={styles.product}>
       <div className={styles.product__main}>
-        <ProductsEditProduct product={productData} />
+        <ProductsEditProduct product={productData} properties={properties} />
       </div>
       <div className={styles.product__additional}>
-        <ProductsEditSeo id={initialProduct.id} seo={initialSeo?.seo} />
+        <ProductsEditSeo id={productData.id} seo={initialSeo?.seo} />
       </div>
       <div className={styles.product__images}>
-        <ProductsEditImages id={initialProduct.id} images={initialImages} />
+        <ProductsEditImages id={productData.id} images={images} />
       </div>
     </div>
   );

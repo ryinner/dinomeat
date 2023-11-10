@@ -9,7 +9,7 @@ async function getData (id: number) {
 
   return await request<{product: ProductEdit}>(`/api/admin/products/${id}`, {
     next: {
-      revalidate: 60
+      revalidate: 10
     },
     headers: {
       Cookie: cookie.toString()

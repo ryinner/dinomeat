@@ -37,7 +37,16 @@
       margin-bottom: $indent-2;
 
       & legend {
-        margin-left: $indent-2;
+        margin-left: $indent-4;
+      }
+
+      & label {
+        &:not(:last-child) {
+          margin-bottom: $gap-2;
+        }
+
+        display: grid;
+        grid-template-columns: 150px 1fr;
       }
     }
   }

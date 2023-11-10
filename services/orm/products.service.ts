@@ -58,12 +58,6 @@ export async function getProductForEdit({ id }: {id: number}) {
           image: true
         }
       },
-      properties: {
-        include: {
-          property: true,
-          value: true
-        }
-      },
       seo: {
         include: {
           seo: true
@@ -74,5 +68,19 @@ export async function getProductForEdit({ id }: {id: number}) {
       id
     }
   });
-  return { ...product };
+
+  const properties = await prisma.property.findMany({
+    include: {
+      products: {
+        include: {
+          value: true
+        },
+        where: {
+          productId: id
+        }
+      },
+      values: true
+    }
+  });
+  return { ...product, properties };
 }

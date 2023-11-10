@@ -1,0 +1,7 @@
+@import '/shared/styles/vars/indent';
+
+.product-edit-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $gap-3;
+}
