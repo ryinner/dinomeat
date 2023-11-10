@@ -20,9 +20,9 @@ export default function ProductsEditPropertiesItem({
   return (
     <label>
       {property.name}:
-      <ControlsSelect onSelect={selectHandler} empty="Выберите характеристику">
+      <ControlsSelect value={selectedValue} onChange={selectHandler} empty="Выберите характеристику">
         {property.values.map((v) => (
-          <option key={v.id} value={v.id} selected={selectedValue === v.id}>
+          <option key={v.id} value={v.id}>
             {v.value}
           </option>
         ))}

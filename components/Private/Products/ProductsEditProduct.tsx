@@ -99,7 +99,7 @@ export default function ProductsEditProduct({
             id: property.products[0]?.id,
             productId: product.id,
             propertyId: p.id,
-            valueId: Number(valueId)
+            valueId: valueId === '' ? undefined : Number(valueId)
           }
         ]};
       }
