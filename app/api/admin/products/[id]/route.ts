@@ -38,13 +38,13 @@ export async function PUT (req: NextRequest, { params }: RouteParams) {
     }
   }
 
-  const productDto = await req.json() as Prisma.ProductUpdateArgs;
+  const productDto = (await req.json() as Prisma.ProductUpdateArgs);
 
   const { id } = params;
 
   const product = await updateProduct(Number(id), productDto);
 
-  return NextResponse.json({ message: 'Обновлено', product }, { status: 200 });
+  return NextResponse.json({ message: 'Обновлено', product: await getProductForEdit({ id: Number(id) }) }, { status: 200 });
 }
 
 interface RouteParams {

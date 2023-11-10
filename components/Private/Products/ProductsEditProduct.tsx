@@ -1,12 +1,12 @@
 'use client';
 
-import { PropertyWithValuesAndProducts } from '@/@types/private';
+import { ProductEdit, PropertyWithValuesAndProducts } from '@/@types/private';
 import Button from "@/components/Button/Button";
 import ControlsEditor from "@/components/Controls/ControlsEditor";
 import BoltIcon from "@/components/Icons/BoltIcon";
 import { frontRequest } from "@/services/api/api.service";
 import { updateObjectField } from "@/services/dom/input";
-import { Product } from "@prisma/client";
+import { Prisma, Product } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { useImmer } from "use-immer";
 import styles from './ProductsEditProduct.module.scss';
@@ -40,14 +40,55 @@ export default function ProductsEditProduct({
 
   async function submitProductHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    frontRequest(
+
+    const propertiesData = properties.reduce<Prisma.ProductPropertyUpdateManyWithoutProductNestedInput>((prev, p) => {
+      if (p.products[0]?.id === undefined) {
+        if (typeof p.products[0]?.valueId === 'number') {
+          if (prev.createMany === undefined) {
+            prev.createMany = { data: [] };
+          }
+          if (Array.isArray(prev.createMany.data)) {
+            prev.createMany.data.push({
+              valueId: p.products[0].valueId,
+              propertyId: p.id
+            });
+          }
+        }
+      } else {
+        if (p.products[0].valueId === undefined) {
+          if (!Array.isArray(prev.delete)) {
+            prev.delete = [];
+          }
+          prev.delete.push({
+            id: p.products[0].id 
+          });
+        } else {
+          if (!Array.isArray(prev.updateMany)) {
+            prev.updateMany = [];
+          }
+          prev.updateMany.push({
+            data: {
+              valueId: p.products[0].valueId
+            },
+            where: {
+              id: p.products[0].id
+            }
+          });
+        }
+      }
+      return prev;
+    }, {});
+
+    frontRequest<{ product: ProductEdit }>(
       `/api/admin/products/${product.id}`,
       {
         method: "PUT",
-        body: JSON.stringify({ data: product }),
+        body: JSON.stringify({ data: { ...product, properties: propertiesData} }),
       },
       { withMessage: true }
-    );
+    ).then(res => {
+      setProperties(res.product.properties);
+    });
   }
 
   function propertyUpdateHandler(property: PropertyWithValuesAndProducts, valueId?: string) {
