@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: { params: PageParams }): Prom
 
   const [seo] = product.seo
 
-  const title = seo.seo?.name ?? product.name;
-  const description = seo.seo?.description;
+  const title = seo?.seo?.name ?? product.name;
+  const description = seo?.seo?.description;
 
   return {
     title,
