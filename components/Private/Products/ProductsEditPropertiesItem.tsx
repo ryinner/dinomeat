@@ -2,11 +2,9 @@
 
 import { PropertyWithValuesAndProducts } from "@/@types/private";
 import ControlsSelect from "@/components/Controls/ControlsSelect";
-import { frontRequest } from "@/services/api/api.service";
 import type { FormEvent } from "react";
 
 export default function ProductsEditPropertiesItem({
-  id,
   property,
   onUpdate,
 }: Props) {
@@ -15,25 +13,16 @@ export default function ProductsEditPropertiesItem({
   function selectHandler(e: FormEvent<HTMLSelectElement>) {
     if (e.target instanceof HTMLSelectElement) {
       const { value } = e.target;
-      frontRequest<{ property: PropertyWithValuesAndProducts }>(
-        `/api/admin/products/${id}/properties/${property.id}`,
-        {
-          method: "PUT",
-          body: JSON.stringify({ value }),
-        },
-        { withMessage: true }
-      ).then((res) => {
-        onUpdate(res.property);
-      });
+      onUpdate(property, value)
     }
   }
 
   return (
     <label>
       {property.name}:
-      <ControlsSelect empty="Выберите характеристику">
+      <ControlsSelect onSelect={selectHandler} empty="Выберите характеристику">
         {property.values.map((v) => (
-          <option key={v.id} selected={selectedValue === v.id}>
+          <option key={v.id} value={v.id} selected={selectedValue === v.id}>
             {v.value}
           </option>
         ))}
@@ -43,7 +32,6 @@ export default function ProductsEditPropertiesItem({
 }
 
 interface Props {
-  id: number;
   property: PropertyWithValuesAndProducts;
-  onUpdate: (property: PropertyWithValuesAndProducts) => void;
+  onUpdate: (property: PropertyWithValuesAndProducts, value?: string) => void;
 }

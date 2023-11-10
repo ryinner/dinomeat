@@ -7,16 +7,17 @@ import BoltIcon from "@/components/Icons/BoltIcon";
 import { frontRequest } from "@/services/api/api.service";
 import { updateObjectField } from "@/services/dom/input";
 import { Product } from "@prisma/client";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useImmer } from "use-immer";
 import styles from './ProductsEditProduct.module.scss';
-import ProductsEditProperties from './ProductsEditProperties';
+import ProductsEditPropertiesItem from './ProductsEditPropertiesItem';
 
 export default function ProductsEditProduct({
   product: initialProduct,
-  properties
+  properties: initialProperties
 }: Props) {
   const [product, updateProduct] = useImmer(initialProduct);
+  const [properties, setProperties] = useState(initialProperties);
 
   async function clickSlugHandler() {
     const { slug } = await frontRequest<{ slug: string }>(
@@ -47,6 +48,22 @@ export default function ProductsEditProduct({
       },
       { withMessage: true }
     );
+  }
+
+  function propertyUpdateHandler(property: PropertyWithValuesAndProducts, valueId?: string) {
+    setProperties((properties) => properties.map(p => {
+      if (p.id === property.id) {
+        return { ...p, products: [
+          {
+            id: property.products[0]?.id,
+            productId: product.id,
+            propertyId: p.id,
+            valueId: Number(valueId)
+          }
+        ]};
+      }
+      return p;
+    }));
   }
 
   return (
@@ -129,7 +146,10 @@ export default function ProductsEditProduct({
           </fieldset>
         </div>
         <div>
-          <ProductsEditProperties id={product.id} properties={properties} />
+        <fieldset>
+          <legend>Характеристики</legend>
+          {properties.map(p => <ProductsEditPropertiesItem key={p.id} property={p} onUpdate={propertyUpdateHandler}/>)}
+        </fieldset>
         </div>
       </div>
       <fieldset>
