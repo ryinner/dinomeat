@@ -91,6 +91,17 @@ export default function ProductsEditProduct({
     });
   }
 
+  function publishProductHandler () {
+    frontRequest( `/api/admin/products/${product.id}`,
+    {
+      method: "PUT",
+      body: JSON.stringify({ data: { published: true } }),
+    },
+    { withMessage: true }).then(() => {
+      updateProduct((product) => { product.published = true; })
+    })
+  }
+
   function propertyUpdateHandler(property: PropertyWithValuesAndProducts, valueId?: string) {
     setProperties((properties) => properties.map(p => {
       if (p.id === property.id) {
@@ -205,6 +216,7 @@ export default function ProductsEditProduct({
         />
       </fieldset>
       <Button type="submit">Сохранить</Button>
+      {!product.published && <Button type="button" onClick={publishProductHandler}>Опубликовать</Button>}
     </form>
   );
 }
