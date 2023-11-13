@@ -67,6 +67,10 @@ export default function TheHero() {
           {images.map((image, i) => (
             <li className={styles.hero__slide} key={image.src}>
               <Image src={image} alt='' fill={true} className={styles.hero__item} />
+              <div className={styles.hero__info}>
+                logo
+                wear shop for sport
+              </div>
             </li>
           ))}
         </motion.ul>
