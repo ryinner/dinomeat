@@ -1,6 +1,5 @@
-// import TheHero from "@/components/Index/TheHero";
+import TheHero from "@/components/Index/TheHero";
 
 export default function Index() {
-  // return <TheHero />;
-  return <></>
+  return <TheHero />;
 }

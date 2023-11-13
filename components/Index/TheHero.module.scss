@@ -1,0 +1,11 @@
+@import '/shared/styles/vars/indent';
+
+.hero {
+  width: 100vw;
+  overflow-x: hidden;
+
+  &__viewport {
+    display: flex;
+    gap: 20px
+  }
+}
