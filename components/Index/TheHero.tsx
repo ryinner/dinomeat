@@ -20,8 +20,8 @@ export default function TheHero() {
 
   function calculateTranslateX () {
     const diff = activeIndex - images.length + 1;
-
-    return imageSizes.current.width * diff - (40 * (diff - 1));
+    
+    return imageSizes.current.width * diff ;
   }
 
   function getImagesSizes () {
@@ -48,7 +48,7 @@ export default function TheHero() {
       setActiveIndex((activeIndex) => activeIndex === 0 ? images.length - 1 : activeIndex - 1);
     }, 5000);
     return () => clearInterval(timer);
-  }, [activeIndex]);
+  }, []);
 
   return (
     <section className={styles.hero}>
