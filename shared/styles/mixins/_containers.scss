@@ -1,7 +1,3 @@
-@import "../vars";
-
 @mixin site-container {
-  margin: 0 auto;
-
-  max-width: $big-desktop;
+  width: clamp(576px, 80%, 1600px);
 }

@@ -1,3 +1,30 @@
+@import '/shared/styles/mixins/containers';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/indent';
+
 .footer {
   grid-area: footer;
+
+  background: linear-gradient(180deg, #343333 0%, #7D7D7D 100%);
+
+  display: flex;
+  justify-content: center;
+
+  padding: $indent-4 0;
+
+  &__container {
+    @include site-container;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__company-info {
+    color: $white;
+
+    font-size: 1.1rem;
+
+    text-align: center;
+  }
 }

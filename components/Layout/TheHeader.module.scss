@@ -1,5 +1,6 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
+@import '/shared/styles/mixins/containers';
 
 .header {
   grid-area: header;
@@ -11,7 +12,8 @@
   justify-content: center;
 
   &__container {
-    width: clamp(576px, 80%, 1600px);
+    @include site-container;
+
     height: 100%;
 
     display: flex;
