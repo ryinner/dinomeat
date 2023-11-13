@@ -17,9 +17,13 @@
 
     background-color: #B8B4B447;
 
+    font-family: inherit;
+
     &::-ms-input-placeholder,
     &::placeholder {
       color: $black;
+
+      font-family: inherit;
     }
   }
 

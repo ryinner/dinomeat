@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HeroImage1 from "../../public/index/hero-background-1.webp";
 import HeroImage2 from "../../public/index/hero-background-2.webp";
 import HeroImage3 from "../../public/index/hero-background-3.webp";
@@ -10,28 +10,49 @@ import HeroImage4 from "../../public/index/hero-background-4.webp";
 import HeroImage5 from "../../public/index/hero-background-5.webp";
 import styles from './TheHero.module.scss';
 
-export default function TheHero() {
-  const [activeIndex, setActiveIndex] = useState(2);
+const images = [HeroImage2, HeroImage3, HeroImage1, HeroImage4, HeroImage5].reverse();
 
-  const images = [HeroImage2, HeroImage3, HeroImage1, HeroImage4, HeroImage5].reverse();
+export default function TheHero() {
+  const [activeIndex, setActiveIndex] = useState(5);
+
+  const imagesListRef = useRef<HTMLUListElement>(null);
+  const imageSizes = useRef<{ width: number, height: number }>({ width: 0, height: 0 });
 
   function calculateTranslateX () {
-    // 1 80 wh, 2 160 wh, 3 240 wh, 4 320 wh, 5 400 wh
-    const diff = (activeIndex - images.length);
+    const diff = activeIndex - images.length + 1;
 
-    return `calc(100% - 40px + (${diff * 80}vw))`
+    return imageSizes.current.width * diff - (40 * (diff - 1));
   }
+
+  function getImagesSizes () {
+    if (imagesListRef.current !== null) {
+      const image = imagesListRef.current.querySelector('li');
+      if (image !== null) {
+        const { width, height } = image.getBoundingClientRect();
+        imageSizes.current = { width, height};
+      }
+    }
+  }
+
+  useEffect(() => {
+    getImagesSizes();
+    window.addEventListener('resize', getImagesSizes)
+
+    return () => {
+      window.removeEventListener('resize', getImagesSizes)
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveIndex((activeIndex) => activeIndex === 0 ? images.length - 1 : activeIndex - 1);
     }, 5000);
     return () => clearInterval(timer);
-  }, [activeIndex, images.length]);
+  }, [activeIndex]);
 
   return (
     <section className={styles.hero}>
-        <motion.div
+        <motion.ul
           className={styles.hero__viewport}
           initial={false}
           animate={{
@@ -41,11 +62,14 @@ export default function TheHero() {
             duration: 2,
             type: 'spring'
           }}
+          ref={imagesListRef}
         >
           {images.map((image, i) => (
-            <Image key={image.src} src={image} alt='' className={styles.hero__item} />
+            <li className={styles.hero__slide} key={image.src}>
+              <Image src={image} alt='' fill={true} className={styles.hero__item} />
+            </li>
           ))}
-        </motion.div>
+        </motion.ul>
     </section>
   );
 }
