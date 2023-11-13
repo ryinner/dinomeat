@@ -1,13 +1,21 @@
 @import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
 
 .header {
   grid-area: header;
 
-  padding: $indent-2 0;
+  background-color: #65656521;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &__container {
     width: clamp(576px, 80%, 1600px);
+    height: 100%;
 
-    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }

@@ -1,0 +1,34 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/viewport';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/border';
+
+.search {
+  position: relative;
+
+  &__input {
+    padding: 16px 48px 16px 56px;
+
+    width: 388px;
+
+    border-radius: $border-radius;
+    border: none;
+    outline: none;
+
+    background-color: #B8B4B447;
+
+    &::-ms-input-placeholder,
+    &::placeholder {
+      color: $black;
+    }
+  }
+
+  &__icon-magnifier {
+    position: absolute;
+
+    top: 50%;
+    left: 16px;
+
+    transform: translateY(-50%);
+  }
+}
