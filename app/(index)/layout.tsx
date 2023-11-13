@@ -8,8 +8,8 @@ import "../globals.scss";
 import { MuseoSansCyrl } from "../styles/fonts";
 
 export const metadata: Metadata = {
-  title: "Denomeat",
-  description: "Компания denomeat - лучшая одежда в России.",
+  title: "Dinomeät",
+  description: "Компания dinomeät - лучшая одежда в России.",
 };
 
 export const viewport: Viewport = {
