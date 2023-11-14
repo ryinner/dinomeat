@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
+import Logo from '../../public/icons/logo.svg';
 import HeroImage1 from "../../public/index/hero-background-1.webp";
 import HeroImage2 from "../../public/index/hero-background-2.webp";
 import HeroImage3 from "../../public/index/hero-background-3.webp";
@@ -67,7 +69,17 @@ export default function TheHero() {
         >
           {images.map((image, i) => (
             <li className={styles.hero__slide} key={image.src}>
-              <Image src={image} alt='' fill={true} className={styles.hero__item} />
+              <Image src={image} alt='' fill={true} className={styles['hero__slide-image']} />
+              <div className={styles.hero__info}>
+                <div className={styles.hero__logo}><Image width={180} src={Logo} alt='Логотип сайта' /> Dinomeät</div>
+                <div className={styles.hero__slogan}>
+                  <span className={styles['hero__slogan-item']}>wear shop</span>
+                  <span className={styles['hero__slogan-item']}>for sport</span>
+                </div>
+                <div>
+                  <Link href='/catalog'>Перейти в каталог</Link>
+                </div> 
+              </div>
             </li>
           ))}
         </motion.ul>
