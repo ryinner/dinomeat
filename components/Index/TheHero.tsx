@@ -76,8 +76,8 @@ export default function TheHero() {
                   <span className={styles['hero__slogan-item']}>wear shop</span>
                   <span className={styles['hero__slogan-item']}>for sport</span>
                 </div>
-                <div>
-                  <Link href='/catalog'>Перейти в каталог</Link>
+                <div className={styles.hero__nav}>
+                  <Link className={styles.hero__link} href='/catalog'>Перейти в каталог</Link>
                 </div> 
               </div>
             </li>

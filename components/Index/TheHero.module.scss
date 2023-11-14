@@ -1,5 +1,6 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/border';
 
 .hero {
   width: 100vw;
@@ -55,5 +56,26 @@
     &-item {
       display: block;
     }
+
+    margin-top: 1.75rem;
+  }
+
+  &__nav {
+    display: flex;
+
+    margin-top: 1.75rem;
+  }
+
+  &__link {
+    border-radius: $border-radius;
+
+    background: linear-gradient(180deg, $primary 0%, #1C0639 94.79%, #311105 100%);
+    box-shadow: 0px 18px 48px -28px $primary;
+
+    color: $white;
+    font-size: 0.75rem;
+    font-family: inherit;
+
+    padding: 0.9rem 2rem;
   }
 }
