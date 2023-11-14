@@ -26,13 +26,21 @@
       font-family: inherit;
     }
   }
-
-  &__icon-magnifier {
+  &__icon-go, &__icon-magnifier {
     position: absolute;
 
     top: 50%;
-    left: 16px;
 
     transform: translateY(-50%);
+
+    cursor: pointer;
+  }
+
+  &__icon-magnifier {
+    left: 16px;
+  }
+
+  &__icon-go {
+    right: 24px;
   }
 }

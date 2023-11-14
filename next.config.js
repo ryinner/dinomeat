@@ -4,7 +4,11 @@ const nextConfig = {
     sassOptions: {
     },
     images: {
-      domains: [process.env.DOMAIN]
+      // domains: [process.env.DOMAIN]
+      remotePatterns: [{
+        protocol: process.env.NODE_ENV === 'production' ? 'https' : 'http',
+        hostname: process.env.DOMAIN
+      }]
     }
 }
 

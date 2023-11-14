@@ -44,11 +44,12 @@ export default function TheHero() {
   }, []);
 
   useEffect(() => {
+    setActiveIndex(2);
     const timer = setInterval(() => {
       setActiveIndex((activeIndex) => activeIndex === 0 ? images.length - 1 : activeIndex - 1);
     }, 5000);
     return () => clearInterval(timer);
-  }, [activeIndex]);
+  }, []);
 
   return (
     <section className={styles.hero}>
