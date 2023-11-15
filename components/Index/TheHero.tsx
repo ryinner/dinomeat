@@ -21,13 +21,7 @@ export default function TheHero() {
   const imageSizes = useRef<{ width: number, height: number }>({ width: 0, height: 0 });
 
   function calculateTranslateX () {
-<<<<<<< HEAD
-    const diff = activeIndex - images.length + 1;
-    
-    return imageSizes.current.width * diff ;
-=======
     return -imageSizes.current.width * activeIndex - activeIndex * 20;
->>>>>>> ee4a2073caa99b098777ccee3dffa8a9b8ca5715
   }
 
   function getImagesSizes () {
@@ -73,12 +67,6 @@ export default function TheHero() {
         >
           {images.map((image, i) => (
             <li className={styles.hero__slide} key={image.src}>
-<<<<<<< HEAD
-              <Image src={image} alt='' fill={true} className={styles.hero__item} />
-              <div className={styles.hero__info}>
-                logo
-                wear shop for sport
-=======
               <Image src={image} alt='' fill={true} className={styles['hero__slide-image']} />
               <div className={styles.hero__info}>
                 <div className={styles.hero__logo}><Image width={180} src={Logo} alt='Логотип сайта' /> Dinomeät</div>
@@ -89,7 +77,6 @@ export default function TheHero() {
                 <div className={styles.hero__nav}>
                   <Link className={styles.hero__link} href='/catalog'>Перейти в каталог</Link>
                 </div> 
->>>>>>> ee4a2073caa99b098777ccee3dffa8a9b8ca5715
               </div>
             </li>
           ))}
