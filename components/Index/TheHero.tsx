@@ -12,18 +12,16 @@ import HeroImage4 from "../../public/index/hero-background-4.webp";
 import HeroImage5 from "../../public/index/hero-background-5.webp";
 import styles from './TheHero.module.scss';
 
-const images = [HeroImage2, HeroImage3, HeroImage1, HeroImage4, HeroImage5].reverse();
+const images = [HeroImage5, HeroImage4, HeroImage1, HeroImage3, HeroImage2];
 
 export default function TheHero() {
-  const [activeIndex, setActiveIndex] = useState(5);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const imagesListRef = useRef<HTMLUListElement>(null);
   const imageSizes = useRef<{ width: number, height: number }>({ width: 0, height: 0 });
 
   function calculateTranslateX () {
-    const diff = activeIndex - images.length + 1;
-
-    return imageSizes.current.width * diff - (40 * (diff - 1));
+    return -imageSizes.current.width * activeIndex - activeIndex * 20;
   }
 
   function getImagesSizes () {
@@ -48,7 +46,7 @@ export default function TheHero() {
   useEffect(() => {
     setActiveIndex(2);
     const timer = setInterval(() => {
-      setActiveIndex((activeIndex) => activeIndex === 0 ? images.length - 1 : activeIndex - 1);
+      setActiveIndex((activeIndex) => images.length - activeIndex === 1 ? 0 : activeIndex + 1);
     }, 5000);
     return () => clearInterval(timer);
   }, []);
