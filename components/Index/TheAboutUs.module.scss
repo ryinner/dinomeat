@@ -8,8 +8,10 @@
   font-weight: 700;
   text-align: center;
 
+  margin-top: $indent-section;
+
   &__paragraph {
-    width: 60%;
+    width: 38%;
 
     margin: $indent-2 auto 0;
   }
