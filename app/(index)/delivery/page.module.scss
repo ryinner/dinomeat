@@ -1,0 +1,19 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/mixins/containers';
+
+.delivery {
+  font-size: 1.375rem;
+  font-weight: 400;
+
+  @include site-container;
+  margin: 0 auto;
+
+  &__heading {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  &__paragraph {
+    margin-top: $indent-2;
+  }
+}
