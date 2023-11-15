@@ -6,7 +6,7 @@
   font-weight: 400;
 
   @include site-container;
-  margin: 0 auto;
+  margin: $indent-section auto 0;
 
   &__heading {
     font-size: inherit;
