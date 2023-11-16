@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
+import CatalogCategoryLink from '../Links/CatalogCategoryLink';
 import { TheNavigationCategoriesContext } from "../TheProviders/TheNavigationCategoriesContext";
 import styles from './TheCategoriesNavigation.module.scss';
 
@@ -18,7 +18,7 @@ export default function TheCategoriesNavigation() {
           <ul className={styles['categories-nav__list']}>
             {categories.map((c) => (
               <li className={styles['categories-nav__item']} key={c.id}>
-                <Link href={`/catalog?category_id=${c.id}`}>{c.name}</Link>
+                <CatalogCategoryLink category={c} />
               </li>
             ))}
           </ul>
