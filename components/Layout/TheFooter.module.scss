@@ -11,13 +11,16 @@
   justify-content: center;
 
   padding: $indent-4 0;
+  margin-top: $indent-section;
 
   &__container {
     @include site-container;
 
+    position: relative;
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   &__company-info {
@@ -26,5 +29,10 @@
     font-size: 1.1rem;
 
     text-align: center;
+  }
+
+  &__images {
+    left: 0;
+    position: absolute;
   }
 }
