@@ -1,3 +1,4 @@
+import TheCategoriesNavigation from '@/components/Layout/TheCategoriesNavigation';
 import TheFooter from "@/components/Layout/TheFooter";
 import TheHeader from "@/components/Layout/TheHeader";
 import TheIntegrationsInitializations from "@/components/Layout/TheIntegrationsInitializations";
@@ -33,6 +34,7 @@ export default function RootLayout({
         <TheProviders>
           <TheSiteProviders>
             <TheHeader />
+            <TheCategoriesNavigation />
             <main>{children}</main>
             <TheFooter />
           </TheSiteProviders>

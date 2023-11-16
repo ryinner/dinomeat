@@ -1,0 +1,20 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/mixins/containers';
+
+.categories-nav {
+  grid-area: 'categories';
+  margin: $indent-5 auto 0;
+  @include site-container;
+
+  &__list {
+    list-style-type: none;
+
+    display: flex;
+    gap: $gap-4;
+
+    color: $primary;
+    
+    text-decoration: underline;
+  }
+}

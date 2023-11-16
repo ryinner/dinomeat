@@ -20,7 +20,7 @@ const navigationLinks = [
   },
   {
     label: "Каталог",
-    link: "/shop",
+    link: "/catalog",
     icon: Book
   },
   {

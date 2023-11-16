@@ -1,8 +1,10 @@
+'use client';
+
 import { request } from "@/services/api/api.service";
 import { Category } from "@prisma/client";
 import React, { createContext, useEffect, useRef, useState } from "react";
 
-export const TheNavigationCategoriesContext = createContext<Category[]>([]);
+export const TheNavigationCategoriesContext = createContext<Pick<Category, 'id' | 'name'>[]>([]);
 
 export default function TheNavigationCategoriesProvider({ children }: Props) {
   const [categories, setCategories] = useState<Category[]>([]);

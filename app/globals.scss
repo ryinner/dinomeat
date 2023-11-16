@@ -18,9 +18,10 @@ body {
   display: grid;
   grid-template-areas:
     "header"
+    "categories"
     "content"
     "footer";
-  grid-template-rows: minmax(78px, auto) 1fr minmax(78px, auto);
+  grid-template-rows: minmax(78px, auto) auto 1fr minmax(78px, auto);
 }
 
 main {
