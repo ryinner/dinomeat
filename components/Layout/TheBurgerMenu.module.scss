@@ -1,3 +1,22 @@
-.burger-menu-icon {
-  cursor: pointer;
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/border';
+
+.burger-menu {
+  &__icon {
+    cursor: pointer;
+  }
+
+  &__sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    height: 100%;
+
+    border-radius: 0 $border-radius $border-radius 0;
+
+    background-color: $secondary;
+  }
 }

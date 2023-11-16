@@ -1,11 +1,21 @@
 "use client";
 
+import { motion } from 'framer-motion';
 import Image from "next/image";
 import { useContext, useState } from "react";
 import Burger from "../../public/icons/burger.svg";
 import CatalogCategoryLink from "../Links/CatalogCategoryLink";
 import { TheNavigationCategoriesContext } from "../TheProviders/TheNavigationCategoriesContext";
 import styles from "./TheBurgerMenu.module.scss";
+
+const variants = {
+  open: {
+    x: 0
+  },
+  closed: {
+    x: -500
+  }
+}
 
 export default function TheBurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,11 +31,18 @@ export default function TheBurgerMenu() {
         src={Burger}
         height={22}
         alt="Открыть навигацию"
-        className={styles["burger-menu-icon"]}
+        className={styles["burger-menu__icon"]}
         onClick={toggleHandler}
       />
-      {isOpen && (
-        <div className={styles["burger-menu__sidebar"]}>
+      
+        <motion.div
+          animate={isOpen ? 'open' : 'closed'}
+          variants={variants}
+          transition={{
+            duration: 0.3,
+          }}
+          className={styles["burger-menu__sidebar"]}
+        >
           <nav>
             <ul>
               {categories.map((c) => (
@@ -35,8 +52,7 @@ export default function TheBurgerMenu() {
               ))}
             </ul>
           </nav>
-        </div>
-      )}
+        </motion.div>
     </div>
   );
 }
