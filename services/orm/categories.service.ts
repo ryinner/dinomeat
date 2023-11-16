@@ -27,6 +27,11 @@ export async function getCategoriesPaginated ({
   };
 }
 
+export async function getCategories () {
+  return prisma.category.findMany();
+}
+
+
 export async function createCategory (
   categoryDto: Prisma.CategoryCreateInput
 ) {

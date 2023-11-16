@@ -1,12 +1,13 @@
 "use client";
 
 import { ProductEdit } from "@/@types/private";
+import { Category } from '@prisma/client';
 import styles from "./ProductsEdit.module.scss";
 import ProductsEditImages from './ProductsEditImages';
 import ProductsEditProduct from './ProductsEditProduct';
 import ProductsEditSeo from './ProductsEditSeo';
 
-export function ProductsEdit({ product }: Props) {
+export function ProductsEdit({ product, categories }: Props) {
   const {
     seo,
     images,
@@ -19,7 +20,7 @@ export function ProductsEdit({ product }: Props) {
   return (
     <div className={styles.product}>
       <div className={styles.product__main}>
-        <ProductsEditProduct product={productData} properties={properties} />
+        <ProductsEditProduct product={productData} properties={properties} categories={categories} />
       </div>
       <div className={styles.product__additional}>
         <ProductsEditSeo id={productData.id} seo={initialSeo?.seo} />
@@ -33,4 +34,5 @@ export function ProductsEdit({ product }: Props) {
 
 interface Props {
   product: ProductEdit;
+  categories: Category[];
 }

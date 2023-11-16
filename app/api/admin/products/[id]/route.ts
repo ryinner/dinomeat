@@ -1,4 +1,5 @@
 import { authConfig } from '@/configs/auth.config';
+import { getCategories } from '@/services/orm/categories.service';
 import { getProductForEdit, updateProduct } from '@/services/orm/products.service';
 import { userIsAdmin } from '@/services/orm/users.service';
 import { Prisma } from '@prisma/client';
@@ -21,8 +22,9 @@ export async function GET (req: NextRequest, { params }: RouteParams) {
   const { id } = params;
 
   const product = await getProductForEdit({ id: Number(id) });
+  const categories = await getCategories();
 
-  return NextResponse.json({ code: 200, product });
+  return NextResponse.json({ code: 200, product, categories });
 }
 
 export async function PUT (req: NextRequest, { params }: RouteParams) {
@@ -42,7 +44,7 @@ export async function PUT (req: NextRequest, { params }: RouteParams) {
 
   const { id } = params;
 
-  const product = await updateProduct(Number(id), productDto);
+  await updateProduct(Number(id), productDto);
 
   return NextResponse.json({ message: 'Обновлено', product: await getProductForEdit({ id: Number(id) }) }, { status: 200 });
 }

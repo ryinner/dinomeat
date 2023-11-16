@@ -79,6 +79,7 @@ model Product {
   width       Float    @default(1) /// В см
   height      Float    @default(1) /// В см
   weight      Float    @default(1) /// В кг
+  categoryId  Int?     @map("category_id")
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
 
@@ -86,6 +87,7 @@ model Product {
   seo        ProductSeo[]
   images     ProductImage[]
   movements  ProductMovement[]
+  category   Category?         @relation(fields: [categoryId], references: [id], onUpdate: Restrict, onDelete: Restrict)
 
   @@map("products")
 }
@@ -184,7 +186,6 @@ model ProductMovement {
   id           Int       @id @default(autoincrement())
   productId    Int       @map("product_id")
   status       Int       @default(0)
-  sellingPrice Float     @map("selling_price")
   createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
@@ -199,6 +200,8 @@ model Category {
   published Boolean   @default(false)
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  products Product[]
 
   @@map("categories")
 }

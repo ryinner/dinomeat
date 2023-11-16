@@ -1,20 +1,22 @@
-'use client';
+"use client";
 
-import { ProductEdit, PropertyWithValuesAndProducts } from '@/@types/private';
+import { ProductEdit, PropertyWithValuesAndProducts } from "@/@types/private";
 import Button from "@/components/Button/Button";
 import ControlsEditor from "@/components/Controls/ControlsEditor";
+import ControlsSelect from "@/components/Controls/ControlsSelect";
 import BoltIcon from "@/components/Icons/BoltIcon";
 import { frontRequest } from "@/services/api/api.service";
 import { updateObjectField } from "@/services/dom/input";
-import { Prisma, Product } from "@prisma/client";
-import { FormEvent, useState } from "react";
+import { Category, Prisma, Product } from "@prisma/client";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useImmer } from "use-immer";
-import styles from './ProductsEditProduct.module.scss';
-import ProductsEditPropertiesItem from './ProductsEditPropertiesItem';
+import styles from "./ProductsEditProduct.module.scss";
+import ProductsEditPropertiesItem from "./ProductsEditPropertiesItem";
 
 export default function ProductsEditProduct({
   product: initialProduct,
-  properties: initialProperties
+  properties: initialProperties,
+  categories,
 }: Props) {
   const [product, updateProduct] = useImmer(initialProduct);
   const [properties, setProperties] = useState(initialProperties);
@@ -30,7 +32,9 @@ export default function ProductsEditProduct({
     });
   }
 
-  async function updateProductField(e: FormEvent<HTMLInputElement>) {
+  async function updateProductField(
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) {
     updateObjectField(e, product, (p, v) => {
       updateProduct((product) => {
         (product[p] as typeof v) = v;
@@ -41,86 +45,104 @@ export default function ProductsEditProduct({
   async function submitProductHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const propertiesData = properties.reduce<Prisma.ProductPropertyUpdateManyWithoutProductNestedInput>((prev, p) => {
-      if (p.products[0]?.id === undefined) {
-        if (typeof p.products[0]?.valueId === 'number') {
-          if (prev.createMany === undefined) {
-            prev.createMany = { data: [] };
-          }
-          if (Array.isArray(prev.createMany.data)) {
-            prev.createMany.data.push({
-              valueId: p.products[0].valueId,
-              propertyId: p.id
-            });
-          }
-        }
-      } else {
-        if (p.products[0].valueId === undefined) {
-          if (!Array.isArray(prev.delete)) {
-            prev.delete = [];
-          }
-          prev.delete.push({
-            id: p.products[0].id 
-          });
-        } else {
-          if (!Array.isArray(prev.updateMany)) {
-            prev.updateMany = [];
-          }
-          prev.updateMany.push({
-            data: {
-              valueId: p.products[0].valueId
-            },
-            where: {
-              id: p.products[0].id
+    const propertiesData =
+      properties.reduce<Prisma.ProductPropertyUpdateManyWithoutProductNestedInput>(
+        (prev, p) => {
+          if (p.products[0]?.id === undefined) {
+            if (typeof p.products[0]?.valueId === "number") {
+              if (prev.createMany === undefined) {
+                prev.createMany = { data: [] };
+              }
+              if (Array.isArray(prev.createMany.data)) {
+                prev.createMany.data.push({
+                  valueId: p.products[0].valueId,
+                  propertyId: p.id,
+                });
+              }
             }
-          });
-        }
-      }
-      return prev;
-    }, {});
+          } else {
+            if (p.products[0].valueId === undefined) {
+              if (!Array.isArray(prev.delete)) {
+                prev.delete = [];
+              }
+              prev.delete.push({
+                id: p.products[0].id,
+              });
+            } else {
+              if (!Array.isArray(prev.updateMany)) {
+                prev.updateMany = [];
+              }
+              prev.updateMany.push({
+                data: {
+                  valueId: p.products[0].valueId,
+                },
+                where: {
+                  id: p.products[0].id,
+                },
+              });
+            }
+          }
+          return prev;
+        },
+        {}
+      );
 
     frontRequest<{ product: ProductEdit }>(
       `/api/admin/products/${product.id}`,
       {
         method: "PUT",
-        body: JSON.stringify({ data: { ...product, properties: propertiesData} }),
+        body: JSON.stringify({
+          data: { ...product, properties: propertiesData },
+        }),
       },
       { withMessage: true }
-    ).then(res => {
+    ).then((res) => {
       setProperties(res.product.properties);
     });
   }
 
-  function publishProductHandler () {
-    frontRequest( `/api/admin/products/${product.id}`,
-    {
-      method: "PUT",
-      body: JSON.stringify({ data: { published: true } }),
-    },
-    { withMessage: true }).then(() => {
-      updateProduct((product) => { product.published = true; })
-    })
+  function publishProductHandler() {
+    frontRequest(
+      `/api/admin/products/${product.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ data: { published: true } }),
+      },
+      { withMessage: true }
+    ).then(() => {
+      updateProduct((product) => {
+        product.published = true;
+      });
+    });
   }
 
-  function propertyUpdateHandler(property: PropertyWithValuesAndProducts, valueId?: string) {
-    setProperties((properties) => properties.map(p => {
-      if (p.id === property.id) {
-        return { ...p, products: [
-          {
-            id: property.products[0]?.id,
-            productId: product.id,
-            propertyId: p.id,
-            valueId: valueId === '' ? undefined : Number(valueId)
-          }
-        ]};
-      }
-      return p;
-    }));
+  function propertyUpdateHandler(
+    property: PropertyWithValuesAndProducts,
+    valueId?: string
+  ) {
+    setProperties((properties) =>
+      properties.map((p) => {
+        if (p.id === property.id) {
+          return {
+            ...p,
+            products: [
+              {
+                id: property.products[0]?.id,
+                productId: product.id,
+                propertyId: p.id,
+                valueId: valueId === "" ? undefined : Number(valueId),
+              },
+            ],
+          };
+        }
+        return p;
+      })
+    );
   }
 
   return (
     <form onSubmit={submitProductHandler}>
-      <div className={styles['product-edit-info']}>
+      <div className={styles["product-edit-info"]}>
         <div>
           <fieldset>
             <legend>Базовая информация</legend>
@@ -130,7 +152,7 @@ export default function ProductsEditProduct({
                 name="name"
                 type="text"
                 value={product.name}
-                onInput={updateProductField}
+                onChange={updateProductField}
               />
             </label>
             <label>
@@ -139,7 +161,7 @@ export default function ProductsEditProduct({
                 name="article"
                 type="text"
                 value={product.article ?? ""}
-                onInput={updateProductField}
+                onChange={updateProductField}
               />
             </label>
             <label>
@@ -150,11 +172,27 @@ export default function ProductsEditProduct({
                   type="text"
                   disabled={product.published}
                   value={product.slug ?? ""}
-                  onInput={updateProductField}
-                  style={{ color: "#000", width: "calc(100% - 20px)"}}
+                  onChange={updateProductField}
+                  style={{ color: "#000", width: "calc(100% - 20px)" }}
                 />
                 {!product.published && <BoltIcon onClick={clickSlugHandler} />}
               </div>
+            </label>
+            <label>
+              Категория:
+              <ControlsSelect
+                value={product.categoryId ?? undefined}
+                onChange={updateProductField}
+                type="number"
+                name="categoryId"
+                empty="Выберите категорию"
+              >
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </ControlsSelect>
             </label>
           </fieldset>
           <fieldset>
@@ -165,7 +203,7 @@ export default function ProductsEditProduct({
                 name="weight"
                 type="number"
                 value={product.weight}
-                onInput={updateProductField}
+                onChange={updateProductField}
               />
             </label>
             <label>
@@ -174,7 +212,7 @@ export default function ProductsEditProduct({
                 name="length"
                 type="number"
                 value={product.length}
-                onInput={updateProductField}
+                onChange={updateProductField}
               />
             </label>
             <label>
@@ -183,7 +221,7 @@ export default function ProductsEditProduct({
                 name="width"
                 type="number"
                 value={product.width}
-                onInput={updateProductField}
+                onChange={updateProductField}
               />
             </label>
             <label>
@@ -192,16 +230,22 @@ export default function ProductsEditProduct({
                 name="height"
                 type="number"
                 value={product.height}
-                onInput={updateProductField}
+                onChange={updateProductField}
               />
             </label>
           </fieldset>
         </div>
         <div>
-        <fieldset>
-          <legend>Характеристики</legend>
-          {properties.map(p => <ProductsEditPropertiesItem key={p.id} property={p} onUpdate={propertyUpdateHandler}/>)}
-        </fieldset>
+          <fieldset>
+            <legend>Характеристики</legend>
+            {properties.map((p) => (
+              <ProductsEditPropertiesItem
+                key={p.id}
+                property={p}
+                onUpdate={propertyUpdateHandler}
+              />
+            ))}
+          </fieldset>
         </div>
       </div>
       <fieldset>
@@ -216,7 +260,11 @@ export default function ProductsEditProduct({
         />
       </fieldset>
       <Button type="submit">Сохранить</Button>
-      {!product.published && <Button type="button" onClick={publishProductHandler}>Опубликовать</Button>}
+      {!product.published && (
+        <Button type="button" onClick={publishProductHandler}>
+          Опубликовать
+        </Button>
+      )}
     </form>
   );
 }
@@ -224,4 +272,5 @@ export default function ProductsEditProduct({
 interface Props {
   product: Product;
   properties: PropertyWithValuesAndProducts[];
+  categories: Category[];
 }

@@ -9,5 +9,6 @@ export default function ControlsSelect ({ empty = false, children, ...selectAttr
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
   empty?: false|string;
+  type: string;
   children: React.ReactNode;
 }
