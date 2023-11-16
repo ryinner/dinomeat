@@ -27,8 +27,8 @@ export async function getCategoriesPaginated ({
   };
 }
 
-export async function getCategories () {
-  return prisma.category.findMany();
+export async function getCategories (args?: Prisma.CategoryFindManyArgs) {
+  return prisma.category.findMany(args);
 }
 
 

@@ -3,6 +3,7 @@ import TheHeader from "@/components/Layout/TheHeader";
 import TheIntegrationsInitializations from "@/components/Layout/TheIntegrationsInitializations";
 import TheIntegrationsScripts from "@/components/Layout/TheIntegrationsScripts";
 import { TheProviders } from "@/components/TheProviders/TheProviders";
+import { TheSiteProviders } from '@/components/TheProviders/TheSiteProviders';
 import type { Metadata, Viewport } from "next";
 import "../globals.scss";
 import { MuseoSansCyrl } from "../styles/fonts";
@@ -30,9 +31,11 @@ export default function RootLayout({
       </head>
       <body className={MuseoSansCyrl.className}>
         <TheProviders>
-          <TheHeader />
-          <main>{children}</main>
-          <TheFooter />
+          <TheSiteProviders>
+            <TheHeader />
+            <main>{children}</main>
+            <TheFooter />
+          </TheSiteProviders>
         </TheProviders>
         <TheIntegrationsInitializations />
       </body>
