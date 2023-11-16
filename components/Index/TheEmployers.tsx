@@ -21,7 +21,7 @@ const employers = [
     id: 3,
     image: Employer3,
     name: 'Виктория',
-    post: 'Генеральный директор'
+    post: 'Менеджер'
   },
 ];
 
