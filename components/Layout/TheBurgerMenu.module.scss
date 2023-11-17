@@ -1,10 +1,15 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
+@import '/shared/styles/vars/z-index';
 
 .burger-menu {
   &__icon {
     cursor: pointer;
+
+    &--active {
+      transform: rotate(270deg);
+    }
   }
 
   &__sidebar {
@@ -13,6 +18,9 @@
     top: 0;
     left: 0;
 
+    z-index: $z-index-sidebar;
+
+    width: clamp(100px, 40%, 400px);
     height: 100%;
 
     border-radius: 0 $border-radius $border-radius 0;

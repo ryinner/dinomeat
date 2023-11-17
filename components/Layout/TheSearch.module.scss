@@ -5,11 +5,12 @@
 
 .search {
   position: relative;
+  width: clamp(50px, 100%, 388px);
 
   &__input {
     padding: 16px 48px 16px 56px;
 
-    width: 388px;
+    width: 100%;
 
     border-radius: $border-radius;
     border: none;
