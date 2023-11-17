@@ -8,8 +8,17 @@
     cursor: pointer;
 
     &--active {
-      transform: rotate(270deg);
+      position: absolute;
+
+      left: 0;
+      top: 50%;
+
+      transform: rotate(270deg) translate(20%, -160%);
     }
+  }
+
+  &__header {
+    position: relative;
   }
 
   &__sidebar {
@@ -26,5 +35,24 @@
     border-radius: 0 $border-radius $border-radius 0;
 
     background-color: $secondary;
+
+    padding: $indent-1 $indent-5;
+  }
+
+  &__list {
+    list-style-type: none;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: $gap-1;
+    
+    color: $white;
+  }
+
+  &__item {
+    border-bottom: 1px solid #FFFFFF1A;
+
+    padding: $indent-2 $indent-2 $indent-1;
   }
 }
