@@ -6,7 +6,7 @@ import ControlsEditor from "@/components/Controls/ControlsEditor";
 import { frontRequest } from "@/services/api/api.service";
 import { updateObjectField } from "@/services/dom/input";
 import { Seo } from "@prisma/client";
-import { FormEvent } from "react";
+import { ChangeEvent } from "react";
 import { useImmer } from "use-immer";
 
 export default function ProductsEditSeo({
@@ -17,7 +17,7 @@ export default function ProductsEditSeo({
     initialSeo ?? { id: undefined, name: "", keywords: "", description: "" }
   );
 
-  async function updateSeoField(e: FormEvent<HTMLInputElement>) {
+  async function updateSeoField(e: ChangeEvent<HTMLInputElement>) {
     updateObjectField(e, seo, (p, v) => {
       updateSeo((seo) => {
         (seo[p] as typeof v) = v;
@@ -25,7 +25,7 @@ export default function ProductsEditSeo({
     });
   }
 
-  async function submitSeoHandler(e: FormEvent<HTMLFormElement>) {
+  async function submitSeoHandler(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     if (seo.id) {
       frontRequest(
