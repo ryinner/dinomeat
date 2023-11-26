@@ -1,6 +1,7 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/mixins/containers';
+@import '/shared/styles/mixins/media';
 
 .header {
   grid-area: header;
@@ -19,5 +20,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include small-tablet {
+      padding: 0 $indent-3;
+    }
   }
 }
