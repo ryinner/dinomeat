@@ -1,5 +1,6 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/mixins/containers';
+@import '/shared/styles/mixins/media';
 
 .about-us {
   @include site-container;
@@ -14,5 +15,11 @@
     width: 38%;
 
     margin: $indent-2 auto 0;
+
+    @include small-tablet {
+      width: 80%;
+
+      font-size: 1.375rem;
+    }
   }
 }
