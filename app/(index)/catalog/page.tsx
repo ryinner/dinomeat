@@ -1,4 +1,5 @@
 import Button from '@/components/Button/Button';
+import { Metadata } from 'next';
 import Image from "next/image";
 import TestProduct1 from "../../../public/test-products/test-product-1.jpg";
 import TestProduct2 from "../../../public/test-products/test-product-2.jpg";
@@ -28,6 +29,11 @@ const products = [
 
 const sizes = ["S", "M", "L"];
 
+export const metadata: Metadata = {
+  title: "Каталог | Dinomeät",
+  description: "Большой ассортимент в интернет-магазине dinomeät. Лучшие товары во всей России.",
+};
+
 export default function Catalog() {
   return (
     <section className={styles.catalog}>
@@ -37,10 +43,10 @@ export default function Catalog() {
           <div className={styles.catalog__info}>
             <div className={styles.catalog__name}>{p.name}</div>
             <div className={styles.catalog__controls}><Button>Купить</Button></div>
-            <div className={styles.catalog__price}>Цена: {p.price}</div>
             <div className={styles.catalog__sizes}>
               Размеры: {sizes.map(s => <span key={s}>{s} </span>)}
             </div>
+            <div className={styles.catalog__price}>Цена: {p.price}</div>
           </div>
         </article>
       ))}

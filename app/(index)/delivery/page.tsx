@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import styles from './page.module.scss';
+
+export const metadata: Metadata = {
+  title: "Доставка | Dinomeät",
+  description: "Большой ассортимент в интернет-магазине dinomeät. Гарантия и сервис. Доставка.",
+};
 
 export default function Delivery() {
   return (

@@ -39,7 +39,7 @@ export async function getProductsPaginated({
       id: 'desc'
     }
   })
-  const count = await prisma.category.count();
+  const count = await prisma.product.count();
   return {
     products,
     pagination: pagination({
@@ -83,4 +83,18 @@ export async function getProductForEdit({ id }: {id: number}) {
     }
   });
   return { ...product, properties };
+}
+
+export function catalog ({}: {
+  page?: number;
+  price?: {
+    min?: number;
+    max?: number;
+  },
+  params?: {
+    id: number;
+    value_ids: number[];
+  }[]
+}) {
+
 }

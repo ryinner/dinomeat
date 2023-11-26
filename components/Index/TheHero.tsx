@@ -69,7 +69,7 @@ export default function TheHero() {
             <li className={styles.hero__slide} key={image.src}>
               <Image src={image} alt='' fill={true} className={styles['hero__slide-image']} />
               <div className={styles.hero__info}>
-                <div className={styles.hero__logo}><Image width={180} src={Logo} alt='Логотип сайта' /> Dinomeät</div>
+                <div className={`${styles.hero__logo} not-mobile`}><Image width={180} src={Logo} alt='Логотип сайта' /> Dinomeät</div>
                 <div className={styles.hero__slogan}>
                   <span className={styles['hero__slogan-item']}>wear shop</span>
                   <span className={styles['hero__slogan-item']}>for sport</span>

@@ -30,7 +30,7 @@ export default function TheEmployers() {
     <section className={styles.employers}>
       <div className={styles.employers__heading}>Наши сотрудники</div>
       <div className={styles.employers__container}>
-        <div className={styles.employers__borders} />
+        <div className={`${styles.employers__borders} not-mobile`} />
         <ul className={styles.employers__list}>
           {employers.map((e) => (
             <li className={styles.employers__item} key={e.id}>

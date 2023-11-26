@@ -1,6 +1,7 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
+@import '/shared/styles/mixins/media';
 
 .hero {
   width: 100vw;
@@ -15,6 +16,10 @@
 
     width: 70%;
     margin: 0 auto;
+
+    @include small-tablet {
+      width: 100%;
+    }
   }
 
   &__slide {
@@ -24,8 +29,17 @@
 
     flex-shrink: 0;
 
+    @include small-tablet {
+      height: 659px;
+    }
+
     &-image {
       filter: brightness(0.4);
+
+      @include small-tablet {
+        object-fit: cover;
+        object-position: center;
+      }
     }
   }
 

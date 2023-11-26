@@ -51,18 +51,19 @@
     border: 2px solid $black;
 
     &:nth-child(odd) {
-      width: 514px;
+      width: 30%;
       height: 556px;
     }
 
     &:nth-child(even) {
-      width: 520px;
+      width: 33%;
       height: 600px;
     }
   }
 
   &__image {
     object-fit: cover;
+    object-position: center;
   }
 
   &__description {

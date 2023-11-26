@@ -7,7 +7,7 @@ export default function TheFooter() {
     <footer className={styles.footer}>
       <div className={styles.footer__container}>
         <div className={styles.footer__images}>
-          <Image src={AlphaBank} alt='Логотип альфа банка' />
+          <Image src={AlphaBank} alt='Логотип альфа банка' className='not-mobile' />
         </div>
         <div className={styles['footer__company-info']}>
           <p>Официальный интернет-магазин «Dinomeät»</p>
