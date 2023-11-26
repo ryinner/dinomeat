@@ -1,5 +1,8 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import AlphaBankMobile from '../../public/layout/alpha-bank-mobile.png';
 import AlphaBank from '../../public/layout/alpha-bank.png';
+import VkMobile from '../../public/layout/vk-mobile.png';
 import styles from './TheFooter.module.scss';
 
 export default function TheFooter() {
@@ -8,6 +11,8 @@ export default function TheFooter() {
       <div className={styles.footer__container}>
         <div className={styles.footer__images}>
           <Image src={AlphaBank} alt='Логотип альфа банка' className='not-mobile' />
+          <Image src={AlphaBankMobile} alt='Логотип альфа банка' className='only-mobile' />
+          <Link href='https://vk.com/dinomeat_odl'><Image src={VkMobile} alt='Группа Вконтакте' className='only-mobile' /></Link>
         </div>
         <div className={styles['footer__company-info']}>
           <p>Официальный интернет-магазин «Dinomeät»</p>
