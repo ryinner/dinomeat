@@ -39,7 +39,7 @@ export default function Catalog() {
             <div className={styles.catalog__controls}><Button>Купить</Button></div>
             <div className={styles.catalog__price}>Цена: {p.price}</div>
             <div className={styles.catalog__sizes}>
-              Размеры: {sizes.map(s => <>{s} </>)}
+              Размеры: {sizes.map(s => <span key={s}>{s} </span>)}
             </div>
           </div>
         </article>

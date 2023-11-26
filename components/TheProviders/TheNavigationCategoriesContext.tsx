@@ -1,45 +1,32 @@
 'use client';
 // 
-// import { request } from "@/services/api/api.service";
+import { request } from "@/services/api/api.service";
 import { Category } from "@prisma/client";
 import React, {
   createContext,
-  // useEffect,
-  // useRef,
+  useEffect,
+  useRef,
   useState
 } from "react";
 
 export const TheNavigationCategoriesContext = createContext<Pick<Category, 'id' | 'name'>[]>([]);
 
 export default function TheNavigationCategoriesProvider({ children }: Props) {
-  const [categories, setCategories] = useState<Pick<Category, 'id' | 'name'>[]>([
-    {
-      id: 1,
-      name: 'Толстовки'
-    },
-    {
-      id: 2,
-      name: 'Штаны'
-    },
-    {
-      id: 3,
-      name: 'Кроссовки'
-    },
-  ]);
-  // const hasBeenRequested = useRef(false);
+  const [categories, setCategories] = useState<Pick<Category, 'id' | 'name'>[]>([]);
+  const hasBeenRequested = useRef(false);
 
-  // useEffect(() => {
-  //   if (!hasBeenRequested.current) {
-  //     hasBeenRequested.current = true;
-  //     request<{ categories: Category[] }>("/api/categories", {
-  //       next: {
-  //         revalidate: 600,
-  //       },
-  //     }).then((res) => {
-  //       setCategories(res.categories);
-  //     });
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!hasBeenRequested.current) {
+      hasBeenRequested.current = true;
+      request<{ categories: Category[] }>("/api/categories", {
+        next: {
+          revalidate: 600,
+        },
+      }).then((res) => {
+        setCategories(res.categories);
+      });
+    }
+  }, []);
 
   return (
     <TheNavigationCategoriesContext.Provider value={categories}>
