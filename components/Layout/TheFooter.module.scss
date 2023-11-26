@@ -49,6 +49,9 @@
       position: initial !important;
 
       margin-bottom: $indent-1;
+
+      display: flex;
+      gap: $gap-2;
     }
   }
 }

@@ -5,6 +5,6 @@ export default function CatalogCategoryLink({ category: { id, name } }: Props) {
   return <Link href={`/catalog?category_id=${id}`}>{name}</Link>;
 }
 
-interface Props {
+interface Props extends React.LinkHTMLAttributes<HTMLLinkElement> {
   category: Pick<Category, 'id' | 'name'>;
 }

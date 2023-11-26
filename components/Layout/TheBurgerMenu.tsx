@@ -1,7 +1,9 @@
 "use client";
 
+import { navigationLinksMap } from '@/shared/maps/navigation.map';
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from 'next/link';
 import { useContext, useState } from "react";
 import Burger from "../../public/icons/burger.svg";
 import CatalogCategoryLink from "../Links/CatalogCategoryLink";
@@ -58,7 +60,14 @@ export default function TheBurgerMenu() {
             </li>
             {categories.map((c) => (
               <li key={c.id} className={styles["burger-menu__item"]}>
-                <CatalogCategoryLink category={c} />
+                <CatalogCategoryLink onClick={toggleHandler} category={c} />
+              </li>
+            ))}
+            {navigationLinksMap.map((l) => (
+              <li key={l.link} className={`${styles["burger-menu__link"]} only-mobile`}>
+                <Link href={l.link} onClick={toggleHandler}>
+                  {l.label}
+                </Link>
               </li>
             ))}
           </ul>

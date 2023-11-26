@@ -2,6 +2,7 @@
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
 @import '/shared/styles/vars/z-index';
+@import '/shared/styles/mixins/media';
 
 .burger-menu {
   &__icon {
@@ -32,6 +33,12 @@
     background-color: $secondary;
 
     padding: $indent-1 $indent-5;
+
+    @include small-tablet {
+      padding: $indent-1;
+
+      width: 100%;
+    }
   }
 
   &__list {
@@ -53,6 +60,25 @@
     &:first-child {
       display: flex;
       align-items: center;
+    }
+  }
+
+  &__link {
+    border: 1px solid;
+    border-color: #FFFFFF1A;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    padding: $indent-1 0;
+    margin-top: $indent-1;
+
+    &:hover {
+      background-color: $white;
+      color: $primary;
+
+      border-color: $primary;
     }
   }
 }
