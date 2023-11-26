@@ -1,4 +1,4 @@
-@import "../vars";
+@import "../vars/viewport";
 
 @mixin for-desktop {
   @media (min-width: ($desktop)) {

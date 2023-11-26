@@ -35,9 +35,9 @@ const navigationLinks = [
   },
 ];
 
-export function TheNavigation() {
+export function TheNavigation({ className }: Props) {
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} ${className}`}>
       <ul className={styles['nav__list']}>
         {navigationLinks.map((link) => (
           <li className={styles.nav__item} key={link.label}>
@@ -50,4 +50,8 @@ export function TheNavigation() {
       </ul>
     </nav>
   );
+}
+
+interface Props {
+  className?: string;
 }

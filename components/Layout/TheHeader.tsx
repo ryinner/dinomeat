@@ -1,17 +1,18 @@
 import TheBurgerMenu from './TheBurgerMenu';
-import style from './TheHeader.module.scss';
+import styles from './TheHeader.module.scss';
 import TheLogo from './TheLogo';
 import { TheNavigation } from './TheNavigation';
 import TheSearch from './TheSearch';
 
 export default function TheHeader() {
   return (
-    <header className={style.header}>
-      <div className={style.header__container}>
+    <header className={styles.header}>
+      <div className={styles.header__container}>
         <TheBurgerMenu />
-        <TheNavigation />
+        <TheNavigation className='not-mobile' />
         <TheLogo />
-        <TheSearch />
+        <TheSearch className='not-mobile' />
+        <div className='only-mobile clearfix' />
       </div>
     </header>
   );

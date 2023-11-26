@@ -1,5 +1,6 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
+@import '/shared/styles/mixins/media';
 
 * {
   box-sizing: border-box;
@@ -48,5 +49,21 @@ table {
   & th {
     font-weight: bold;
     background: $gray-table-bg;
+  }
+}
+
+.not-mobile {
+  @include small-tablet {
+    display: none !important;
+  }
+}
+
+.only-mobile {
+  @include for-desktop {
+    display: none !important;
+  }
+
+  @include small-tablet {
+    display: initial;
   }
 }
