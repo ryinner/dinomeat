@@ -24,7 +24,8 @@ export default function ProductsTable({ products: initialProducts }: Props) {
     }
   };
 
-  const saveHandler = () => {
+  const saveHandler = (e: FormEvent) => {
+    e.preventDefault();
     frontRequest<{product: Product}>('/api/admin/products', {
       method: 'POST',
       body: JSON.stringify({ name: newProductName })
@@ -44,7 +45,7 @@ export default function ProductsTable({ products: initialProducts }: Props) {
             {
               newProductName === null ?
               <AddIcon onClick={addHandler} />
-              : <form>
+              : <form onSubmit={saveHandler}>
                 <input onInput={inputHandler} value={newProductName} />
                 <SaveIcon onClick={saveHandler} />
               </form>

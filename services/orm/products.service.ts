@@ -98,3 +98,24 @@ export function catalog ({}: {
 }) {
 
 }
+
+export function search ({ query }: { query?: string }) {
+  return prisma.product.findMany({
+    where: {
+      OR: [
+        {
+          name: {
+            contains: query,
+          }
+        },
+        {
+          article: {
+            contains: query
+          }
+        }
+      ],
+      published: true
+    },
+    take: 10
+  });
+}
