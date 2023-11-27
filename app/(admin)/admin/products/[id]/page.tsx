@@ -9,9 +9,6 @@ async function getData (id: number) {
   const cookie = cookies();
 
   return await request<{product: ProductEdit, categories: Category[]}>(`/api/admin/products/${id}`, {
-    next: {
-      revalidate: 10
-    },
     headers: {
       Cookie: cookie.toString()
     }

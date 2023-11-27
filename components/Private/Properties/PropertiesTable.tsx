@@ -50,7 +50,8 @@ export default function PropertiesTable({
         <tr>
           <th style={{ width: "5%" }}>Id</th>
           <th style={{ width: "30%" }}>Наименование</th>
-          <th style={{ width: "60%" }}>Значения</th>
+          <th style={{ width: "50%" }}>Значения</th>
+          <th style={{ width: "10%" }}>В фильтре</th>
           <th style={{ width: "5%" }}>
             {newPropertyName === null ? (
               <AddIcon onClick={addHandler} />

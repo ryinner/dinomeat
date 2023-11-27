@@ -1,12 +1,13 @@
 "use client";
 
 import { PropertyWithValues } from "@/@types/private";
+import Button from '@/components/Button/Button';
 import AddIcon from "@/components/Icons/AddIcon";
 import EditIcon from "@/components/Icons/EditIcon";
 import SaveIcon from "@/components/Icons/SaveIcon";
 import { frontRequest, request } from "@/services/api/api.service";
 import { Value } from "@prisma/client";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import ValuePin from "../Values/ValuePin";
 
 export default function PropertyTr({ property, onUpdate }: Props) {
@@ -24,13 +25,13 @@ export default function PropertyTr({ property, onUpdate }: Props) {
     }
   };
 
-  const saveHandler = () => {
-    frontRequest(`/api/admin/properties/${property.id}`, {
+  const saveHandler = (body: object) => {
+    frontRequest<{property: PropertyWithValues}>(`/api/admin/properties/${property.id}`, {
       method: "PUT",
-      body: JSON.stringify({ name }),
-    }, { withMessage: true }).then(() => {
+      body: JSON.stringify(body),
+    }, { withMessage: true }).then((response) => {
       setIsEdit(false);
-      onUpdate({ ...property, name });
+      onUpdate(response.property);
     });
   };
 
@@ -56,10 +57,8 @@ export default function PropertyTr({ property, onUpdate }: Props) {
     setNewValueName("");
   };
 
-  const inputNewValueNameHandler = (e: FormEvent<HTMLInputElement>) => {
-    if (e.target instanceof HTMLInputElement) {
-      setNewValueName(e.target.value);
-    }
+  const inputNewValueNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewValueName(e.target.value);
   };
 
   const saveNewValueHandler = () => {
@@ -100,10 +99,15 @@ export default function PropertyTr({ property, onUpdate }: Props) {
         )}
       </td>
       <td>
+        <Button onClick={() => { saveHandler({ isFilter: !property.isFilter }) }}>
+          { property.isFilter ? 'Убрать' : 'Добавить' }
+        </Button>
+      </td>
+      <td>
         {!isEdit ? (
           <EditIcon onClick={editHandle} />
         ) : (
-          <SaveIcon onClick={saveHandler} />
+          <SaveIcon onClick={() => { saveHandler({ name }) }} />
         )}
       </td>
     </tr>

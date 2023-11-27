@@ -111,6 +111,7 @@ model ProductProperty {
 model Property {
   id        Int       @id @default(autoincrement())
   name      String    @unique
+  isFilter  Boolean   @default(false) @map("is_filter")
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
@@ -183,11 +184,11 @@ model Image {
 }
 
 model ProductMovement {
-  id           Int       @id @default(autoincrement())
-  productId    Int       @map("product_id")
-  status       Int       @default(0)
-  createdAt    DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
-  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+  id        Int       @id @default(autoincrement())
+  productId Int       @map("product_id")
+  status    Int       @default(0)
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
   product Product @relation(fields: [productId], references: [id], onUpdate: Restrict, onDelete: Restrict)
 

@@ -16,7 +16,7 @@
 
   background: transparent;
 
-  transition: 300ms ease-in;
+  transition: 300ms all ease-in;
 
   cursor: pointer;
 
@@ -25,6 +25,6 @@
 
     background: linear-gradient(180deg, $white 0%, $toWhiteGradient 100%);
 
-    transition: 300ms ease-out;
+    transition: 300ms all ease-out;
   }
 }
