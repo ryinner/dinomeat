@@ -1,6 +1,7 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
+@import '/shared/styles/mixins/media';
 
 .employers {
   margin-top: $indent-section;
@@ -10,12 +11,20 @@
 
     font-weight: 700;
     font-size: 2.625rem;
+
+    @include small-tablet {
+      font-size: 1.375rem;
+    }
   }
 
   &__container {
     margin: 3.6rem auto 0;
 
     position: relative;
+
+    @include small-tablet {
+      margin-top: $indent-1;
+    }
   }
 
   &__borders {
@@ -50,14 +59,23 @@
 
     border: 2px solid $black;
 
-    &:nth-child(odd) {
-      width: 30%;
-      height: 556px;
+    @include small-tablet {
+      height: 415px;
+      width: 100%;
+
+      flex-shrink: 0;
     }
 
-    &:nth-child(even) {
-      width: 33%;
-      height: 600px;
+    @include for-desktop {
+      &:nth-child(odd) {
+        width: 30%;
+        height: 556px;
+      }
+  
+      &:nth-child(even) {
+        width: 33%;
+        height: 600px;
+      }
     }
   }
 

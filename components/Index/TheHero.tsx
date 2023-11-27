@@ -38,17 +38,15 @@ export default function TheHero() {
     getImagesSizes();
     window.addEventListener('resize', getImagesSizes)
 
-    return () => {
-      window.removeEventListener('resize', getImagesSizes)
-    };
-  }, []);
-
-  useEffect(() => {
     setActiveIndex(2);
     const timer = setInterval(() => {
       setActiveIndex((activeIndex) => images.length - activeIndex === 1 ? 0 : activeIndex + 1);
     }, 5000);
-    return () => clearInterval(timer);
+
+    return () => {
+      window.removeEventListener('resize', getImagesSizes)
+      clearInterval(timer)
+    };
   }, []);
 
   return (
