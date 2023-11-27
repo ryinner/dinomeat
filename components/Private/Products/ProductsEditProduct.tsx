@@ -179,6 +179,15 @@ export default function ProductsEditProduct({
               </div>
             </label>
             <label>
+              Цена:
+              <input
+                name="price"
+                type="number"
+                value={product.price ?? 1}
+                onChange={updateProductField}
+              />
+            </label>
+            <label>
               Категория:
               <ControlsSelect
                 value={product.categoryId ?? undefined}
@@ -260,7 +269,7 @@ export default function ProductsEditProduct({
         />
       </fieldset>
       <Button type="submit">Сохранить</Button>
-      {!product.published && (
+      {!product.published && product.slug !== null && product.slug.length > 0 && (
         <Button type="button" onClick={publishProductHandler}>
           Опубликовать
         </Button>
