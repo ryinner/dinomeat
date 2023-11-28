@@ -38,6 +38,7 @@ export default function TheSearch({
   }`;
 
   const showHistory = history.length > 0 && searchList.length === 0 && searchInput.current?.value === '';
+  const isOpen = isFocus && (history.length > 0 || searchList.length > 0);
 
   function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -96,7 +97,7 @@ export default function TheSearch({
         alt="Иконка поиска"
       />
       <input
-        className={styles.search__input}
+        className={`${styles.search__input} ${isOpen && styles['search__input--with-list']}`}
         placeholder="Поиск"
         type="text"
         onChange={changeHandler}
@@ -108,7 +109,7 @@ export default function TheSearch({
         src={goSearchIcon}
         alt="Найти"
       />
-      {isFocus && (history.length > 0 || searchList.length > 0) && (
+      {isOpen && (
         <ul
           className={`${styles.search__list} ${
             showHistory

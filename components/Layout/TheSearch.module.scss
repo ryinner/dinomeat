@@ -31,7 +31,13 @@
 
       font-family: inherit;
     }
+
+    &--with-list {
+      border: 1px solid #0000004d;
+      background-color: transparent;
+    }
   }
+
   &__icon-go, &__icon-magnifier {
     position: absolute;
 
@@ -55,7 +61,7 @@
 
     top: 100%;
     left: 0;
-    transform: translateY(-48px);
+    transform: translateY(-50px);
 
     width: 100%;
 
