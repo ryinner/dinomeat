@@ -1,10 +1,11 @@
 "use client";
 
+import { useClickOutside } from '@/hooks/DomHooks';
 import { navigationLinksMap } from '@/shared/maps/navigation.map';
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from 'next/link';
-import { useContext, useState } from "react";
+import { Ref, useContext, useState } from "react";
 import Burger from "../../public/icons/burger.svg";
 import SearchWhite from '../../public/icons/search-white.svg';
 import CatalogCategoryLink from "../Links/CatalogCategoryLink";
@@ -25,8 +26,17 @@ export default function TheBurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const categories = useContext(TheNavigationCategoriesContext);
 
-  function toggleHandler() {
-    setIsOpen((isOpen) => !isOpen);
+  const sidebar = useClickOutside<HTMLElement>(() => {
+    hideHandler();
+  }) as Ref<HTMLElement>;
+
+  function openHandler() {
+    setIsOpen(true);
+  }
+
+  function hideHandler() {
+    console.log(1234);
+    setIsOpen(false);
   }
 
   return (
@@ -36,9 +46,9 @@ export default function TheBurgerMenu() {
         height={22}
         alt="Открыть навигацию"
         className={styles["burger-menu__icon"]}
-        onClick={toggleHandler}
+        onClick={openHandler}
       />
-      <motion.div
+      <motion.aside
         initial={"closed"}
         animate={isOpen ? "open" : "closed"}
         variants={variants}
@@ -46,6 +56,7 @@ export default function TheBurgerMenu() {
           duration: 0.3,
         }}
         className={styles["burger-menu__sidebar"]}
+        ref={sidebar}
       >
         <nav>
           <ul className={styles["burger-menu__list"]}>
@@ -53,27 +64,27 @@ export default function TheBurgerMenu() {
               <Image
                 src={Burger}
                 height={22}
-                alt="Открыть навигацию"
+                alt="Закрыть навигацию"
                 className={`${styles["burger-menu__icon"]} ${styles["burger-menu__icon--active"]}`}
-                onClick={toggleHandler}
+                onClick={hideHandler}
               />
               <TheSearch className={styles["burger-menu__search"]} searchIcon={SearchWhite} />
             </li>
             {categories.map((c) => (
               <li key={c.id} className={styles["burger-menu__item"]}>
-                <CatalogCategoryLink onClick={toggleHandler} category={c} />
+                <CatalogCategoryLink onClick={hideHandler} category={c} />
               </li>
             ))}
             {navigationLinksMap.map((l) => (
               <li key={l.link} className={`${styles["burger-menu__link"]} only-mobile`}>
-                <Link href={l.link} onClick={toggleHandler}>
-                  {l.label}
+                <Link href={l.link}>
+                  <span onClick={hideHandler}>{l.label}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
-      </motion.div>
+      </motion.aside>
     </div>
   );
 }

@@ -42,6 +42,10 @@ export default function TheSearch({
     "search-history"
   );
 
+  const searchField = useClickOutside<HTMLElement>(() => {
+    setIsFocus(false);
+  });
+
   const classNameComputed = `${styles.search} ${
     className === undefined ? "" : className
   }`;
@@ -55,10 +59,6 @@ export default function TheSearch({
   async function focusHandler() {
     setIsFocus(true);
   }
-
-  const searchField = useClickOutside<HTMLElement>(() => {
-    setIsFocus(false);
-  });
 
   return (
     <search className={classNameComputed} role="search" ref={searchField} {...divProps}>
