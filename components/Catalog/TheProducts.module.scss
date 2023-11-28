@@ -19,13 +19,15 @@
   }
 
   &__picture {
-    min-height: 360px;
+    min-height: 400px;
     position: relative;
-    overflow: "hidden"
+    overflow: hidden;
   }
 
   &__image {
     border-bottom: 2px solid $black;
+    object-fit: cover;
+    object-position: center;
   }
 
   &__info {
