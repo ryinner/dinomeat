@@ -49,6 +49,41 @@
 
   &__list {
     position: absolute;
+
+    top: 100%;
+    left: 0;
+    transform: translateY(-48px);
+
+    width: 100%;
+
     z-index: $z-index-search;
+
+    list-style-type: none;
+
+    background-color: #B8B4B447;
+
+    padding: 64px 48px 16px 56px;
+
+    font-size: 0.75rem;
+
+    border-radius: $border-radius; 
+
+    display: flex;
+    gap: $gap-3;
+
+    &--row {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__remove-icon {
+    cursor: pointer;
+    margin-left: $indent-1;
   }
 }

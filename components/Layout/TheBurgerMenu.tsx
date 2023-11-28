@@ -35,7 +35,6 @@ export default function TheBurgerMenu() {
   }
 
   function hideHandler() {
-    console.log(1234);
     setIsOpen(false);
   }
 

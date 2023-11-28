@@ -15,19 +15,20 @@ export function useLocalStorageState<T>(initialValue: T, name: string): [T, Disp
   const [state, setState] = useState(initialValue);
 
   const setStorageValue: typeof setState = useCallback((e) => {
-    setState(e);
+    if (e instanceof Function) {
+      e = e(state);
+    }
     localStorage.setItem(name, JSON.stringify(e));
-  }, [name]);
+    setState(e);
+  }, [name, state]);
 
   useEffect(() => {
-    let value!: T;
     try {
-      value = JSON.parse(localStorage.getItem(name) ?? '') ?? initialValue;
+      setState(JSON.parse(localStorage.getItem(name) ?? ''));
     } catch {
-      value = initialValue;
+      setState(initialValue);
     }
-    setStorageValue(value);
-  }, [initialValue, name, setStorageValue]);
+  }, [initialValue, name]);
 
   return [state, setStorageValue];
 }
