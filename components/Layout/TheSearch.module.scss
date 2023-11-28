@@ -46,6 +46,7 @@
     transform: translateY(-50%);
 
     cursor: pointer;
+    z-index: $z-index-controls;
   }
 
   &__icon-magnifier {

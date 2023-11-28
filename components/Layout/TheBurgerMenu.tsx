@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import { Ref, useContext, useState } from "react";
 import Burger from "../../public/icons/burger.svg";
+import GoSearchWhite from "../../public/icons/go-search-white.svg";
 import SearchWhite from '../../public/icons/search-white.svg';
 import CatalogCategoryLink from "../Links/CatalogCategoryLink";
 import { TheNavigationCategoriesContext } from "../TheProviders/TheNavigationCategoriesContext";
@@ -67,7 +68,7 @@ export default function TheBurgerMenu() {
                 className={`${styles["burger-menu__icon"]} ${styles["burger-menu__icon--active"]}`}
                 onClick={hideHandler}
               />
-              <TheSearch className={styles["burger-menu__search"]} searchIcon={SearchWhite} />
+              <TheSearch className={styles["burger-menu__search"]} searchIcon={SearchWhite} goSearchIcon={GoSearchWhite} />
             </li>
             {categories.map((c) => (
               <li key={c.id} className={styles["burger-menu__item"]}>
