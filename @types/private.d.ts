@@ -6,3 +6,4 @@ export type ProductImagesWithImages = ProductImage & { image: Image };
 export type PropertyWithValuesAndProducts = PropertyWithValues & { products: Partial<ProductProperty>[] };
 
 export type ProductEdit = Product & { seo: ProductSeoWithSeo[]; images: ProductImagesWithImages[]; properties: PropertyWithValuesAndProducts[] };
+export type ProductCatalog = Product & { images: ProductImagesWithImages[] };
