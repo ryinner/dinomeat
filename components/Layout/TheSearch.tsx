@@ -2,6 +2,8 @@
 
 import { useClickOutside } from "@/hooks/DomHooks";
 import { useLocalStorageState } from "@/hooks/StateHooks";
+import { frontRequest } from "@/services/api/api.service";
+import { Product } from "@prisma/client";
 import Image from "next/image";
 import React, { ChangeEvent, useRef, useState } from "react";
 import GoSearch from "../../public/icons/go-search.svg";
@@ -10,30 +12,7 @@ import X from "../../public/icons/x.svg";
 import CatalogProductLink from "../Links/CatalogProductLink";
 import styles from "./TheSearch.module.scss";
 
-const pseudoResult = [
-  {
-    id: 1,
-    name: "Нашелся",
-  },
-];
-
-const pseudoHistory = [
-  {
-    id: 2,
-    name: "Историческая штука",
-    slug: "test",
-  },
-  {
-    id: 3,
-    name: "Историческая 2",
-    slug: "test",
-  },
-  {
-    id: 4,
-    name: "Историческая штука 3",
-    slug: "test",
-  },
-];
+const initialHistory: Product[] = [];
 
 export default function TheSearch({
   goSearchIcon = GoSearch,
@@ -41,10 +20,11 @@ export default function TheSearch({
   searchIcon = Search,
   ...divProps
 }: Props) {
-  const searchInput = useRef(null);
+  const searchAbortController = useRef<AbortController>();
   const [isFocus, setIsFocus] = useState(false);
-  const [history, setHistory] = useLocalStorageState(
-    pseudoHistory,
+  const [searchList, setSearchList] = useState<Product[]>([]);
+  const [history, setHistory] = useLocalStorageState<Product[]>(
+    initialHistory,
     "search-history"
   );
 
@@ -56,10 +36,23 @@ export default function TheSearch({
     className === undefined ? "" : className
   }`;
 
-  const showHistory = history.length > 0;
+  const showHistory = history.length > 0 && searchList.length === 0;
 
   async function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
+    const { value } = e.target;
+    if (value.trim() === "") {
+      setSearchList([]);
+    } else {
+      if (searchAbortController.current !== undefined) {
+        searchAbortController.current.abort();
+      }
+      searchAbortController.current = new AbortController();
+      frontRequest<{ products: Product[] }>(`/api/products?query=${value}`, {
+        method: "GET",
+        signal: searchAbortController.current.signal,
+      }, {}).then((res) => { setSearchList(res.products); });
+    }
   }
 
   async function focusHandler() {
@@ -85,7 +78,6 @@ export default function TheSearch({
       <input
         className={styles.search__input}
         placeholder="Поиск"
-        ref={searchInput}
         type="text"
         onChange={changeHandler}
         onFocus={focusHandler}
@@ -111,7 +103,9 @@ export default function TheSearch({
                   src={X}
                   alt="Удалить из истории поиска"
                   className={styles["search__remove-icon"]}
-                  onClick={() => { removeFromHistoryHandler(h.id); }}
+                  onClick={() => {
+                    removeFromHistoryHandler(h.id);
+                  }}
                 />
               </li>
             ))}

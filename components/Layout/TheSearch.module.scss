@@ -9,6 +9,9 @@
   width: clamp(50px, 100%, 388px);
 
   &__input {
+    position: relative;
+    z-index: $z-index-content;
+
     padding: 16px 48px 16px 56px;
 
     width: 100%;
@@ -56,7 +59,7 @@
 
     width: 100%;
 
-    z-index: $z-index-search;
+    z-index: $z-index-background;
 
     list-style-type: none;
 
