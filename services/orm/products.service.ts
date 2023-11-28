@@ -85,20 +85,6 @@ export async function getProductForEdit({ id }: {id: number}) {
   return { ...product, properties };
 }
 
-export function catalog ({}: {
-  page?: number;
-  price?: {
-    min?: number;
-    max?: number;
-  },
-  params?: {
-    id: number;
-    value_ids: number[];
-  }[]
-}) {
-
-}
-
 export function search ({ query }: { query?: string }) {
   return prisma.product.findMany({
     where: {

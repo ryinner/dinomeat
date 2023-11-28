@@ -1,42 +1,7 @@
 @import '/shared/styles/mixins/containers';
 @import '/shared/styles/vars/indent';
-@import '/shared/styles/vars/colors';
-@import '/shared/styles/vars/border';
 
 .catalog {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: $gap-4;
-
   margin: $indent-section auto;
   @include site-container;
-
-  &__item {
-    grid-column: 3 span;
-
-    border: 2px solid $black;
-    border-radius: $border-radius;
-
-    display: flex;
-    flex-direction: column;
-
-    cursor: pointer;
-  }
-
-  &__image {
-    border-bottom: 2px solid $black;
-    border-radius: $border-radius;
-  }
-
-  &__info {
-    padding: $indent-3;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: $gap-2;
-  }
-
-  &__name {
-    font-weight: 700;
-  }
 }
