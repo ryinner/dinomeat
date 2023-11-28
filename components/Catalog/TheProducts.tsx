@@ -3,12 +3,14 @@ import Image from 'next/image';
 import styles from './TheProducts.module.scss';
 
 export default function TheProducts ({ products }: Props) {
-  return <section>
+  return <section className={styles.products}>
     {products.map((p) => (
         <article key={p.id} className={styles.products__item}>
-          <Image src={p.images[0].image.url} alt={p.name} style={{ position: 'relative', width: '100%', height: '100%' }} className={styles.products__image} />
+          <picture className={styles.products__picture}>
+            <Image src={process.env.NEXT_PUBLIC_URL + p.images[0].image.url} alt={process.env.NEXT_PUBLIC_URL + p.images[0].image.alt} fill={true} className={styles.products__image} />
+          </picture>
           <div className={styles.products__info}>
-            <div className={styles.products__name}>{p.name}</div>
+            <div className={styles.products__name}>{p.name} {p.article}</div>
             <div className={styles.products__price}>Цена: {p.price} ₽</div>
           </div>
         </article>

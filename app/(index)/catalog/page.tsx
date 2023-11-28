@@ -1,4 +1,5 @@
 import TheProducts from '@/components/Catalog/TheProducts';
+import Pagination from '@/components/Pagination/Pagination';
 import { catalog } from '@/services/orm/catalog.service';
 import { Metadata } from 'next';
 import styles from "./page.module.scss";
@@ -8,13 +9,30 @@ export const metadata: Metadata = {
   description: "Большой ассортимент в интернет-магазине dinomeät. Лучшие товары во всей России.",
 };
 
-export default async function Catalog() {
+export default async function Catalog({ searchParams }: Props) {
 
-  const { products } = (await catalog({}));
+  const { products, pagination } = (await catalog({
+    page: Number(searchParams.page ?? 1),
+  }));
 
   return (
     <section className={styles.catalog}>
-      <TheProducts products={[]} />
+      <TheProducts products={products} />
+      <Pagination {...pagination} />
     </section>
   );
+}
+
+interface Props {
+  searchParams: {
+    page?: string;
+    price?: {
+      min?: string;
+      max?: string;
+    },
+    params?: {
+      id: string;
+      value_ids: string[];
+    }[];
+  }
 }

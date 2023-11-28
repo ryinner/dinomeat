@@ -19,10 +19,10 @@ export async function catalog({
     value_ids: number[];
   }[];
 }) {
-  const filters: { where?: Prisma.ProductWhereInput } = {};
+  const filters: { where: Prisma.ProductWhereInput } = { where: { published: true } };
 
   if (price || params) {
-    filters.where = { AND: [] };
+    filters.where.AND = [];
     if (price) {
       const { min, max } = price;
       let priceFilter: { lt?: number; gt?: number } = {};
