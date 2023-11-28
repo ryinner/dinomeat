@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function usePropsState<T>(initialValue: T): [T, Dispatch<SetStateAction<T>>] {
   const [state, setState] = useState(initialValue);
@@ -9,4 +9,25 @@ export function usePropsState<T>(initialValue: T): [T, Dispatch<SetStateAction<T
   }, [initialValue]);
 
   return [state, setState];
+}
+
+export function useLocalStorageState<T>(initialValue: T, name: string): [T, Dispatch<SetStateAction<T>>] {
+  const [state, setState] = useState(initialValue);
+
+  const setStorageValue: typeof setState = useCallback((e) => {
+    setState(e);
+    localStorage.setItem(name, JSON.stringify(e));
+  }, [name]);
+
+  useEffect(() => {
+    let value!: T;
+    try {
+      value = JSON.parse(localStorage.getItem(name) ?? '') ?? initialValue;
+    } catch {
+      value = initialValue;
+    }
+    setStorageValue(value);
+  }, [initialValue, name, setStorageValue]);
+
+  return [state, setStorageValue];
 }

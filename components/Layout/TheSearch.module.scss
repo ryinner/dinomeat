@@ -2,6 +2,7 @@
 @import '/shared/styles/vars/viewport';
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
+@import '/shared/styles/vars/z-index';
 
 .search {
   position: relative;
@@ -44,5 +45,10 @@
 
   &__icon-go {
     right: 24px;
+  }
+
+  &__list {
+    position: absolute;
+    z-index: $z-index-search;
   }
 }
