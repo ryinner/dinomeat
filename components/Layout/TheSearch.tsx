@@ -20,6 +20,7 @@ export default function TheSearch({
   searchIcon = Search,
   ...divProps
 }: Props) {
+  const searchInput = useRef<HTMLInputElement>(null);
   const searchAbortController = useRef<AbortController>();
   const [isFocus, setIsFocus] = useState(false);
   const [searchList, setSearchList] = useState<Product[]>([]);
@@ -36,9 +37,9 @@ export default function TheSearch({
     className === undefined ? "" : className
   }`;
 
-  const showHistory = history.length > 0 && searchList.length === 0;
+  const showHistory = history.length > 0 && searchList.length === 0 && searchInput.current?.value === '';
 
-  async function changeHandler(e: ChangeEvent<HTMLInputElement>) {
+  function changeHandler(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     const { value } = e.target;
     if (value.trim() === "") {
@@ -55,12 +56,31 @@ export default function TheSearch({
     }
   }
 
-  async function focusHandler() {
+  function focusHandler() {
     setIsFocus(true);
   }
 
-  async function removeFromHistoryHandler(id: number) {
+  function removeFromHistoryHandler(id: number) {
     setHistory((history) => history.filter((h) => h.id !== id));
+  }
+
+  function addToHistoryHandler(product: Product) {
+    const historyWithoutProduct = history.filter((h) => h.id !== product.id);
+    if (historyWithoutProduct.length > 5) {
+      historyWithoutProduct.splice(5, historyWithoutProduct.length - 5);
+    }
+
+    setHistory([
+      product,
+      ...historyWithoutProduct
+    ]);
+
+    setSearchList([]);
+    setIsFocus(false);
+
+    if (searchInput.current) {
+      searchInput.current.value = '';
+    }
   }
 
   return (
@@ -81,13 +101,14 @@ export default function TheSearch({
         type="text"
         onChange={changeHandler}
         onFocus={focusHandler}
+        ref={searchInput}
       />
       <Image
         className={styles["search__icon-go"]}
         src={goSearchIcon}
         alt="Найти"
       />
-      {isFocus && (
+      {isFocus && (history.length > 0 || searchList.length > 0) && (
         <ul
           className={`${styles.search__list} ${
             showHistory
@@ -95,10 +116,10 @@ export default function TheSearch({
               : styles["search__list--column"]
           }`}
         >
-          {showHistory &&
+          {showHistory ?
             history.map((h) => (
-              <li className={styles.search__item} key={h.id}>
-                <CatalogProductLink product={h} />{" "}
+              <li className={styles['search__history-item']} key={h.id}>
+                <CatalogProductLink product={h} />
                 <Image
                   src={X}
                   alt="Удалить из истории поиска"
@@ -108,7 +129,14 @@ export default function TheSearch({
                   }}
                 />
               </li>
-            ))}
+            )) : (
+              searchList.map(s => (
+                <li key={s.id} className={styles.search__item}>
+                  <CatalogProductLink product={s} onClick={() => { addToHistoryHandler(s); }} />
+                </li>
+              ))
+            )
+          }
         </ul>
       )}
     </search>

@@ -78,9 +78,19 @@
       flex-direction: row;
       flex-wrap: wrap;
     }
+
+    &--column {
+      flex-direction: column;
+    }
   }
 
   &__item {
+    border-bottom: 1px solid #0000004d;
+
+    padding: $indent-1 0;
+  }
+
+  &__history-item {
     display: flex;
     align-items: center;
   }
