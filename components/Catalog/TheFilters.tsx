@@ -3,6 +3,7 @@
 import { PropertyWithValues } from "@/@types/private";
 import { FormEvent } from 'react';
 import Filter from './Filter';
+import styles from './TheFilters.module.scss';
 
 export default function TheFilters({ properties }: Props) {
   const [first, ...all] = properties;
@@ -12,21 +13,27 @@ export default function TheFilters({ properties }: Props) {
   }
 
   return (
-    <section>
-      <form onSubmit={submitHandler}>
-        <Filter heading={first.name}>
-          Дети
-        </Filter>
-        <Filter heading='Цена'>
-          Дети
-        </Filter>
-        {all.map((p) => (
-          <Filter heading={p.name} key={p.id}>
+    <form className={styles.filters} onSubmit={submitHandler}>
+      <ul className={styles.filters__list} >
+        <li>
+          <Filter heading={first.name}>
             Дети
           </Filter>
+        </li>
+        <li>
+          <Filter heading='Цена'>
+            Дети
+          </Filter>
+        </li>
+        {all.map((p) => (
+          <li key={p.id}>
+            <Filter heading={p.name}>
+              Дети
+            </Filter>
+          </li>
         ))}
-      </form>
-    </section>
+      </ul>
+    </form>
   );
 }
 
