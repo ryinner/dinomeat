@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "../lib/prisma.service";
 import { pagination } from "./pagination.service";
 
-const LIMIT = 1;
+const LIMIT = 16;
 
 export async function catalog({
   page = 1,

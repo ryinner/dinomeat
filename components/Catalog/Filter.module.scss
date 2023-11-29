@@ -1,4 +1,5 @@
 @import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/z-index';
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
 
@@ -16,8 +17,11 @@
   gap: $gap-1;
   cursor: pointer;
 
+  z-index: $z-index-content;
+
   &__heading {
     grid-column: 2;
+    color: #7D7D7D; 
   }
 
   &__image {
@@ -35,5 +39,6 @@
 
     width: 100%;
     cursor: auto;
+    z-index: $z-index-controls;
   }
 }
