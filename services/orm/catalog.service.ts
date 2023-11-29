@@ -92,3 +92,19 @@ export async function catalog({
     }),
   };
 }
+
+export async function filters () {
+  const properties = await prisma.property.findMany({
+    include: {
+      values: true
+    },
+    where: {
+      isFilter: true,
+    },
+    orderBy: {
+      id: 'asc'
+    },
+  });
+
+  return { properties };
+}

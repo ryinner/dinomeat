@@ -1,6 +1,7 @@
+import TheFilters from '@/components/Catalog/TheFilters';
 import TheProducts from '@/components/Catalog/TheProducts';
 import Pagination from '@/components/Pagination/Pagination';
-import { catalog } from '@/services/orm/catalog.service';
+import { catalog, filters } from '@/services/orm/catalog.service';
 import { Metadata } from 'next';
 import styles from "./page.module.scss";
 
@@ -15,8 +16,11 @@ export default async function Catalog({ searchParams }: Props) {
     categoryId: searchParams.category_id ? Number(searchParams.category_id) : undefined
   }));
 
+  const { properties } = (await filters());
+
   return (
     <section className={styles.catalog}>
+      <TheFilters properties={properties} />
       <TheProducts products={products} />
       <Pagination className={styles.catalog__pagination} {...pagination} />
     </section>
