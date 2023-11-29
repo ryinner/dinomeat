@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default async function Catalog({ searchParams }: Props) {
   const { products, pagination } = (await catalog({
     page: Number(searchParams.page ?? 1),
+    categoryId: searchParams.category_id ? Number(searchParams.category_id) : undefined
   }));
 
   return (
@@ -33,5 +34,6 @@ interface Props {
       id: string;
       value_ids: string[];
     }[];
+    category_id: string;
   }
 }

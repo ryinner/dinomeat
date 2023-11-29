@@ -7,22 +7,23 @@ const LIMIT = 1;
 export async function catalog({
   page = 1,
   price,
-  params,
+  categoryId,
+  // params,
 }: {
   page?: number;
+  categoryId?: number;
   price?: {
     min?: number;
     max?: number;
   };
-  params?: {
-    id: number;
-    value_ids: number[];
-  }[];
+  // params?: {
+  //   id: number;
+  //   valueIds: number[];
+  // }[];
 }) {
-  const filters: { where: Prisma.ProductWhereInput } = { where: { published: true } };
+  const filters: { where: Prisma.ProductWhereInput } = { where: { AND: [{ published: true }] } };
 
-  if (price || params) {
-    filters.where.AND = [];
+  if (price || categoryId) {
     if (price) {
       const { min, max } = price;
       let priceFilter: { lt?: number; gt?: number } = {};
@@ -36,28 +37,33 @@ export async function catalog({
         filters.where.AND.push({ price: priceFilter });
       }
     }
-    if (params) {
-      params.forEach((param) => {
-        let paramsOrArray: {
-          properties: { some: { valueId: number; paramId: number } };
-        }[] = [];
-        param.value_ids.forEach((valueId) => {
-          paramsOrArray.push({
-            properties: {
-              some: {
-                valueId,
-                paramId: param.id,
-              },
-            },
-          });
-        });
-        if (filters.where && Array.isArray(filters.where.AND)) {
-          filters.where.AND.push({
-            OR: paramsOrArray,
-          });
-        }
-      });
+    if (categoryId) {
+      if (Array.isArray(filters.where.AND)) {
+        filters.where.AND.push({ categoryId: categoryId });
+      }
     }
+    // if (params) {
+    //   params.forEach((param) => {
+    //     let paramsOrArray: {
+    //       properties: { some: { valueId: number; paramId: number } };
+    //     }[] = [];
+    //     param.value_ids.forEach((valueId) => {
+    //       paramsOrArray.push({
+    //         properties: {
+    //           some: {
+    //             valueId,
+    //             paramId: param.id,
+    //           },
+    //         },
+    //       });
+    //     });
+    //     if (filters.where && Array.isArray(filters.where.AND)) {
+    //       filters.where.AND.push({
+    //         OR: paramsOrArray,
+    //       });
+    //     }
+    //   });
+    // }
   }
 
   const products = await prisma.product.findMany({
