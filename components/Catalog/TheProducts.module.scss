@@ -19,7 +19,7 @@
   }
 
   &__picture {
-    min-height: 400px;
+    min-height: 310px;
     position: relative;
     overflow: hidden;
   }
@@ -31,10 +31,26 @@
   }
 
   &__info {
-    padding: $indent-3;
+    padding: $indent-3 $indent-4;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $gap-4;
+    align-items: flex-start;
   }
 
   &__name {
-    font-weight: 700;
+    font-size: 1.125rem;
+    grid-column: 2 span;
+  }
+
+  &__price {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__price-value {
+    display: flex;
+    flex-direction: column;
   }
 }
