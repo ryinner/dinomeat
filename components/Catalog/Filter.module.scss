@@ -9,19 +9,31 @@
   border: 1px solid $primary;
   border-radius: $border-radius;
 
+  z-index: $z-index-content;
+
   padding: $indent-1 $indent-2;
 
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: $gap-1;
-  cursor: pointer;
+  color: #7D7D7D; 
 
-  z-index: $z-index-content;
+  &--active {
+    border: none;
+  }
+
+  &__header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: $gap-1;
+
+    cursor: pointer;
+
+    &--active {
+      opacity: 0;
+    }
+  }
 
   &__heading {
     grid-column: 2;
-    color: #7D7D7D; 
   }
 
   &__image {
@@ -29,16 +41,31 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    &--active img {
+      transform: rotate(180deg);
+    }
   }
 
   &__content {
     position: absolute;
 
-    top: 100%;
+    top: 0;
     left: 0;
+    transform: translate(-1px, -1px);
 
-    width: 100%;
+    width: calc(100% + 2px);
+
     cursor: auto;
+
     z-index: $z-index-controls;
+
+    padding: $indent-1 $indent-2;
+
+    border: 1px solid $primary;
+    border-radius: $border-radius;
+
+    background: #c2c2c2;
+    color: $black;
   }
 }

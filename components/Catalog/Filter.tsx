@@ -21,10 +21,20 @@ export default function Filter({ children, heading }: Props) {
   }
 
   return (
-    <div className={styles.filter} ref={filter} onClick={toggleHandler}>
-      <span className={styles.filter__heading}>{heading}</span>
-      <picture className={styles.filter__image}><Image className={styles.filter__image} src={Arrow} alt='Раскрыть фильтр' /></picture>
-      {isOpen && <div className={styles.filter__content}>{children}</div>}
+    <div className={`${styles.filter} ${isOpen && styles['filter--active']}`} ref={filter}>
+      <div className={`${styles.filter__header} ${isOpen && styles['filter__header--active']}`} onClick={toggleHandler}>
+        <span className={styles.filter__heading}>{heading}</span>
+        <picture className={styles.filter__image}><Image className={styles.filter__image} src={Arrow} alt='Раскрыть фильтр' /></picture>
+      </div>
+      {isOpen && (<div className={styles.filter__content}>
+        <div className={styles.filter__header} onClick={toggleHandler}>
+          <span className={styles.filter__heading}>{heading}</span>
+          <picture className={`${styles.filter__image} ${styles['filter__image--active']}`}><Image className={styles.filter__image} src={Arrow} alt='Скрыть фильтр' /></picture>
+        </div>
+        <div className={styles.filter__controls}>
+          {children}
+        </div>
+      </div>)}
     </div>
   );
 }
