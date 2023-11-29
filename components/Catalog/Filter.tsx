@@ -12,8 +12,8 @@ export default function Filter({ children, heading }: Props) {
     closeHandler();
   });
 
-  function toggleHandler() {
-    setIsOpen((isOpen) => !isOpen);
+  function openHandler() {
+    setIsOpen(true);
   }
 
   function closeHandler() {
@@ -22,12 +22,12 @@ export default function Filter({ children, heading }: Props) {
 
   return (
     <div className={`${styles.filter} ${isOpen && styles['filter--active']}`} ref={filter}>
-      <div className={`${styles.filter__header} ${isOpen && styles['filter__header--active']}`} onClick={toggleHandler}>
+      <div className={`${styles.filter__header} ${isOpen && styles['filter__header--active']}`} onClick={openHandler}>
         <span className={styles.filter__heading}>{heading}</span>
         <picture className={styles.filter__image}><Image className={styles.filter__image} src={Arrow} alt='Раскрыть фильтр' /></picture>
       </div>
       {isOpen && (<div className={styles.filter__content}>
-        <div className={styles.filter__header} onClick={toggleHandler}>
+        <div className={styles.filter__header} onClick={closeHandler}>
           <span className={styles.filter__heading}>{heading}</span>
           <picture className={`${styles.filter__image} ${styles['filter__image--active']}`}><Image className={styles.filter__image} src={Arrow} alt='Скрыть фильтр' /></picture>
         </div>
