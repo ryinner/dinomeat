@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Catalog({ searchParams }: Props) {
-
   const { products, pagination } = (await catalog({
     page: Number(searchParams.page ?? 1),
   }));
@@ -18,7 +17,7 @@ export default async function Catalog({ searchParams }: Props) {
   return (
     <section className={styles.catalog}>
       <TheProducts products={products} />
-      <Pagination {...pagination} />
+      <Pagination className={styles.catalog__pagination} {...pagination} />
     </section>
   );
 }

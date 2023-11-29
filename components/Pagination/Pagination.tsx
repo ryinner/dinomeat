@@ -3,6 +3,7 @@
 import { pagination } from "@/services/orm/pagination.service";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import styles from './Pagination.module.scss';
 
 export default function Pagination({
   page,
@@ -10,7 +11,8 @@ export default function Pagination({
   first,
   start,
   end,
-}: ReturnType<typeof pagination>) {
+  className
+}: ReturnType<typeof pagination> & { className?: string }) {
   const path = usePathname();
   const searchParams = useSearchParams();
   const stringSearchParams = searchParams.toString().replace(/page=[\w]/gi, '');
@@ -46,14 +48,14 @@ export default function Pagination({
   }
 
   return (
-    <div>
-      <ul>
+    <div className={className}>
+      <ul className={styles.pagination}>
         {renderPages.map((p) => (
           <li key={p.page}>
             {typeof p.page === "string" ? (
               <span>{p.page}</span>
             ) : (
-              <Link className={`${p.page === page ? `active` : ''}`} href={`${path}?page=${p.page}${Boolean(stringSearchParams.trim()) ? `&${stringSearchParams}` : ''}`}>{p.page}</Link>
+              <Link className={`${styles.pagination__link} ${p.page === page ? styles['pagination__link--active'] : ''}`} href={`${path}?page=${p.page}${Boolean(stringSearchParams.trim()) ? `&${stringSearchParams}` : ''}`}>{p.page}</Link>
             )}
           </li>
         ))}

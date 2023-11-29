@@ -2,6 +2,10 @@
 @import '/shared/styles/vars/indent';
 
 .catalog {
-  margin: $indent-section auto;
+  margin: $indent-section auto 0;
   @include site-container;
+
+  &__pagination {
+    margin-top: $indent-section;
+  }
 }

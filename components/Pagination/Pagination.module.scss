@@ -1,0 +1,22 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: $gap-2;
+
+  list-style-type: none;
+
+  &__link {
+    padding: 0 0.75rem;
+    font-size: 1.375rem;
+
+    &--active {
+      border-bottom: 1px solid $primary;
+    }
+  }
+}
