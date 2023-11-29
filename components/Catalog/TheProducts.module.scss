@@ -1,6 +1,7 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
+@import '/shared/styles/mixins/media';
 
 .products {
   display: grid;
@@ -16,6 +17,10 @@
     flex-direction: column;
 
     cursor: pointer;
+
+    @include small-tablet {
+      grid-column: 6 span;
+    }
   }
 
   &__picture {
