@@ -6,6 +6,7 @@ import SaveIcon from "@/components/Icons/SaveIcon";
 import UploadIcon from "@/components/Icons/UploadIcon";
 import { usePropsState } from "@/hooks/StateHooks";
 import { frontRequest } from '@/services/api/api.service';
+import { getUrl } from '@/services/lib/image.service';
 import Image from "next/image";
 import { FormEvent } from "react";
 import styles from './ProductsEditImagesItem.module.scss';
@@ -20,7 +21,7 @@ export default function ProductsEditImagesItem<T extends ProductImagesWithImages
 
   const [alt, setAlt] = usePropsState(isFile ? "" : image.image.alt);
 
-  const url = isFile ? URL.createObjectURL(image) : process.env.NEXT_PUBLIC_URL + image.image.url;
+  const url = isFile ? URL.createObjectURL(image) : getUrl(image.image.url);
 
   function altInputHandler(e: FormEvent<HTMLInputElement>) {
     if (e.target instanceof HTMLInputElement) {

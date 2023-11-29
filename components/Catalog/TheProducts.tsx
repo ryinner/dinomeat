@@ -1,4 +1,5 @@
 import type { ProductCatalog } from '@/@types/private';
+import { getUrl } from '@/services/lib/image.service';
 import Image from 'next/image';
 import styles from './TheProducts.module.scss';
 
@@ -7,7 +8,7 @@ export default function TheProducts ({ products }: Props) {
     {products.map((p) => (
         <article key={p.id} className={styles.products__item}>
           <picture className={styles.products__picture}>
-            <Image src={process.env.NEXT_PUBLIC_URL + p.images[0].image.url} alt={process.env.NEXT_PUBLIC_URL + p.images[0].image.alt} fill={true} className={styles.products__image} />
+            <Image src={getUrl(p.images[0].image.url)} alt={p.images[0].image.alt ?? ''} fill={true} className={styles.products__image} />
           </picture>
           <div className={styles.products__info}>
             <div className={styles.products__name}>{p.name} {p.article}</div>
