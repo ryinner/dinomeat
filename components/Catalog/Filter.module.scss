@@ -1,0 +1,39 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/border';
+
+.filter {
+  position: relative;
+
+  border: 1px solid $primary;
+  border-radius: $border-radius;
+
+  padding: $indent-1 $indent-2;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: $gap-1;
+  cursor: pointer;
+
+  &__heading {
+    grid-column: 2;
+  }
+
+  &__image {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__content {
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+
+    width: 100%;
+    cursor: auto;
+  }
+}

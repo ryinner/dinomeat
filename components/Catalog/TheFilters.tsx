@@ -15,18 +15,18 @@ export default function TheFilters({ properties }: Props) {
   return (
     <form className={styles.filters} onSubmit={submitHandler}>
       <ul className={styles.filters__list} >
-        <li>
+        <li className={styles.filters__item}>
           <Filter heading={first.name}>
             Дети
           </Filter>
         </li>
-        <li>
+        <li className={styles.filters__item}>
           <Filter heading='Цена'>
             Дети
           </Filter>
         </li>
         {all.map((p) => (
-          <li key={p.id}>
+          <li className={styles.filters__item} key={p.id}>
             <Filter heading={p.name}>
               Дети
             </Filter>
