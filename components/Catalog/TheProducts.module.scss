@@ -29,6 +29,10 @@
     min-height: 312px;
     position: relative;
     overflow: hidden;
+
+    @include small-tablet {
+      min-height: 144px;
+    }
   }
 
   &__image {
@@ -44,15 +48,38 @@
     grid-template-columns: 1fr 1fr;
     gap: $gap-4;
     align-items: flex-start;
+
+    @include small-tablet {
+      gap: $gap-1;
+      padding: $indent-1;
+    }
   }
 
   &__name {
     font-size: 1.125rem;
     grid-column: 2 span;
+
+    @include small-tablet {
+      font-size: 0.75rem;
+    }
+  }
+
+  &__article {
+    @include small-tablet {
+      grid-column: 2 span;
+
+      font-size: 0.625rem;
+      color: #4B4B4B;
+    }
   }
 
   &__price {
     display: flex;
     justify-content: space-between;
+
+    @include small-tablet {
+      grid-column: 2 span;
+      font-size: 0.75rem; 
+    }
   }
 }

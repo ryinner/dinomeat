@@ -1,15 +1,28 @@
 @import '/shared/styles/vars/indent';
+@import '/shared/styles/mixins/media';
 
 .filters {
   &__list {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
     align-items: center;
-    justify-content: flex-end;
+    direction: rtl;
     gap: $gap-5;
 
     list-style-type: none;
 
     margin-bottom: $indent-section;
+
+    @include small-tablet {
+      direction: ltr;
+    }
+  }
+
+  &__item {
+    direction: ltr;
+
+    @include small-tablet {
+      grid-column: 4 span;
+    }
   }
 }
