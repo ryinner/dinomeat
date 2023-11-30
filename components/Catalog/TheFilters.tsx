@@ -1,14 +1,15 @@
 "use client";
 
-import { PropertyWithValues } from "@/@types/private";
+import { PriceFilter, PropertyWithValues } from "@/@types/private";
 import { getParam, getParamName, joinValues } from '@/services/lib/filters.service';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent } from "react";
 import Filter from "./Filter";
+import PriceFilterContent from './PriceFilterContent';
 import PropertyFilterContent from "./PropertyFilterContent";
 import styles from "./TheFilters.module.scss";
 
-export default function TheFilters({ properties }: Props) {
+export default function TheFilters({ properties, price }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -40,7 +41,9 @@ export default function TheFilters({ properties }: Props) {
           </Filter>
         </li>
         <li className={styles.filters__item}>
-          <Filter heading="Цена">Дети</Filter>
+          <Filter heading="Цена">
+            <PriceFilterContent price={price} />
+          </Filter>
         </li>
         {all.map((p) => (
           <li className={styles.filters__item} key={p.id}>
@@ -56,4 +59,5 @@ export default function TheFilters({ properties }: Props) {
 
 interface Props {
   properties: PropertyWithValues[];
+  price: PriceFilter;
 }

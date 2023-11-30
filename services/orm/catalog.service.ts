@@ -106,5 +106,31 @@ export async function filters () {
     },
   });
 
-  return { properties };
+  const min = await prisma.product.findFirst({
+    select: {
+      price: true
+    },
+    orderBy: {
+      price: 'asc'
+    },
+    where: {
+      published: true
+    },
+    take: 1
+  });
+
+  const max = await prisma.product.findFirst({
+    select: {
+      price: true
+    },
+    orderBy: {
+      price: 'desc'
+    },
+    where: {
+      published: true
+    },
+    take: 1
+  });
+
+  return { properties, price: { min: min?.price ?? 0, max: max?.price ?? 10 } };
 }

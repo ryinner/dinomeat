@@ -20,11 +20,11 @@ export default async function Catalog({ searchParams }: Props) {
     params: params.length > 0 ? params : undefined
   }));
 
-  const { properties } = (await filters());
+  const filtersProps = (await filters());
 
   return (
     <section className={styles.catalog}>
-      <TheFilters properties={properties} />
+      <TheFilters {...filtersProps} />
       <TheProducts products={products} />
       <Pagination className={styles.catalog__pagination} {...pagination} />
     </section>

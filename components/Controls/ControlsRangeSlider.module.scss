@@ -1,0 +1,70 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/z-index';
+
+.range {
+  position: relative;
+
+  width: 100%;
+
+  &__thumb {
+    appearance: none;
+    pointer-events: none;
+    outline: none;
+
+    height: 0;
+    width: 100%;
+
+    position: absolute;
+
+    left: 0;
+    top: 2px;
+
+    &--left {
+      z-index: $z-index-sidebar;
+    }
+
+    &--right {
+      z-index: $z-index-modal;
+    }
+
+    &::-moz-range-thumb,
+    &::-webkit-slider-thumb {
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 0 1px 1px #ced4da;
+
+      background-color: #D9D9D9;
+
+      cursor: pointer;
+      height: 7px;
+      width: 7px;
+
+      pointer-events: all;
+      position: relative;
+    }
+  }
+
+  &__track,
+  &__range {
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+
+    border-radius: 3px;
+    height: 2px;
+  }
+
+  &__track {
+    background-color: #383232;
+    opacity: 0.46;
+    width: 100%;
+    z-index: $z-index-content;
+  }
+
+  &__range {
+    background-color: $primary;
+    z-index: $z-index-controls;
+  }
+}

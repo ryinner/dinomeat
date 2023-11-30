@@ -7,3 +7,5 @@ export type PropertyWithValuesAndProducts = PropertyWithValues & { products: Par
 
 export type ProductEdit = Product & { seo: ProductSeoWithSeo[]; images: ProductImagesWithImages[]; properties: PropertyWithValuesAndProducts[] };
 export type ProductCatalog = Product & { images: ProductImagesWithImages[] };
+
+export type PriceFilter = { min: number, max: number };
