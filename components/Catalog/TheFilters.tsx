@@ -1,19 +1,34 @@
 "use client";
 
 import { PropertyWithValues } from "@/@types/private";
+import { getParam, getParamName, joinValues } from '@/services/lib/filters.service';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent } from "react";
 import Filter from "./Filter";
 import PropertyFilterContent from "./PropertyFilterContent";
 import styles from "./TheFilters.module.scss";
 
 export default function TheFilters({ properties }: Props) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+
   const [first, ...all] = properties;
-  // const activeParams = useRef<{
-  //   properties: { id: number; values_ids: number[] }[];
-  // }>({ properties: [] });
 
   function submitHandler(e: FormEvent) {
     e.preventDefault();
+  }
+
+  function onChangePropertyHandler({ id, valuesIds }: { id: number, valuesIds: number[]}) {
+    const params = new URLSearchParams(searchParams);
+    const name = getParamName(id);
+    if (valuesIds.length > 0) {
+      params.set(name, joinValues(valuesIds));
+    } else {
+      params.delete(name);
+    }
+    params.set('page', '1');
+    replace(`${pathname}?${params.toString()}`);
   }
 
   return (
@@ -21,7 +36,7 @@ export default function TheFilters({ properties }: Props) {
       <ul className={styles.filters__list}>
         <li className={styles.filters__item}>
           <Filter heading={first.name}>
-            <PropertyFilterContent property={first} />
+            <PropertyFilterContent onChange={onChangePropertyHandler} property={first} initialValues={getParam(first.id, searchParams)} />
           </Filter>
         </li>
         <li className={styles.filters__item}>
@@ -30,7 +45,7 @@ export default function TheFilters({ properties }: Props) {
         {all.map((p) => (
           <li className={styles.filters__item} key={p.id}>
             <Filter heading={p.name}>
-              <PropertyFilterContent property={p} />
+              <PropertyFilterContent onChange={onChangePropertyHandler}  property={p} initialValues={getParam(p.id, searchParams)} />
             </Filter>
           </li>
         ))}
