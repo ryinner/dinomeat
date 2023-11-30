@@ -1,6 +1,7 @@
 import TheFilters from '@/components/Catalog/TheFilters';
 import TheProducts from '@/components/Catalog/TheProducts';
 import Pagination from '@/components/Pagination/Pagination';
+import { buildFiltersMap } from '@/services/lib/filters.service';
 import { catalog, filters } from '@/services/orm/catalog.service';
 import { Metadata } from 'next';
 import styles from "./page.module.scss";
@@ -11,9 +12,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Catalog({ searchParams }: Props) {
+  const params = buildFiltersMap(searchParams);
+
   const { products, pagination } = (await catalog({
     page: Number(searchParams.page ?? 1),
-    categoryId: searchParams.category_id ? Number(searchParams.category_id) : undefined
+    categoryId: searchParams.category_id ? Number(searchParams.category_id) : undefined,
+    params: params.length > 0 ? params : undefined
   }));
 
   const { properties } = (await filters());
@@ -28,16 +32,5 @@ export default async function Catalog({ searchParams }: Props) {
 }
 
 interface Props {
-  searchParams: {
-    page?: string;
-    price?: {
-      min?: string;
-      max?: string;
-    },
-    params?: {
-      id: string;
-      value_ids: string[];
-    }[];
-    category_id: string;
-  }
+  searchParams: Record<string, string>
 }

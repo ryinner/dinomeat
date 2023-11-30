@@ -8,7 +8,7 @@ export async function catalog({
   page = 1,
   price,
   categoryId,
-  // params,
+  params,
 }: {
   page?: number;
   categoryId?: number;
@@ -16,14 +16,14 @@ export async function catalog({
     min?: number;
     max?: number;
   };
-  // params?: {
-  //   id: number;
-  //   valueIds: number[];
-  // }[];
+  params?: {
+    id: number;
+    valuesIds: number[];
+  }[];
 }) {
   const filters: { where: Prisma.ProductWhereInput } = { where: { AND: [{ published: true }] } };
 
-  if (price || categoryId) {
+  if (price || categoryId || (Array.isArray(params) && params.length > 0)) {
     if (price) {
       const { min, max } = price;
       let priceFilter: { lt?: number; gt?: number } = {};
@@ -42,28 +42,28 @@ export async function catalog({
         filters.where.AND.push({ categoryId: categoryId });
       }
     }
-    // if (params) {
-    //   params.forEach((param) => {
-    //     let paramsOrArray: {
-    //       properties: { some: { valueId: number; paramId: number } };
-    //     }[] = [];
-    //     param.value_ids.forEach((valueId) => {
-    //       paramsOrArray.push({
-    //         properties: {
-    //           some: {
-    //             valueId,
-    //             paramId: param.id,
-    //           },
-    //         },
-    //       });
-    //     });
-    //     if (filters.where && Array.isArray(filters.where.AND)) {
-    //       filters.where.AND.push({
-    //         OR: paramsOrArray,
-    //       });
-    //     }
-    //   });
-    // }
+    if (Array.isArray(params) && params.length > 0) {
+      params.forEach((param) => {
+        let paramsOrArray: {
+          properties: Prisma.ProductWhereInput['properties'];
+        }[] = [];
+        param.valuesIds.forEach((valueId) => {
+          paramsOrArray.push({
+            properties: {
+              some: {
+                valueId,
+                propertyId: param.id,
+              },
+            },
+          });
+        });
+        if (filters.where && Array.isArray(filters.where.AND)) {
+          filters.where.AND.push({
+            OR: paramsOrArray,
+          });
+        }
+      });
+    }
   }
 
   const products = await prisma.product.findMany({

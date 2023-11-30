@@ -1,11 +1,10 @@
 import { PropertyWithValues } from "@/@types/private";
-import { usePropsState } from '@/hooks/StateHooks';
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import ControlsCheckbox from '../Controls/ControlsCheckbox';
 import styles from "./PropertyFilterContent.module.scss";
 
 export default function PropertyFilterContent({ property, onChange, initialValues = [] }: Props) {
-  const [activeIds, setActiveIds] = usePropsState<number[]>(initialValues);
+  const [activeIds, setActiveIds] = useState<number[]>(initialValues);
 
   function changeHandler (e: ChangeEvent<HTMLInputElement>) {
     const activeIdsCopy = [...activeIds];
