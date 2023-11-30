@@ -5,7 +5,7 @@ import { navigationLinksMap } from '@/shared/maps/navigation.map';
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from 'next/link';
-import { Ref, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import Burger from "../../public/icons/burger.svg";
 import GoSearchWhite from "../../public/icons/go-search-white.svg";
 import SearchWhite from '../../public/icons/search-white.svg';
@@ -29,7 +29,7 @@ export default function TheBurgerMenu() {
 
   const sidebar = useClickOutside<HTMLElement>(() => {
     hideHandler();
-  }) as Ref<HTMLElement>;
+  });
 
   function openHandler() {
     setIsOpen(true);

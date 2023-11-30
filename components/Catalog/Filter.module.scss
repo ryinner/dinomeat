@@ -6,7 +6,8 @@
 .filter {
   position: relative;
 
-  border: 1px solid $primary;
+  border: 1px solid;
+  border-color: $primary;
   border-radius: $border-radius;
 
   z-index: $z-index-content;
@@ -16,7 +17,7 @@
   color: #7D7D7D; 
 
   &--active {
-    border: none;
+    border-color: transparent;
   }
 
   &__header {

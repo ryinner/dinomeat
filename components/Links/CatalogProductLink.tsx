@@ -8,5 +8,5 @@ export default function CatalogProductLink({ product: { slug, name }, children, 
 
 interface Props extends React.LinkHTMLAttributes<HTMLLinkElement> {
   product: Pick<Product, 'name' | 'slug'>
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }

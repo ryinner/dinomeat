@@ -1,7 +1,7 @@
-import { LegacyRef, useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 
-export function useClickOutside <T>(callback: (e: Event) => void): LegacyRef<T> {
-  const ref = useRef<HTMLElement>();
+export function useClickOutside <T extends HTMLElement>(callback: (e: Event) => void):  RefObject<T> {
+  const ref = useRef<T>(null);
   
   useEffect(() => {
     const handler = (e: Event) => {
@@ -19,5 +19,5 @@ export function useClickOutside <T>(callback: (e: Event) => void): LegacyRef<T> 
     };
   }, [callback])
 
-  return ref as LegacyRef<T>;
+  return ref;
 }
