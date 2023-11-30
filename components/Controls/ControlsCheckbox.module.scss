@@ -1,0 +1,48 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+
+.checkbox {
+  display: flex;
+  gap: $gap-2;
+
+  cursor: pointer;
+
+  font-size: 0.75rem; 
+
+  &__input {
+    display: none;
+
+    &:checked ~ .checkbox__icon::before {
+        content: '';
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        margin: auto;
+
+        width: 6px;
+        height: 6px;
+
+        border-radius: 100%;
+
+        background-color: $black;
+    }
+  }
+
+  &__icon {
+    background-color: #D9D9D9;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 100%;
+
+    display: inline-block;
+
+    position: relative;
+  }
+}

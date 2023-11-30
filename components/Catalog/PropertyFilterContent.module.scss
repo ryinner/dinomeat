@@ -9,5 +9,9 @@
     margin-top: $indent-2;
 
     cursor: pointer;
+
+    &:last-child {
+      margin-bottom: $indent-2;
+    }
   }
 }
