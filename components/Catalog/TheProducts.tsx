@@ -13,7 +13,7 @@ export default function TheProducts ({ products }: Props) {
           <div className={styles.products__info}>
             <div className={styles.products__name}>{p.name}</div>
             <div className={styles.products__article}>{p.article}</div>
-            <div className={styles.products__price}><span>Цена</span> <span className={styles['products__price-value']}><span>{p.price}</span> <span>руб.</span></span></div>
+            <div className={styles.products__price}><span>Цена</span> <span>{p.price} ₽</span></div>
           </div>
         </article>
       ))}
