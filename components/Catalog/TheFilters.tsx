@@ -3,6 +3,7 @@
 import { PropertyWithValues } from "@/@types/private";
 import { FormEvent } from 'react';
 import Filter from './Filter';
+import PropertyFilterContent from './PropertyFilterContent';
 import styles from './TheFilters.module.scss';
 
 export default function TheFilters({ properties }: Props) {
@@ -17,7 +18,7 @@ export default function TheFilters({ properties }: Props) {
       <ul className={styles.filters__list} >
         <li className={styles.filters__item}>
           <Filter heading={first.name}>
-            Дети
+            <PropertyFilterContent property={first} />
           </Filter>
         </li>
         <li className={styles.filters__item}>
@@ -28,7 +29,7 @@ export default function TheFilters({ properties }: Props) {
         {all.map((p) => (
           <li className={styles.filters__item} key={p.id}>
             <Filter heading={p.name}>
-              Дети
+              <PropertyFilterContent property={p} />
             </Filter>
           </li>
         ))}

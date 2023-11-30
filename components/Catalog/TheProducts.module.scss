@@ -18,6 +18,8 @@
 
     cursor: pointer;
 
+    background-color: #201D1B0F;
+
     @include small-tablet {
       grid-column: 6 span;
     }
