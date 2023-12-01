@@ -24,5 +24,9 @@
     @include small-tablet {
       padding: 0 $indent-3;
     }
+
+    @include small-tablet {
+      width: 100%;
+    }
   }
 }
