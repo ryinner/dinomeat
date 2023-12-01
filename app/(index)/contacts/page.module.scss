@@ -34,6 +34,10 @@
   &__text {
     width: 80%;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     @include small-tablet {
       width: 100%;
     }
@@ -42,6 +46,22 @@
   &__work-time {
     @include small-tablet {
       margin-top: $indent-3;
+    }
+  }
+
+  &__map {
+    position: relative;
+
+    width: 573px;
+    height: 366px;
+
+    @include small-tablet {
+      grid-column: 2 span;
+
+      width: 298px;
+      height: 188px;
+
+      margin-top: $indent-5;
     }
   }
 }
