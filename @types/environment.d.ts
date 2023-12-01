@@ -4,7 +4,10 @@ namespace NodeJS {
 
     NEXT_PUBLIC_VK_GROUP_ID: string;
     NEXT_PUBLIC_VK_ID: string;
-    NEXT_PUBLIC_URL: string;
     VK_SECRET: string;
+    
+    NEXT_PUBLIC_YANDEX_MAP: string;
+
+    NEXT_PUBLIC_URL: string;
   }
 }

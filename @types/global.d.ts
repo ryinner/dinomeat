@@ -42,3 +42,7 @@ declare namespace VK {
     }
   }
 }
+
+import { YMap } from 'ymaps3';
+
+declare var map: YMap;

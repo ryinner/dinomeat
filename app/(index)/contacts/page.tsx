@@ -1,7 +1,7 @@
-import DefaultLink from '@/components/Links/DefaultLink';
+import Map from '@/components/Contacts/Map';
+import DefaultLink from "@/components/Links/DefaultLink";
 import { Metadata } from "next";
-import Image from 'next/image';
-import Map from '../../../public/contacts/map.png';
+import Script from "next/script";
 import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
@@ -18,17 +18,21 @@ export default function Contacts() {
             Наш офис находится в обл. Челябинская, г. Челябинск, ул.
             Энтузиастов, д. 12, офис 207
           </div>
-          <div className={styles['contacts__work-time']}>Время работы: с 11:00 до 19:00 </div>
+          <div className={styles["contacts__work-time"]}>
+            Время работы: с 11:00 до 19:00{" "}
+          </div>
         </div>
       </div>
-      <div className={styles.contacts__map}>
-        <Image src={Map} fill={true} alt='Карта с изображения местонахождения магазина' />
-      </div>
+      <Map className={styles.contacts__map} />
       <div className={styles.contacts__link}>
-        <DefaultLink href='/' className={styles.contacts__button}>
+        <DefaultLink href="/" className={styles.contacts__button}>
           Главная
         </DefaultLink>
       </div>
+      <Script
+        src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_MAP}&lang=ru_RU`}
+        strategy='beforeInteractive'
+      />
     </section>
   );
 }
