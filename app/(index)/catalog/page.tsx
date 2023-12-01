@@ -14,13 +14,18 @@ export const metadata: Metadata = {
 export default async function Catalog({ searchParams }: Props) {
   const params = buildFiltersMap(searchParams);
 
+  const filtersProps = (await filters());
+
   const { products, pagination } = (await catalog({
     page: Number(searchParams.page ?? 1),
     categoryId: searchParams.category_id ? Number(searchParams.category_id) : undefined,
-    params: params.length > 0 ? params : undefined
+    params: params.length > 0 ? params : undefined,
+    price: {
+      min: Number(searchParams.price_min ?? filtersProps.price.min),
+      max: Number(searchParams.price_max ?? filtersProps.price.max),
+    }
   }));
 
-  const filtersProps = (await filters());
 
   return (
     <section className={styles.catalog}>

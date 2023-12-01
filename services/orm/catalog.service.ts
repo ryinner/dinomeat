@@ -22,16 +22,15 @@ export async function catalog({
   }[];
 }) {
   const filters: { where: Prisma.ProductWhereInput } = { where: { AND: [{ published: true }] } };
-
   if (price || categoryId || (Array.isArray(params) && params.length > 0)) {
     if (price) {
       const { min, max } = price;
       let priceFilter: { lt?: number; gt?: number } = {};
       if (min && min > 0) {
-        priceFilter.lt = min;
+        priceFilter.gt = min - 1;
       }
       if (max && max > 0) {
-        priceFilter.gt = max;
+        priceFilter.lt = max + 1;
       }
       if (Array.isArray(filters.where.AND)) {
         filters.where.AND.push({ price: priceFilter });
