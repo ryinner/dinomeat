@@ -81,6 +81,8 @@
     display: flex;
     gap: $gap-3;
 
+    z-index: $z-index-controls;
+
     &--row {
       flex-direction: row;
       flex-wrap: wrap;
