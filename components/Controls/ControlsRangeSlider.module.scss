@@ -18,7 +18,7 @@
     position: absolute;
 
     left: 0;
-    top: 2px;
+    top: 0;
 
     &--left {
       z-index: $z-index-sidebar;
@@ -66,5 +66,29 @@
   &__range {
     background-color: $primary;
     z-index: $z-index-controls;
+  }
+
+  &__stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 4px;
+    gap: $gap-2;
+  }
+
+  &__value {
+    display: flex;
+    gap: $gap-1;
+  }
+
+  &__input {
+    width: 100%;
+
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #201D1B;
+
+    background-color: transparent;
   }
 }

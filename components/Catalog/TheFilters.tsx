@@ -32,6 +32,14 @@ export default function TheFilters({ properties, price }: Props) {
     replace(`${pathname}?${params.toString()}`);
   }
 
+  function onChangePriceHandler ({ min, max }: { min: number; max: number;}) {
+    const params = new URLSearchParams(searchParams);
+    params.set('price_min', Math.max(min, price.min).toString());
+    params.set('price_max', Math.min(max, price.max).toString());
+    params.set('page', '1');
+    replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
     <form className={styles.filters} onSubmit={submitHandler}>
       <ul className={styles.filters__list}>
@@ -42,7 +50,7 @@ export default function TheFilters({ properties, price }: Props) {
         </li>
         <li className={styles.filters__item}>
           <Filter heading="Цена">
-            <PriceFilterContent price={price} />
+            <PriceFilterContent onChange={onChangePriceHandler} price={price} />
           </Filter>
         </li>
         {all.map((p) => (
