@@ -9,7 +9,7 @@ export const ToastsDispatchContext = createContext(null);
 
 export default function TheToasts ({ children }: Props) {
   const [toasts, setToasts] = useState<ToastType[]>([]);
-
+  
   return <ToastsDispatchContext.Provider value={null}>
     <aside className={styles.toasts}>
       {toasts.map(t => <Toast key={1} toast={t} onRemove={() => {}} /> )}

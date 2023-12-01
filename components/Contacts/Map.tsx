@@ -40,8 +40,7 @@ export default function Map ({ className }: Props) {
     }
   }
 
-  return <div ref={mapRef} className={className}>
-  </div>
+  return <div ref={mapRef} className={className} />
 }
 
 interface Props {
