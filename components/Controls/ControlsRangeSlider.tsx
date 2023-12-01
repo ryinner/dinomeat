@@ -6,42 +6,32 @@ import styles from "./ControlsRangeSlider.module.scss";
 export default function ControlsRangeSlider({ min, max, minValue: initialMinValue, maxValue: initialMaxValue, onChange }: Props) {
   const [minValue, setMinValue] = useState(initialMinValue ?? min);
   const [maxValue, setMaxValue] = useState(initialMaxValue ?? max);
-  const minValRef = useRef(min);
-  const maxValRef = useRef(max);
   const range = useRef<HTMLDivElement>(null);
+  const isNeedResize = useRef(true);
+  const minInput = useRef<HTMLInputElement>(null);
+  const maxInput = useRef<HTMLInputElement>(null);
 
   const getPercent = useCallback(
     (value: number) => Math.round(((value - min) / (max - min)) * 100),
     [min, max]
   );
 
-  // При изменении левой части
-  useEffect(() => {
-    const minPercent = getPercent(minValue);
-    const maxPercent = getPercent(maxValRef.current);
-
-    if (range.current) {
-      range.current.style.left = `${minPercent}%`;
-      range.current.style.width = `${maxPercent - minPercent}%`;
-    }
-  }, [minValue, getPercent]);
-
-  // При изменении правой части
-  useEffect(() => {
-    const minPercent = getPercent(minValRef.current);
-    const maxPercent = getPercent(maxValue);
-
-    if (range.current) {
-      range.current.style.width = `${maxPercent - minPercent}%`;
-    }
-  }, [maxValue, getPercent]);
+    useEffect(() => {
+      if (isNeedResize.current) {
+        resizeRange(minValue, maxValue);
+        isNeedResize.current = false;
+      }
+    })
 
   function changeMinValueHandler(e: ChangeEvent<HTMLInputElement>) {
     const numberValue = Number(e.target.value);
     if (!Number.isNaN(numberValue)) {
       const value = Math.min(numberValue, maxValue - 1);
       setMinValue(value);
-      minValRef.current = value;
+      resizeRange(value, maxValue);
+      if (minInput.current) {
+        minInput.current.value = value.toString();
+      }
       if (onChange instanceof Function) {
         onChange({ min: numberValue, max: maxValue });
       }
@@ -53,10 +43,23 @@ export default function ControlsRangeSlider({ min, max, minValue: initialMinValu
     if (!Number.isNaN(numberValue)) {
       const value = Math.max(numberValue, minValue + 1);
       setMaxValue(value);
-      maxValRef.current = value;
+      resizeRange(minValue, value);
+      if (maxInput.current) {
+        maxInput.current.value = value.toString();
+      }
       if (onChange instanceof Function) {
         onChange({ min: minValue, max: value });
       }
+    }
+  }
+
+  function resizeRange (min: number, max: number) {
+    const minPercent = getPercent(min);
+    const maxPercent = getPercent(max);
+
+    if (range.current) {
+      range.current.style.left = `${minPercent}%`;
+      range.current.style.width = `${maxPercent - minPercent}%`;
     }
   }
 
@@ -82,10 +85,10 @@ export default function ControlsRangeSlider({ min, max, minValue: initialMinValu
       <div ref={range} className={styles.range__range} />
       <div className={styles.range__stat}>
         <div className={styles.range__value}>
-          от <input className={styles.range__input} value={minValue} onChange={changeMinValueHandler} />
+          от <input ref={minInput} className={styles.range__input} defaultValue={minValue} onBlur={changeMinValueHandler} />
         </div>
         <div className={styles.range__value}>
-          до <input className={styles.range__input} value={maxValue} onChange={changeMaxValueHandler} />
+          до <input ref={maxInput} className={styles.range__input} defaultValue={maxValue} onBlur={changeMaxValueHandler} />
         </div>
       </div>
     </div>
