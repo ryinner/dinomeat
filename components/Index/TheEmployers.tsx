@@ -94,6 +94,10 @@ export default function TheEmployers() {
           animate={{
             x: calculateTranslateX(),
           }}
+          transition={{
+            duration: 2,
+            type: 'spring'
+          }}
           ref={imagesListRef}
         >
           {employers.map((e) => (

@@ -1,3 +1,4 @@
+import DefaultLink from '@/components/Links/DefaultLink';
 import { Metadata } from "next";
 import Image from 'next/image';
 import Map from '../../../public/contacts/map.png';
@@ -22,6 +23,11 @@ export default function Contacts() {
       </div>
       <div className={styles.contacts__map}>
         <Image src={Map} fill={true} alt='Карта с изображения местонахождения магазина' />
+      </div>
+      <div className={styles.contacts__link}>
+        <DefaultLink href='/' className={styles.contacts__button}>
+          Главная
+        </DefaultLink>
       </div>
     </section>
   );

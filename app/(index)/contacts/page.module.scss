@@ -64,4 +64,28 @@
       margin-top: $indent-5;
     }
   }
+
+  &__link {
+    grid-column: 2 span;
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: $indent-section;
+
+    @include small-tablet {
+      margin-top: $indent-5;
+
+      font-size: 2.25rem; 
+    }
+  }
+
+  &__button {
+    width: 50%;
+
+    @include small-tablet {
+      width: 100%;
+      padding: $indent-2 0;
+    }
+  }
 }
