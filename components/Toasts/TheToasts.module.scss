@@ -1,0 +1,12 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/z-index';
+
+.toasts {
+  position: fixed;
+
+  right: 0;
+  top: $indent-2;
+
+  z-index: $z-index-toasts;
+}

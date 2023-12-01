@@ -1,4 +1,5 @@
 import type { Image, Product, ProductImage, ProductProperty, ProductSeo, Property, Seo, Value } from '@prisma/client';
+import React from 'react';
 
 export type PropertyWithValues = Property & { values: Value[] }
 export type ProductSeoWithSeo = ProductSeo & { seo: Seo }
@@ -9,3 +10,8 @@ export type ProductEdit = Product & { seo: ProductSeoWithSeo[]; images: ProductI
 export type ProductCatalog = Product & { images: ProductImagesWithImages[] };
 
 export type PriceFilter = { min: number, max: number };
+
+export interface Toast {
+  timeout: number | false;
+  children: React.ReactNode; 
+}
