@@ -133,3 +133,22 @@ export async function filters () {
 
   return { properties, price: { min: min?.price ?? 0, max: max?.price ?? 10 } };
 }
+
+export async function main () {
+  return await prisma.product.findMany({
+    include: {
+      images: {
+        include: {
+          image: true,
+        },
+      },
+    },
+    where: {
+      published: true
+    },
+    orderBy: {
+      id: 'desc'
+    },
+    take: 3
+  });
+}
