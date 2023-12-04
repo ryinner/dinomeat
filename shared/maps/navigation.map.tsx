@@ -4,10 +4,13 @@ import Delivery from '../../public/icons/delivery.svg';
 import MapPin from '../../public/icons/map-pin.svg';
 import User from '../../public/icons/user.svg';
 
-const navigationLinksMap = [
+export const PROFILE_NAME = 'Профиль';
+
+const navigationLinksMap: NavigationMap = [
   {
-    label: "Профиль",
-    link: "/profile",
+    label: PROFILE_NAME,
+    link_auth: "/auth/sign-in",
+    link_profile: "/profile",
     icon: User
   },
   {
@@ -33,3 +36,18 @@ const navigationLinksMap = [
 ];
 
 export { navigationLinksMap };
+
+type NavigationMap = (ProfileLink | DefaultLink)[];
+
+interface DefaultLink {
+  label: string;
+  link: string;
+  icon: string;
+}
+
+interface ProfileLink {
+  label: 'Профиль';
+  icon: string;
+  link_auth: string;
+  link_profile: string;
+}
