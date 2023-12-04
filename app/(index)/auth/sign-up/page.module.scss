@@ -1,0 +1,7 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/mixins/containers';
+
+.section {
+  @include site-container;
+  margin: 0 auto;
+}

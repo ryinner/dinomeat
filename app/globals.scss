@@ -52,10 +52,6 @@ table {
   }
 }
 
-input {
-  border: 1px solid $black;
-}
-
 .not-mobile {
   @include small-tablet {
     display: none !important;

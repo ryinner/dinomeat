@@ -1,5 +1,6 @@
 import TheUserForm from '@/components/Forms/TheUserForm';
 import { Metadata } from 'next';
+import styles from './page.module.scss';
 
 export const metadata: Metadata = {
   title: "Регистрация | Dinomeät",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function TheSignUp () {
-  return <section>
+  return <section className={styles.form}>
     <TheUserForm />
   </section>
 }

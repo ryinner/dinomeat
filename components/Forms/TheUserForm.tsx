@@ -6,6 +6,8 @@ import { signIn } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../Button/Button';
+import ControlsInput from '../Controls/ControlsInputs';
+import styles from './TheUserForm.module.scss';
 
 export default function TheUserForm ({ user }: Props) {
   const {
@@ -30,27 +32,27 @@ export default function TheUserForm ({ user }: Props) {
 
   const isSignUp = !Boolean(user?.id);
 
-  return <form onSubmit={handleSubmit(onSubmit)}>
+  return <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
     <label>
       ФИО
-      <input {...register('name', { required: 'Поле ФИО обязательно для заполнения', minLength: 2 })} />
+      <ControlsInput {...register('name', { required: 'Поле ФИО обязательно для заполнения', minLength: 2 })} />
     </label>
     <label>
       Почта
-      <input type="email" {...register('email', { required: 'Поле почта обязательно для заполнения', minLength: 2, })} />
+      <ControlsInput type="email" {...register('email', { required: 'Поле почта обязательно для заполнения', minLength: 2, })} />
     </label>
     <label>
       Телефон
-      <input {...register('phone', { required: 'Поле телефон обязательно для заполнения', minLength: 6, })} />
+      <ControlsInput {...register('phone', { required: 'Поле телефон обязательно для заполнения', minLength: 6, })} />
     </label>
     {
       isSignUp && <label>
         Пароль
-        <input {...register('password', { required: 'Поле пароль обязательно для заполнения', minLength: 8, })} />
+        <ControlsInput {...register('password', { required: 'Поле пароль обязательно для заполнения', minLength: 8, })} />
       </label>
     }
     <Button>{isSignUp ? 'Зарегистрироваться' : 'Обновить' }</Button>
-    { isSignUp && <Button onClick={() => signIn('vk')}>VK</Button> }
+    { isSignUp && <Button onClick={() => signIn('vk')}>Войти через VK</Button> }
   </form>
 }
 
