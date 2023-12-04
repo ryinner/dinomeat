@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export async function request<T>(
   url: string,
   fetchSettings: RequestInit = {}
@@ -32,16 +34,23 @@ export async function frontRequest<T>(
     request<T>(url, settings)
       .then((res) => {
         if (frontSettings?.withMessage ?? false) {
-          // PopUp
+          toast(res.message ?? 'Успешно');
         }
         resolve(res);
       })
-      .catch((err: Error) => {
-        // PopUp or redirect
+      .catch(async (err: Response) => {
+        switch (err.status) {
+          case 404:
+            break;
+          default:
+            const res = await err.json();
+            toast(res.message);
+            break;
+        }
       });
   });
 }
 
 type BaseAnswer<Type> = {
   [Property in keyof Type]: Type[Property];
-};
+} & { message: string };

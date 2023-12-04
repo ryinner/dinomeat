@@ -27,7 +27,7 @@ export async function POST(
   }
 
   if (!alt || alt?.trim() === "") {
-    return NextResponse.json({ message: "alt is required" }, { status: 400 });
+    return NextResponse.json({ message: "alt обязателен для заполнения" }, { status: 400 });
   }
 
   const fileInfo = await writeFile(file, getProductImagesPath(params.id));
