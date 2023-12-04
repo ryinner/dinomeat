@@ -1,7 +1,6 @@
 import Map from '@/components/Contacts/Map';
 import DefaultLink from "@/components/Links/DefaultLink";
 import { Metadata } from "next";
-import Script from "next/script";
 import styles from "./page.module.scss";
 
 export const metadata: Metadata = {
@@ -29,10 +28,6 @@ export default function Contacts() {
           Главная
         </DefaultLink>
       </div>
-      <Script
-        src={`https://api-maps.yandex.ru/v3/?apikey=${process.env.NEXT_PUBLIC_YANDEX_MAP}&lang=ru_RU`}
-        strategy='beforeInteractive'
-      />
     </section>
   );
 }
