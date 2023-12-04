@@ -2,8 +2,10 @@
 
 import { request } from '@/services/api/api.service';
 import { User } from '@prisma/client';
+import { signIn } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import Button from '../Button/Button';
 
 export default function TheUserForm ({ user }: Props) {
   const {
@@ -26,7 +28,7 @@ export default function TheUserForm ({ user }: Props) {
     });
   };
 
-  const isSignUp = Boolean(user?.id);
+  const isSignUp = !Boolean(user?.id);
 
   return <form onSubmit={handleSubmit(onSubmit)}>
     <label>
@@ -47,6 +49,8 @@ export default function TheUserForm ({ user }: Props) {
         <input {...register('password', { required: 'Поле пароль обязательно для заполнения', minLength: 8, })} />
       </label>
     }
+    <Button>{isSignUp ? 'Зарегистрироваться' : 'Обновить' }</Button>
+    { isSignUp && <Button onClick={() => signIn('vk')}>VK</Button> }
   </form>
 }
 
