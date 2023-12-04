@@ -1,3 +1,4 @@
+import { PrismaErrorsTypes, getPrismaErrorType, isPrismaError } from '@/services/lib/prisma.service';
 import { signUp } from '@/services/orm/users.service';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -14,7 +15,25 @@ export async function POST (req: NextRequest) {
     return NextResponse.json({ code: 400, message: 'Заполнены не все поля' });
   }
 
-  await signUp(data);
+  try {
+    await signUp(data);
+  } catch (error) {
+    if (isPrismaError(error)) {
+      const errorType = getPrismaErrorType(error);
+      switch (errorType) {
+        case PrismaErrorsTypes.unique:
+          return NextResponse.json(
+            { message: "Пользователь с такой почтой уже зарегистрирован", field: 'email' },
+            { status: 400 }
+          );
+        default:
+          return NextResponse.json(
+            { message: "Неизвестная ошибка БД" },
+            { status: 400 }
+          );
+      }
+    }
+  }
 
   return NextResponse.json({ code: 200, message: 'Регистрация прошла успешно' });
 }
