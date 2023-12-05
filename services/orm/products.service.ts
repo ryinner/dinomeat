@@ -82,7 +82,18 @@ export async function getProductForEdit({ id }: {id: number}) {
       values: true
     }
   });
-  return { ...product, properties };
+
+  const sizes = await prisma.size.findMany({
+    include: {
+      ProductSize: {
+        where: {
+          productId: id
+        }
+      }
+    }
+  });
+
+  return { ...product, properties, sizes };
 }
 
 export function search ({ query }: { query?: string }) {

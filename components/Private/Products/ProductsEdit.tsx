@@ -12,6 +12,7 @@ export function ProductsEdit({ product, categories }: Props) {
     seo,
     images,
     properties,
+    sizes,
     ...productData
   } = product;
 

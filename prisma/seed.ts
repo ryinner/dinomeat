@@ -7,7 +7,7 @@ async function sizes() {
     await prisma.size.createMany({
       data: [
         {
-          name: "Без размерный",
+          name: "Безразмерный",
         },
         {
           name: "35",
