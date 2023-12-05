@@ -211,22 +211,8 @@ model Category {
 model Size {
   id        Int       @id @default(autoincrement())
   name      String?
-  typeId    Int       @default(1)
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
-
-  type SizeType @relation(fields: [typeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("sizes")
-}
-
-model SizeType {
-  id        Int       @id @default(autoincrement())
-  name      String
-  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
-  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
-
-  sizes Size[]
-
-  @@map("sizes_types")
 }
