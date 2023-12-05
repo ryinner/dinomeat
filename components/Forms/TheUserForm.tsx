@@ -16,6 +16,7 @@ const initialServerErrors: ServerError = { message: "" };
 export default function TheUserForm({ user }: Props) {
   const router = useRouter();
   const [serverError, setServerError] = useState(initialServerErrors);
+  const [success, setSuccess] = useState('');
 
   const isSignUp = !Boolean(user?.id);
 
@@ -32,17 +33,21 @@ export default function TheUserForm({ user }: Props) {
   });
   const onSubmit: SubmitHandler<Inputs> = (data, e) => {
     e?.preventDefault();
-    request("/api/auth/sign-up", {
-      body: JSON.stringify(data),
-      method: "POST",
-    })
-      .then(() => {
-        router.push("/auth/sign-in", RedirectType.push);
+      request(isSignUp ? '/api/auth/sign-up' : '/api/profile', {
+        body: JSON.stringify(data),
+        method: isSignUp ? "POST" : "PUT",
       })
-      .catch(async (err: Response) => {
-        const answer = (await err.json()) as ServerError;
-        setServerError(answer);
-      });
+        .then(() => {
+          if (isSignUp) {
+            router.push("/auth/sign-in", RedirectType.push);
+          } else {
+            setSuccess('Обновлено');
+          }
+        })
+        .catch(async (err: Response) => {
+          const answer = (await err.json()) as ServerError;
+          setServerError(answer);
+        });
   };
 
   return (
@@ -115,6 +120,7 @@ export default function TheUserForm({ user }: Props) {
         {serverError.message !== "" && (
           <span className={styles.form__error}>* {serverError.message}</span>
         )}
+        { success !== '' && <span>{ success }</span>}
       </div>
       <div className={styles["form__button-section"]}>
         {isSignUp ? (

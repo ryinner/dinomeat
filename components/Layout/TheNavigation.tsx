@@ -1,3 +1,4 @@
+import { authConfig } from '@/configs/auth.config';
 import { navigationLinksMap } from '@/shared/maps/navigation.map';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
@@ -5,7 +6,7 @@ import Link from "next/link";
 import styles from './TheNavigation.module.scss';
 
 export async function TheNavigation({ className }: Props) {
-  const session = await getServerSession()
+  const session = await getServerSession(authConfig)
 
   return (
     <nav className={`${styles.nav} ${className}`}>
