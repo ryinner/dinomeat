@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function TheSignUp () {
-  return <section className={styles.form}>
+  return <section className={styles.section}>
     <TheUserForm />
   </section>
 }

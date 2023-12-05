@@ -1,11 +1,16 @@
-import React from 'react';
-import styles from './ControlsInputs.module.scss';
+import React, { Ref, forwardRef } from "react";
+import styles from "./ControlsInputs.module.scss";
 
-export default function ControlsInput ({ className, ...props }: Props) {
-  const classNameComputed = `${styles.input} ${className}`;
-  return <input className={classNameComputed} {...props} />
-}
+const ControlsInput = forwardRef(
+  ({ className, ...props }: Props, ref: Ref<HTMLInputElement>) => {
+    const classNameComputed = `${styles.input} ${className}`;
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+    return <input className={classNameComputed} {...props} ref={ref} />;
+  }
+);
 
-}
+ControlsInput.displayName = "ControlsInput";
+
+export default ControlsInput;
+
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}

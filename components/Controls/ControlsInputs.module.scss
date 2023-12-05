@@ -4,4 +4,10 @@
 .input {
   border: 1px solid $black;
   outline: none;
+
+  width: 100%;
+
+  font-family: inherit;
+
+  padding: $indent-1 $indent-2;
 }

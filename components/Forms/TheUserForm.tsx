@@ -2,12 +2,12 @@
 
 import { request } from '@/services/api/api.service';
 import { User } from '@prisma/client';
-import { signIn } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
-import styles from './TheUserForm.module.scss';
+import styles from './AuthForms.module.scss';
+import VkAuthButton from './VkAuthButton';
 
 export default function TheUserForm ({ user }: Props) {
   const {
@@ -33,26 +33,32 @@ export default function TheUserForm ({ user }: Props) {
   const isSignUp = !Boolean(user?.id);
 
   return <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-    <label>
+    <label className={styles.form__label}>
       ФИО
-      <ControlsInput {...register('name', { required: 'Поле ФИО обязательно для заполнения', minLength: 2 })} />
+      <ControlsInput className={styles.form__input} {...register('name', { required: 'Поле ФИО обязательно для заполнения', minLength: 2 })} />
+      { errors.name && <span className={styles.form__error}>* введите имя длинной не менее 2 символов</span> }
     </label>
-    <label>
+    <label className={styles.form__label}>
       Почта
-      <ControlsInput type="email" {...register('email', { required: 'Поле почта обязательно для заполнения', minLength: 2, })} />
+      <ControlsInput className={styles.form__input} type="email" {...register('email', { required: 'Поле почта обязательно для заполнения', minLength: 2, })} />
+      { errors.email && <span className={styles.form__error}>* введите почту длинной не менее 2 символов</span> }
     </label>
-    <label>
+    <label className={styles.form__label}>
       Телефон
-      <ControlsInput {...register('phone', { required: 'Поле телефон обязательно для заполнения', minLength: 6, })} />
+      <ControlsInput className={styles.form__input} {...register('phone', { required: 'Поле телефон обязательно для заполнения', minLength: 6, })} />
+      { errors.phone && <span className={styles.form__error}>* введите телефон</span> }
     </label>
     {
-      isSignUp && <label>
+      isSignUp && <label className={styles.form__label}>
         Пароль
-        <ControlsInput {...register('password', { required: 'Поле пароль обязательно для заполнения', minLength: 8, })} />
+        <ControlsInput className={styles.form__input} type='password' {...register('password', { required: 'Поле пароль обязательно для заполнения', minLength: 8, })} />
+        { errors.password && <span className={styles.form__error}>* введите пароль</span> }
       </label>
     }
-    <Button>{isSignUp ? 'Зарегистрироваться' : 'Обновить' }</Button>
-    { isSignUp && <Button onClick={() => signIn('vk')}>Войти через VK</Button> }
+    <div className={styles['form__button-section']}>
+      <Button>{isSignUp ? 'Зарегистрироваться' : 'Обновить' }</Button>
+      { isSignUp && <VkAuthButton /> }
+    </div>
   </form>
 }
 

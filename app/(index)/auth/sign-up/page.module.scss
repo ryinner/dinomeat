@@ -4,4 +4,5 @@
 .section {
   @include site-container;
   margin: 0 auto;
+  margin-top: $indent-section;
 }

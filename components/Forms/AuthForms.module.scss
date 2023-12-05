@@ -1,0 +1,56 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/mixins/media';
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: $gap-4;
+
+  &__label {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $gap-1;
+
+    width: 50%;
+
+    font-size: 1.625rem;
+    
+    @include small-tablet {
+      width: 100%;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__input {
+    grid-column: 3 span;
+
+    @include small-tablet {
+      grid-column: 1 span;
+    }
+  }
+
+  &__error {
+    color: red;
+
+    grid-column: 4 span;
+    font-size: 1rem;
+
+    @include small-tablet {
+      grid-column: 1 span;
+    }
+  }
+
+  &__button-section {
+    margin-top: $indent-3;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $gap-3;
+  }
+}
