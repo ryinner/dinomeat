@@ -84,11 +84,12 @@ model Product {
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
 
-  properties ProductProperty[]
-  seo        ProductSeo[]
-  images     ProductImage[]
-  movements  ProductMovement[]
-  category   Category?         @relation(fields: [categoryId], references: [id], onUpdate: Restrict, onDelete: Restrict)
+  properties  ProductProperty[]
+  seo         ProductSeo[]
+  images      ProductImage[]
+  movements   ProductMovement[]
+  category    Category?         @relation(fields: [categoryId], references: [id], onUpdate: Restrict, onDelete: Restrict)
+  ProductSize ProductSize[]
 
   @@map("products")
 }
@@ -209,10 +210,25 @@ model Category {
 }
 
 model Size {
+  id          Int           @id @default(autoincrement())
+  name        String?
+  createdAt   DateTime?     @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamp(0)
+  ProductSize ProductSize[]
+
+  @@map("sizes")
+}
+
+model ProductSize {
   id        Int       @id @default(autoincrement())
-  name      String?
+  productId Int       @map("product_id")
+  sizeId    Int       @map("size_id")
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
-  @@map("sizes")
+  size    Size    @relation(fields: [sizeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([productId, sizeId])
+  @@map("products_sizes")
 }
