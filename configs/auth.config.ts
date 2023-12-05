@@ -1,12 +1,13 @@
 import { prisma } from '@/services/lib/prisma.service';
 import { checkPassword, userFindOne } from '@/services/orm/users.service';
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { AuthOptions } from 'next-auth';
+import { AuthOptions, User } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
 import Credentials from 'next-auth/providers/credentials';
 import VkProvider from 'next-auth/providers/vk';
 
 export const authConfig: AuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     VkProvider({
       clientId: process.env.NEXT_PUBLIC_VK_ID,
@@ -32,7 +33,7 @@ export const authConfig: AuthOptions = {
 
         if (await checkPassword(password, user.password)) {
           user.password = null;
-          return user;
+          return user as User;
         }
 
         return null;
@@ -56,12 +57,14 @@ export const authConfig: AuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.phone = user.phone;
       }
       return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id;
+        session.user.phone = token.phone;
       }
       return session;
     },

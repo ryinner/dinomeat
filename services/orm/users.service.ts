@@ -63,3 +63,17 @@ export async function updateUser (id: string, userDto: Prisma.UserUpdateInput) {
 export async function userIsAdmin(userDto: Prisma.UserFindFirstArgs): Promise<boolean> {
   return ((await userFindOne(userDto))?.isAdmin || process.env.NODE_ENV === 'development') ?? false;
 }
+
+export async function findUserForSite (id: string) {
+  return await prisma.user.findFirstOrThrow({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      phone: true
+    },
+    where: {
+      id
+    }
+  });
+}
