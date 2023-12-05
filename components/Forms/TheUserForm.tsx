@@ -9,7 +9,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
 import styles from './AuthForms.module.scss';
-import VkAuthButton from './VkAuthButton';
 
 const initialServerErrors: ServerError = { message: '' };
 
@@ -69,7 +68,6 @@ export default function TheUserForm ({ user }: Props) {
     <div className={styles['form__button-section']}>
       <Button>{isSignUp ? 'Зарегистрироваться' : 'Обновить' }</Button>
       { serverError.message !== '' && <span className={styles.form__error}>* {serverError.message}</span> }
-      { isSignUp && <VkAuthButton /> }
     </div>
   </form>
 }
