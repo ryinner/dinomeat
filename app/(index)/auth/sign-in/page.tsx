@@ -1,4 +1,6 @@
+import TheAuthForm from '@/components/Forms/TheAuthForm';
 import { Metadata } from 'next';
+import styles from './page.module.scss';
 
 export const metadata: Metadata = {
   title: "Авторизация | Dinomeät",
@@ -6,5 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function TheSignIn () {
-  return <></>
+  return <section className={styles.section}>
+    <TheAuthForm />
+  </section>
 }
