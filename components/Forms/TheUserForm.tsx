@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
+import DefaultLink from '../Links/DefaultLink';
 import styles from './AuthForms.module.scss';
 
 const initialServerErrors: ServerError = { message: '' };
@@ -16,6 +17,7 @@ export default function TheUserForm ({ user }: Props) {
   const router = useRouter();
   const [serverError, setServerError] = useState(initialServerErrors);
 
+  const isSignUp = !Boolean(user?.id);
 
   const {
     register,
@@ -40,7 +42,6 @@ export default function TheUserForm ({ user }: Props) {
     });
   };
 
-  const isSignUp = !Boolean(user?.id);
 
   return <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
     <label className={styles.form__label}>
@@ -68,6 +69,9 @@ export default function TheUserForm ({ user }: Props) {
     <div className={styles['form__button-section']}>
       <Button>{isSignUp ? 'Зарегистрироваться' : 'Обновить' }</Button>
       { serverError.message !== '' && <span className={styles.form__error}>* {serverError.message}</span> }
+    </div>
+    <div className={styles['form__button-section']}>
+      <DefaultLink className={styles.form__link} href='/auth/sign-in'>Войти</DefaultLink>
     </div>
   </form>
 }

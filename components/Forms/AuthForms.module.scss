@@ -52,5 +52,19 @@
     align-items: center;
     justify-content: center;
     gap: $gap-3;
+
+    width: 100%;
+  }
+
+  &__link {
+    width: 50%;
+    font-size: 2.25rem; 
+    padding: $indent-1 0;
+
+    @include small-tablet {
+      width: 100%;
+      padding: $indent-2 $indent-1;
+      font-size: 1.25rem; 
+    }
   }
 }
