@@ -2,8 +2,7 @@ import { getUrl } from "@/services/lib/image.service";
 import { main } from "@/services/orm/catalog.service";
 import Image from "next/image";
 import Link from "next/link";
-import ArrowLong from "../../public/icons/arrow-long-right.svg";
-import ArrowShort from "../../public/icons/arrow-short-right.svg";
+import ArrowIcon from '../Icons/ArrowIcon';
 import DefaultLink from "../Links/DefaultLink";
 import styles from "./TheProducts.module.scss";
 
@@ -27,8 +26,7 @@ export default async function TheProducts() {
       <DefaultLink href="/catalog" className={styles.products__button}>
         <div className={styles.products__link}>
           Смотреть новинки
-          <Image src={ArrowLong} alt="" className={`${styles.products__icon} not-mobile`} />
-          <Image src={ArrowShort} alt="" className={`${styles.products__icon} only-mobile`} />
+          <ArrowIcon className={styles.products__icon} />
         </div>
       </DefaultLink>
     </section>

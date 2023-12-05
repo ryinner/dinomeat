@@ -8,6 +8,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../Button/Button";
 import ControlsInput from "../Controls/ControlsInputs";
+import ArrowIcon from '../Icons/ArrowIcon';
 import DefaultLink from "../Links/DefaultLink";
 import styles from "./AuthForms.module.scss";
 
@@ -133,7 +134,7 @@ export default function TheUserForm({ user }: Props) {
               К покупкам
             </DefaultLink>
             <DefaultLink className={styles.form__link} href="/">
-              Главная
+              Главная  <ArrowIcon />
             </DefaultLink>
           </>
         )}
