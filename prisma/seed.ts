@@ -2,89 +2,135 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function generateSizes() {
+async function sizes() {
   if ((await prisma.size.findMany()).length === 0) {
     await prisma.size.createMany({
       data: [
         {
-          id: 1,
           name: "Без размерный",
         },
         {
-          id: 2,
           name: "35",
         },
         {
-          id: 3,
           name: "36",
         },
         {
-          id: 4,
           name: "37",
         },
         {
-          id: 5,
           name: "38",
         },
         {
-          id: 6,
           name: "39",
         },
         {
-          id: 7,
           name: "40",
         },
         {
-          id: 8,
           name: "41",
         },
         {
-          id: 9,
           name: "42",
         },
         {
-          id: 10,
           name: "43",
         },
         {
-          id: 10,
           name: "44",
         },
         {
-          id: 11,
           name: "45",
         },
         {
-          id: 12,
           name: "46",
         },
         {
-          id: 13,
           name: "47",
         },
         {
-          id: 14,
           name: "48",
         },
         {
-          id: 15,
           name: "49",
         },
         {
-          id: 16,
           name: "50",
         },
         {
-          id: 17,
           name: "51",
+        },
+        {
+          name: "52",
         },
       ],
     });
   }
 }
 
+async function properties() {
+  if ((await prisma.property.findMany()).length === 0) {
+    await prisma.property.createMany({
+      data: [
+        {
+          name: "Бренд",
+          isFilter: true,
+        },
+        {
+          name: "Цвет",
+          isFilter: true,
+        },
+      ],
+    });
+    await prisma.value.createMany({
+      data: [
+        {
+          value: "Adidas",
+          propertyId: 1,
+        },
+        {
+          value: "Nike",
+          propertyId: 1,
+        },
+        {
+          value: "Черный",
+          propertyId: 2,
+        },
+        {
+          value: "Белый",
+          propertyId: 2,
+        },
+        {
+          value: "Голубой",
+          propertyId: 2,
+        },
+      ],
+    });
+  }
+}
+
+async function categories () {
+  if ((await prisma.category.findMany()).length === 0) {
+    await prisma.category.createMany({
+      data: [
+        {
+          name: 'Толстовки'
+        },
+        {
+          name: 'Обувь'
+        },
+        {
+          name: 'Штаны'
+        }
+      ]
+    })
+  }
+}
+
 async function main() {
-  await generateSizes();
+  await sizes();
+  await properties();
+  await categories();
 }
 
 main()
