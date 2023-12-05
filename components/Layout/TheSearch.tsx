@@ -100,6 +100,7 @@ export default function TheSearch({
         className={`${styles.search__input} ${isOpen && styles['search__input--with-list']}`}
         placeholder="Поиск"
         type="text"
+        inputMode='search'
         onChange={changeHandler}
         onFocus={focusHandler}
         ref={searchInput}

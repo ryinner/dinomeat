@@ -15,6 +15,7 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
+  phone         String?   @unique
   image         String?
   password      String?
   accounts      Account[]
@@ -210,7 +211,6 @@ model Category {
 model Size {
   id        Int       @id @default(autoincrement())
   name      String?
-  numeric   Int?
   typeId    Int       @default(1)
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)

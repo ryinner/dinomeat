@@ -1,15 +1,23 @@
 'use client';
 
 import { request } from '@/services/api/api.service';
+import { isEmail } from '@/services/lib/validation.service';
 import { User } from '@prisma/client';
-import { redirect } from 'next/navigation';
+import { RedirectType, useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
 import styles from './AuthForms.module.scss';
 import VkAuthButton from './VkAuthButton';
 
+const initialServerErrors: ServerError = { message: '' };
+
 export default function TheUserForm ({ user }: Props) {
+  const router = useRouter();
+  const [serverError, setServerError] = useState(initialServerErrors);
+
+
   const {
     register,
     handleSubmit,
@@ -23,10 +31,13 @@ export default function TheUserForm ({ user }: Props) {
   const onSubmit: SubmitHandler<Inputs> = (data, e) => {
     e?.preventDefault();
     request('/api/auth/sign-up', {
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      method: 'POST',
     }).then(() => {
-      redirect('/auth/sign-in')
-    }).catch((err) => {
+      router.push('/auth/sign-in', RedirectType.push);
+    }).catch(async (err: Response) => {
+      const answer = await err.json() as ServerError;
+      setServerError(answer);
     });
   };
 
@@ -40,12 +51,12 @@ export default function TheUserForm ({ user }: Props) {
     </label>
     <label className={styles.form__label}>
       Почта
-      <ControlsInput className={styles.form__input} type="email" {...register('email', { required: 'Поле почта обязательно для заполнения', minLength: 2, })} />
+      <ControlsInput className={styles.form__input} inputMode='email' type="email" {...register('email', { required: 'Поле почта обязательно для заполнения', validate: isEmail })} />
       { errors.email && <span className={styles.form__error}>* введите почту длинной не менее 2 символов</span> }
     </label>
     <label className={styles.form__label}>
       Телефон
-      <ControlsInput className={styles.form__input} {...register('phone', { required: 'Поле телефон обязательно для заполнения', minLength: 6, })} />
+      <ControlsInput className={styles.form__input} inputMode='tel' type='tel' {...register('phone', { required: 'Поле телефон обязательно для заполнения', minLength: 6, })} />
       { errors.phone && <span className={styles.form__error}>* введите телефон</span> }
     </label>
     {
@@ -57,6 +68,7 @@ export default function TheUserForm ({ user }: Props) {
     }
     <div className={styles['form__button-section']}>
       <Button>{isSignUp ? 'Зарегистрироваться' : 'Обновить' }</Button>
+      { serverError.message !== '' && <span className={styles.form__error}>* {serverError.message}</span> }
       { isSignUp && <VkAuthButton /> }
     </div>
   </form>
@@ -71,4 +83,8 @@ interface Inputs {
   name: string;
   phone: string;
   password?: string;
+}
+
+interface ServerError {
+  message: string;
 }
