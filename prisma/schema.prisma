@@ -223,6 +223,7 @@ model ProductSize {
   id        Int       @id @default(autoincrement())
   productId Int       @map("product_id")
   sizeId    Int       @map("size_id")
+  amount    Int
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
