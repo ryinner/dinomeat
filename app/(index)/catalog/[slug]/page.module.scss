@@ -13,7 +13,11 @@
   &__content {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: $gap-2;
+    gap: $gap-5;
+
+    @include small-tablet {
+      gap: $gap-2;
+    }
   }
 
   &__second, &__description {
@@ -38,6 +42,10 @@
 
   &__main {
     grid-column: 4 span;
+
+    @include small-tablet {
+      grid-column: 12 span;
+    }
   }
 
   &__heading-second {

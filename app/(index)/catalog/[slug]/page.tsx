@@ -1,5 +1,6 @@
 import { ProductCatalogShow } from '@/@types/private';
 import ProductImages from '@/components/Catalog/ProductImages';
+import ProductMainInfo from '@/components/Catalog/ProductMainInfo';
 import { request } from '@/services/api/api.service';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -42,7 +43,9 @@ export default async function Product ({ params: { slug } }: { params: PageParam
       <div className={styles.product__second}>
         <ProductImages images={product.images} />
       </div>
-      <div className={styles.product__main}></div>
+      <div className={styles.product__main}>
+        <ProductMainInfo product={product} />
+      </div>
       <div className={styles.product__description}>
         <h2 className={styles[`product__heading-second`]}>О товаре</h2>
         <div dangerouslySetInnerHTML={{ __html: product.description ?? '' }} />

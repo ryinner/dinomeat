@@ -1,0 +1,24 @@
+@import '/shared/styles/mixins/media';
+@import '/shared/styles/vars/indent';
+
+.info {
+  font-size: 1.375rem;
+  letter-spacing: 0.06875rem;
+
+  &__price {
+    font-size: 2.625rem;
+    margin-left: $indent-5;
+  }
+
+  &__block {
+    margin-top: $indent-2;
+  }
+
+  &__properties {
+    cursor: pointer;
+  }
+
+  & ul {
+    list-style-position: inside;
+  }
+}
