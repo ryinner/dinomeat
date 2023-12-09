@@ -85,7 +85,7 @@ export async function getProductForEdit({ id }: {id: number}) {
 
   const sizes = await prisma.size.findMany({
     include: {
-      ProductSize: {
+      products: {
         where: {
           productId: id
         }
@@ -114,5 +114,14 @@ export function search ({ query }: { query?: string }) {
       published: true
     },
     take: 10
+  });
+}
+
+export function relateSize (id: number, sizeId: number) {
+  return prisma.productSize.create({
+    data: {
+      sizeId,
+      productId: id
+    }
   });
 }

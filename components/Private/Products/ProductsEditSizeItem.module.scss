@@ -1,0 +1,15 @@
+@import '/shared/styles/vars/indent';
+
+.field {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+
+  &:not(:first-child) {
+    margin-top: $indent-2;
+  }
+
+  &__checkbox {
+    display: flex !important;
+    gap: $gap-2;
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductEdit, PropertyWithValuesAndProducts } from "@/@types/private";
+import { ProductEdit, PropertyWithValuesAndProducts, SizeWithProducts } from "@/@types/private";
 import Button from "@/components/Button/Button";
 import ControlsEditor from "@/components/Controls/ControlsEditor";
 import ControlsSelect from "@/components/Controls/ControlsSelect";
@@ -12,10 +12,12 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useImmer } from "use-immer";
 import styles from "./ProductsEditProduct.module.scss";
 import ProductsEditPropertiesItem from "./ProductsEditPropertiesItem";
+import ProductsEditSizeItem from './ProductsEditSizeItem';
 
 export default function ProductsEditProduct({
   product: initialProduct,
   properties: initialProperties,
+  sizes,
   categories,
 }: Props) {
   const [product, updateProduct] = useImmer(initialProduct);
@@ -205,43 +207,12 @@ export default function ProductsEditProduct({
             </label>
           </fieldset>
           <fieldset>
-            <legend>Размеры</legend>
-            <label>
-              Вес (кг):
-              <input
-                name="weight"
-                type="number"
-                value={product.weight}
-                onChange={updateProductField}
-              />
-            </label>
-            <label>
-              Длина (см):
-              <input
-                name="length"
-                type="number"
-                value={product.length}
-                onChange={updateProductField}
-              />
-            </label>
-            <label>
-              Ширина (см):
-              <input
-                name="width"
-                type="number"
-                value={product.width}
-                onChange={updateProductField}
-              />
-            </label>
-            <label>
-              Высота (см):
-              <input
-                name="height"
-                type="number"
-                value={product.height}
-                onChange={updateProductField}
-              />
-            </label>
+            <legend>
+              Наличие
+            </legend>
+            {
+              sizes.map(s => <ProductsEditSizeItem key={s.id} product={product} size={s} />)
+            }
           </fieldset>
         </div>
         <div>
@@ -281,5 +252,6 @@ export default function ProductsEditProduct({
 interface Props {
   product: Product;
   properties: PropertyWithValuesAndProducts[];
+  sizes: SizeWithProducts[];
   categories: Category[];
 }

@@ -76,20 +76,16 @@ model Product {
   price       Float    @default(0)
   description String?  @db.Text
   published   Boolean  @default(false)
-  length      Float    @default(1) /// В см
-  width       Float    @default(1) /// В см
-  height      Float    @default(1) /// В см
-  weight      Float    @default(1) /// В кг
   categoryId  Int?     @map("category_id")
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
 
-  properties  ProductProperty[]
-  seo         ProductSeo[]
-  images      ProductImage[]
-  movements   ProductMovement[]
-  category    Category?         @relation(fields: [categoryId], references: [id], onUpdate: Restrict, onDelete: Restrict)
-  ProductSize ProductSize[]
+  properties ProductProperty[]
+  seo        ProductSeo[]
+  images     ProductImage[]
+  movements  ProductMovement[]
+  category   Category?         @relation(fields: [categoryId], references: [id], onUpdate: Restrict, onDelete: Restrict)
+  sizes      ProductSize[]
 
   @@map("products")
 }
@@ -210,11 +206,12 @@ model Category {
 }
 
 model Size {
-  id          Int           @id @default(autoincrement())
-  name        String?
-  createdAt   DateTime?     @default(now()) @map("created_at") @db.Timestamp(0)
-  updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamp(0)
-  ProductSize ProductSize[]
+  id        Int       @id @default(autoincrement())
+  name      String?
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  products ProductSize[]
 
   @@map("sizes")
 }
@@ -223,7 +220,7 @@ model ProductSize {
   id        Int       @id @default(autoincrement())
   productId Int       @map("product_id")
   sizeId    Int       @map("size_id")
-  amount    Int
+  amount    Int       @default(0)
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 

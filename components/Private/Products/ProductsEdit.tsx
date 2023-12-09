@@ -21,7 +21,7 @@ export function ProductsEdit({ product, categories }: Props) {
   return (
     <div className={styles.product}>
       <div className={styles.product__main}>
-        <ProductsEditProduct product={productData} properties={properties} categories={categories} />
+        <ProductsEditProduct product={productData} properties={properties} categories={categories} sizes={sizes} />
       </div>
       <div className={styles.product__additional}>
         <ProductsEditSeo id={productData.id} seo={initialSeo?.seo} />
