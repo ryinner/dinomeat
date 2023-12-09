@@ -152,3 +152,35 @@ export async function main () {
     take: 3
   });
 }
+
+export async function show (slug: string) {
+  return await prisma.product.findFirst({
+    include: {
+      images: {
+        include: {
+          image: true
+        }
+      },
+      properties: {
+        include: {
+          property: true,
+          value: true
+        }
+      },
+      sizes: {
+        include: {
+          size: true
+        }
+      },
+      seo: {
+        include: {
+          seo: true
+        }
+      },
+      category: true
+    },
+    where: {
+      slug
+    }
+  });
+}
