@@ -2,7 +2,9 @@
 
 .field {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 150px 1fr 20px;
+  align-items: center;
+  gap: $gap-1;
 
   &:not(:first-child) {
     margin-top: $indent-2;
