@@ -216,6 +216,45 @@ export default function ProductsEditProduct({
           </fieldset>
         </div>
         <div>
+        <fieldset>
+            <legend>Размеры</legend>
+            <label>
+              Вес (кг):
+              <input
+                name="weight"
+                type="number"
+                value={product.weight}
+                onChange={updateProductField}
+              />
+            </label>
+            <label>
+              Длина (см):
+              <input
+                name="length"
+                type="number"
+                value={product.length}
+                onChange={updateProductField}
+              />
+            </label>
+            <label>
+              Ширина (см):
+              <input
+                name="width"
+                type="number"
+                value={product.width}
+                onChange={updateProductField}
+              />
+            </label>
+            <label>
+              Высота (см):
+              <input
+                name="height"
+                type="number"
+                value={product.height}
+                onChange={updateProductField}
+              />
+            </label>
+          </fieldset>
           <fieldset>
             <legend>Характеристики</legend>
             {properties.map((p) => (

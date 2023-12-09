@@ -76,6 +76,10 @@ model Product {
   price       Float    @default(0)
   description String?  @db.Text
   published   Boolean  @default(false)
+  length      Float    @default(1) /// В см
+  width       Float    @default(1) /// В см
+  height      Float    @default(1) /// В см
+  weight      Float    @default(1) /// В кг
   categoryId  Int?     @map("category_id")
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
