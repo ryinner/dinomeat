@@ -80,6 +80,9 @@ async function properties() {
           name: "Цвет",
           isFilter: true,
         },
+        {
+          name: "Страна производства"
+        }
       ],
     });
     await prisma.value.createMany({
@@ -104,6 +107,22 @@ async function properties() {
           value: "Голубой",
           propertyId: 2,
         },
+        {
+          value: 'Вьетнам',
+          propertyId: 3
+        },
+        {
+          value: 'Индонезия',
+          propertyId: 3
+        },
+        {
+          value: 'Индия',
+          propertyId: 3
+        },
+        {
+          value: 'Китай',
+          propertyId: 3
+        }
       ],
     });
   }
