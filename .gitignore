@@ -45,3 +45,7 @@ prisma/migrations/*
 #project
 
 resources
+
+.vscode
+
+desktop.ini
