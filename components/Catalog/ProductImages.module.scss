@@ -1,0 +1,47 @@
+@import '/shared/styles/mixins/media';
+@import '/shared/styles/vars/indent';
+
+.carousel {
+  margin-top: $indent-1;
+
+  &__main {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: $indent-5;
+  }
+
+  &__picture {
+    position: relative;
+
+    height: 440px;
+
+    @include small-tablet {
+      height: 156px; 
+    }
+  }
+
+  &__image {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  &__controls {
+    margin: $indent-3 0 $indent-4;
+    overflow: hidden;
+  }
+
+  &__dots {
+    display: flex;
+    gap: 76px;
+    list-style-type: none;
+    overflow-x: auto;
+  }
+
+  &__dot {
+    position: relative;
+    height: 128px;
+    width: 184px;
+    flex-shrink: 0;
+  }
+}

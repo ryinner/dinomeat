@@ -12,6 +12,9 @@ import { MuseoSansCyrl } from "../styles/fonts";
 export const metadata: Metadata = {
   title: "Dinomeät",
   description: "Компания dinomeät - лучшая одежда в России.",
+  icons: {
+    icon: '/icon.png'
+  }
 };
 
 export const viewport: Viewport = {
