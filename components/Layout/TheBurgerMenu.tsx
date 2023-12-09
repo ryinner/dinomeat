@@ -85,7 +85,7 @@ export default function TheBurgerMenu() {
               </li>
             ))}
             {navigationLinksMap.map((l) => (
-              <li key={l.label}>
+              <li key={l.label} className={`${styles["burger-menu__link"]} only-mobile`}>
                 {"link" in l ? (
                   <Link href={l.link}>
                     <span onClick={hideHandler}>{l.label}</span>

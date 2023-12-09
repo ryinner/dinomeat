@@ -8,21 +8,25 @@
   grid-template-columns: repeat(12, 1fr);
   gap: $gap-4;
 
+  @include small-tablet {
+    gap: $gap-2;
+  }
+
   &__item {
     grid-column: 3 span;
 
+    @include small-tablet {
+      grid-column: 6 span;
+    }
+  }
+
+  &__container {
     border: 2px solid $black;
 
     display: flex;
     flex-direction: column;
 
-    cursor: pointer;
-
     background-color: #201D1B0F;
-
-    @include small-tablet {
-      grid-column: 6 span;
-    }
   }
 
   &__picture {
