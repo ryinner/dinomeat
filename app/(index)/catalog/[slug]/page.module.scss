@@ -1,4 +1,5 @@
 @import '/shared/styles/mixins/containers';
+@import '/shared/styles/mixins/media';
 @import '/shared/styles/vars/indent';
 
 .product {
@@ -7,5 +8,36 @@
 
   &__heading {
     font-size: 2.25rem; 
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: $gap-2;
+  }
+
+  &__second, &__description {
+    grid-column: 8 span;
+
+    @include small-tablet {
+      grid-column: 12 span;
+    }
+
+    & ul {
+      list-style-position: inside;
+    }
+
+    & ul > li > p {
+      display: inline-block;
+    }
+  }
+
+  &__main {
+    grid-column: 4 span;
+  }
+
+  &__heading-second {
+    font-weight: 400;
+    text-transform: uppercase;
   }
 }

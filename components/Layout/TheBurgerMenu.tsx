@@ -20,7 +20,7 @@ const variants = {
     x: 0,
   },
   closed: {
-    x: -500,
+    x: -750,
   },
 };
 

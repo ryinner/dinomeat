@@ -37,6 +37,14 @@ export default async function Product ({ params: { slug } }: { params: PageParam
 
   return <section className={styles.product}>
     <h1 className={styles.product__heading}>{product.name}</h1>
+    <div className={styles.product__content}>
+      <div className={styles.product__second}></div>
+      <div className={styles.product__main}></div>
+      <div className={styles.product__description}>
+        <h2 className={styles[`product__heading-second`]}>О товаре</h2>
+        <div dangerouslySetInnerHTML={{ __html: product.description ?? '' }} />
+      </div>
+    </div>
   </section>;
 }
 
