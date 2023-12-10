@@ -1,5 +1,6 @@
 @import '/shared/styles/mixins/media';
 @import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/border';
 
 .info {
   font-size: 1.375rem;
@@ -12,6 +13,10 @@
 
   &__block {
     margin-top: $indent-2;
+
+    @include small-tablet {
+      margin: 0 auto;
+    }
   }
 
   &__properties {
@@ -40,5 +45,37 @@
 
     margin-top: $indent-2;
     margin-left: $indent-2;
+  }
+
+  &__controls {
+    display: flex;
+    gap: $indent-4;
+
+    margin-top: $indent-2;
+
+    text-transform: uppercase;
+    font-size: 0.75rem;
+
+    @include small-tablet {
+      flex-direction: column;
+    }
+  }
+
+  &__link {
+    border-radius: $border-radius;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 $indent-5;
+
+    @include small-tablet {
+      padding: $indent-1 $indent-5;
+    }
+  }
+
+  &__arrow {
+    margin-left: $indent-3;
   }
 }

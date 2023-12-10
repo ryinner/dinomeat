@@ -38,6 +38,10 @@
 
   &__description {
     font-size: 1.375rem;
+
+    @include small-tablet {
+      margin-top: $indent-2;
+    }
   }
 
   &__main {

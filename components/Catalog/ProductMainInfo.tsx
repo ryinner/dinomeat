@@ -4,6 +4,9 @@ import { ProductCatalogShow } from '@/@types/private';
 import Image from 'next/image';
 import { useState } from 'react';
 import ArrowDown from '../../public/icons/arrow-down.svg';
+import ArrowRight from '../../public/icons/arrow-right-thin.svg';
+import Button from '../Button/Button';
+import DefaultLink from '../Links/DefaultLink';
 import styles from './ProductMainInfo.module.scss';
 
 export default function ProductMainInfo({ product }: Props) {
@@ -32,6 +35,10 @@ export default function ProductMainInfo({ product }: Props) {
       <div className={styles.info__sizes}>
         {product.sizes.map(s => <span key={s.id}>{s.size.name}</span>)}
       </div>
+    </div>
+    <div className={styles.info__controls}>
+      <Button>Добавить в корзину</Button>
+      <DefaultLink href='/catalog' className={styles.info__link}>В каталог <Image className={styles.info__arrow} src={ArrowRight} alt='В каталог' /></DefaultLink>
     </div>
   </div>
 }

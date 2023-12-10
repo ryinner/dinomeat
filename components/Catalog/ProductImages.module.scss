@@ -36,6 +36,10 @@
     gap: 76px;
     list-style-type: none;
     overflow-x: auto;
+
+    @include small-tablet {
+      gap: 33px;
+    }
   }
 
   &__dot {
@@ -43,5 +47,10 @@
     height: 128px;
     width: 184px;
     flex-shrink: 0;
+
+    @include small-tablet {
+      width: 84px;
+      height: 60px; 
+    }
   }
 }
