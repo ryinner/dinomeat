@@ -18,7 +18,27 @@
     cursor: pointer;
   }
 
-  & ul {
+  &__property {
+    font-size: 0.75rem; 
+  }
+
+  &__list {
     list-style-position: inside;
+
+    &--hidden {
+      opacity: 0;
+    }
+  }
+
+  &__sizes {
+    display: grid;
+    grid-template-columns: repeat(4, 40px);
+    gap: $gap-3;
+
+    font-size: 0.75rem; 
+    text-align: center;
+
+    margin-top: $indent-2;
+    margin-left: $indent-2;
   }
 }

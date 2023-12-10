@@ -23,14 +23,15 @@ export default function ProductMainInfo({ product }: Props) {
     </div>
     <div className={`${styles.info__block} ${styles.info__properties}`}>
       <span onClick={toggleActive}>Характеристики <Image src={ArrowDown} alt='Раскрыть характеристики' /></span>
-      {
-        isActive && <ul>
-          {product.properties.map(p => <li key={p.id}>{p.property.name} {p.value.value}</li>)}
+        <ul className={`${styles['info__list']} ${isActive ? styles['info__list--visible'] : styles['info__list--hidden']}`}>
+          {product.properties.map(p => <li key={p.id} className={styles.info__property}>{p.property.name}: {p.value.value}</li>)}
         </ul>
-      }
     </div>
     <div className={styles.info__block}>
-
+      <span>Таблица размеров</span>
+      <div className={styles.info__sizes}>
+        {product.sizes.map(s => <span key={s.id}>{s.size.name}</span>)}
+      </div>
     </div>
   </div>
 }
