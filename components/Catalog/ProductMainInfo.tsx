@@ -3,6 +3,7 @@
 import { ProductCatalogShow } from '@/@types/private';
 import Image from 'next/image';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import ArrowDown from '../../public/icons/arrow-down.svg';
 import ArrowRight from '../../public/icons/arrow-right-thin.svg';
 import Button from '../Button/Button';
@@ -14,6 +15,10 @@ export default function ProductMainInfo({ product }: Props) {
 
   function toggleActive () {
     setIsActive((isActive) => !isActive)
+  }
+
+  function addToCart () {
+    toast('Функция в разработке!');
   }
 
   return <div className={styles.info}>
@@ -37,7 +42,7 @@ export default function ProductMainInfo({ product }: Props) {
       </div>
     </div>
     <div className={styles.info__controls}>
-      <Button>Добавить в корзину</Button>
+      <Button onClick={addToCart}>Добавить в корзину</Button>
       <DefaultLink href='/catalog' className={styles.info__link}>В каталог <Image className={styles.info__arrow} src={ArrowRight} alt='В каталог' /></DefaultLink>
     </div>
   </div>
