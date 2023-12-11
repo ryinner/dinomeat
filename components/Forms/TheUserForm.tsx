@@ -3,7 +3,7 @@
 import { request } from "@/services/api/api.service";
 import { isEmail } from "@/services/lib/validation.service";
 import { User } from "@prisma/client";
-import { RedirectType, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../Button/Button";
@@ -40,7 +40,7 @@ export default function TheUserForm({ user }: Props) {
       })
         .then(() => {
           if (isSignUp) {
-            router.push("/auth/sign-in", RedirectType.push);
+            router.push("/auth/sign-in");
           } else {
             setSuccess('Обновлено');
           }
