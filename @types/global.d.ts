@@ -1,5 +1,9 @@
 declare var VK: VK.OpenApi.Api;
 
+declare global {
+  const VK: VK.OpenApi.Api;
+}
+
 declare namespace VK {
   namespace OpenApi {
     type NumericBoolean = 0 | 1;

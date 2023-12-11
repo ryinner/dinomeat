@@ -1,3 +1,5 @@
+import { VK } from '@/@types/global';
+
 export const VK_COMMUNITY_MESSAGES_ID = 'vk__community-messages';
 
 export function init (): void {
