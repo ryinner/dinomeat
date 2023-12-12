@@ -34,7 +34,6 @@ export default function ProductMainInfo({ product }: Props) {
   }
 
   function cartClickHandler() {
-    console.log(selectedSize, inCart);
     if (inCart === null || selectedSize === null) {
       return;
     }
