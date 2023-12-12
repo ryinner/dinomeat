@@ -1,5 +1,6 @@
 @import '/shared/styles/mixins/media';
 @import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
 @import '/shared/styles/vars/border';
 
 .info {
@@ -77,5 +78,20 @@
 
   &__arrow {
     margin-left: $indent-3;
+  }
+
+  &__size {
+    cursor: pointer;
+
+    &--selected {
+      color: $primary;
+    }
+
+    &--disabled {
+      color: $gray-dark;
+      cursor: not-allowed;
+
+      user-select: none;
+    }
   }
 }

@@ -3,22 +3,57 @@
 import { ProductCatalogShow } from "@/@types/private";
 import Image from "next/image";
 import { useState } from "react";
-import { toast } from "react-toastify";
 import ArrowDown from "../../public/icons/arrow-down.svg";
 import ArrowRight from "../../public/icons/arrow-right-thin.svg";
 import Button from "../Button/Button";
 import DefaultLink from "../Links/DefaultLink";
+import { useCart } from '../TheProviders/TheCartContext';
 import styles from "./ProductMainInfo.module.scss";
 
 export default function ProductMainInfo({ product }: Props) {
   const [isActive, setIsActive] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const { isInCart, addToCart, removeFromCart } = useCart();
+  const inCart = selectedSize !== null ? isInCart(selectedSize) : null;
+  let cartButtonText = '';
+
+  switch (inCart) {
+    case true:
+      cartButtonText = 'Удалить из корзины';
+      break;
+    case false:
+      cartButtonText = 'Добавить в корзину';
+      break;
+    default:
+      cartButtonText = 'Выберите размер';
+      break;
+  }
 
   function toggleActive() {
     setIsActive((isActive) => !isActive);
   }
 
-  function addToCart() {
-    toast("Функция в разработке!");
+  function cartClickHandler() {
+    console.log(selectedSize, inCart);
+    if (inCart === null || selectedSize === null) {
+      return;
+    }
+    if (!inCart) {
+      addToCart(selectedSize);
+    } else {
+      removeFromCart(selectedSize);
+    }
+  }
+
+  function selectSizeHandler (size: { id: number; amount: number }) {
+    if (size.amount === 0) {
+      return;
+    }
+    if (size.id === selectedSize) {
+      setSelectedSize(null);
+    } else {
+      setSelectedSize(size.id);
+    }
   }
 
   return (
@@ -52,12 +87,14 @@ export default function ProductMainInfo({ product }: Props) {
         <span>Таблица размеров</span>
         <div className={styles.info__sizes}>
           {product.sizes.map((s) => (
-            <span key={s.id}>{s.size.name}</span>
+            <span className={`${styles['info__size']} ${selectedSize === s.id && styles['info__size--selected']} ${s.amount === 0 && styles['info__size--disabled']}`} key={s.id} onClick={() => { selectSizeHandler(s); }}>{s.size.name}</span>
           ))}
         </div>
       </div>
       <div className={styles.info__controls}>
-        <Button onClick={addToCart}>Добавить в корзину</Button>
+        <Button onClick={cartClickHandler}>
+          {cartButtonText}
+        </Button>
         <DefaultLink href="/catalog" className={styles.info__link}>
           В каталог{" "}
           <Image

@@ -1,12 +1,15 @@
 'use client';
 
+import TheCartProvider from './TheCartContext';
 import TheNavigationCategoriesProvider from './TheNavigationCategoriesContext';
 
 
 export function TheSiteProviders({ children }: Props) {
   return <>
     <TheNavigationCategoriesProvider>
-      {children}
+      <TheCartProvider>
+        {children}
+      </TheCartProvider>
     </TheNavigationCategoriesProvider>
   </>;
 }
