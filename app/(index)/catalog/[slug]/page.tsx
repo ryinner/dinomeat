@@ -26,7 +26,7 @@ export async function generateMetadata ({ params: { slug } }: { params: PagePara
   const title = seo?.seo?.name ?? product.name;
   const description = seo?.seo?.description ?? null;
   const keywords = seo?.seo?.keywords ?? null;
-  const category = product.category.name;
+  const category = product?.category?.name ?? null;
 
   return {
     title,
