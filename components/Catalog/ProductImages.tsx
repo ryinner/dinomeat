@@ -28,12 +28,10 @@ export default function ProductImages ({ images }: Props) {
   }
 
   function handleTouchStart (e: React.TouchEvent) {
-    console.log(e.touches);
     touchRef.current.startX = e.touches[0].clientX;
   }
 
   function handleTouchEnd (e: React.TouchEvent) {
-    console.log(e.changedTouches)
     touchRef.current.endX = e.changedTouches[0].clientX;
 
     if (Math.abs(touchRef.current.startX - touchRef.current.endX) < 10) {
@@ -45,6 +43,8 @@ export default function ProductImages ({ images }: Props) {
     } else if (touchRef.current.startX < touchRef.current.endX) {
       handlePrevious();
     }
+
+    touchRef.current = { startX: 0, endX: 0 };
   }
 
   return <div className={styles.carousel}>
