@@ -26,6 +26,10 @@
   &__image {
     object-fit: contain;
     object-position: center;
+
+    @include small-tablet {
+      object-fit: cover;
+    }
   }
 
   &__controls {
