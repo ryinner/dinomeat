@@ -11,6 +11,7 @@ import styles from './ProductImages.module.scss';
 export default function ProductImages ({ images }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const imagesList = useRef<HTMLUListElement>(null);
+  const touchRef = useRef({ startX: 0, endX: 0 });
 
   const activeItem = images[activeIndex].image;
 
@@ -26,16 +27,35 @@ export default function ProductImages ({ images }: Props) {
     setActiveIndex(index);
   }
 
+  function handleTouchStart (e: React.TouchEvent) {
+    console.log(e.touches);
+    touchRef.current.startX = e.touches[0].clientX;
+  }
+
+  function handleTouchEnd (e: React.TouchEvent) {
+    console.log(e.changedTouches)
+    touchRef.current.endX = e.changedTouches[0].clientX;
+
+    if (Math.abs(touchRef.current.startX - touchRef.current.endX) < 10) {
+        return;
+    }
+
+    if (touchRef.current.startX > touchRef.current.endX) {
+      handleNext();
+    } else if (touchRef.current.startX < touchRef.current.endX) {
+      handlePrevious();
+    }
+  }
 
   return <div className={styles.carousel}>
     <div className={styles.carousel__main}>
-      <div className={styles.carousel__left} onClick={handlePrevious}>
+      <div className={`${styles.carousel__left} not-mobile`} onClick={handlePrevious}>
         <Image src={ArrowLeftCarousel} alt='Предыдущая картинка' />
       </div>
-      <picture className={styles.carousel__picture}>
+      <picture className={styles.carousel__picture} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <Image src={getUrl(activeItem.url)} alt={activeItem.alt ?? ''} fill={true} className={styles.carousel__image} />
       </picture>
-      <div className={styles.carousel__right} onClick={handleNext}>
+      <div className={`${styles.carousel__right} not-mobile`} onClick={handleNext}>
         <Image src={ArrowRightCarousel} alt='Следующая картинка' />
       </div>
     </div>
