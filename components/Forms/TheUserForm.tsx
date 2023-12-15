@@ -130,7 +130,7 @@ export default function TheUserForm({ user }: Props) {
           </DefaultLink>
         ) : (
           <>
-            <DefaultLink className={styles.form__link} href="/">
+            <DefaultLink className={styles.form__link} href="/catalog">
               К покупкам
             </DefaultLink>
             <DefaultLink className={styles.form__link} href="/">
