@@ -1,5 +1,7 @@
 @import '/shared/styles/mixins/media';
 @import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+@import '/shared/styles/vars/z-index';
 
 .carousel {
   margin-top: $indent-1;
@@ -58,5 +60,38 @@
       width: 84px;
       height: 60px; 
     }
+  }
+
+  &__preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: $white;
+
+    z-index: $z-index-modal;
+  }
+
+  &__preview-container {
+    width: clamp(375px, 100%, 800px);
+  }
+
+  &__preview-close {
+    position: fixed;
+
+    right: 15px;
+    top: 15px;
+
+    cursor: pointer;
+    user-select: none;
+
+    font-size: 2rem;
   }
 }
