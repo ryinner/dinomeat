@@ -1,3 +1,5 @@
-export default function profile () {
-  return <></>
+import TheCart from '@/components/Cart/TheCart';
+
+export default function Cart () {
+  return <TheCart />
 }

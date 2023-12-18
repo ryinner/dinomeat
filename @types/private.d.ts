@@ -15,3 +15,5 @@ export type ProductCatalog = Product & { images: ProductImagesWithImages[] };
 export type PriceFilter = { min: number, max: number };
 
 export type ProductCatalogShow = Product & { seo: ProductSeoWithSeo[], images: ProductImagesWithImages[]; properties: ProductsPropertiesWithPropertyAndValue[]; sizes: ProductSizeWithSize[]; category: Category }
+
+export type ProductCart = ProductSizeWithSize & { product: (Product & { images: ProductImagesWithImages[] }) } & { amount: number };
