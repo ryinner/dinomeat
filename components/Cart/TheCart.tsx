@@ -47,6 +47,7 @@ export default function TheCart() {
           {products.map((p) => (
             <CartProduct key={p.id} product={p} />
           ))}
+          Корзина находится в разработке! Скоро вы сможете сделать заказ :)
         </div>
       )}
     </div>

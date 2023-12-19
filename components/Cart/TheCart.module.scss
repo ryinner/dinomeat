@@ -1,0 +1,7 @@
+@import '/shared/styles/mixins/containers';
+@import '/shared/styles/vars/indent';
+
+.cart {
+  margin: $indent-section auto 0;
+  @include site-container;
+}
