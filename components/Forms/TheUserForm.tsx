@@ -1,8 +1,8 @@
 "use client";
 
+import { SiteUser } from '@/@types/private';
 import { request } from "@/services/api/api.service";
 import { isEmail } from "@/services/lib/validation.service";
-import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -144,7 +144,7 @@ export default function TheUserForm({ user }: Props) {
 }
 
 interface Props {
-  user?: Pick<User, "id" | "email" | "name" | "phone">;
+  user?: SiteUser;
 }
 
 interface Inputs {

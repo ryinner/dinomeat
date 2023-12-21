@@ -1,4 +1,4 @@
-import type { Category, Image, Product, ProductImage, ProductProperty, ProductSeo, ProductSize, Property, Seo, Size, Value } from '@prisma/client';
+import type { Category, Image, Product, ProductImage, ProductProperty, ProductSeo, ProductSize, Property, Seo, Size, User, Value } from '@prisma/client';
 
 export type PropertyWithValues = Property & { values: Value[] }
 export type ProductSeoWithSeo = ProductSeo & { seo: Seo }
@@ -17,3 +17,5 @@ export type PriceFilter = { min: number, max: number };
 export type ProductCatalogShow = Product & { seo: ProductSeoWithSeo[], images: ProductImagesWithImages[]; properties: ProductsPropertiesWithPropertyAndValue[]; sizes: ProductSizeWithSize[]; category: Category }
 
 export type ProductCart = ProductSizeWithSize & { product: (Product & { images: ProductImagesWithImages[] }) } & { amount: number };
+
+export type SiteUser = Pick<User, "id" | "email" | "name" | "phone">;
