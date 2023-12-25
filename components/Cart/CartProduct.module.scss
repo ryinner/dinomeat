@@ -1,0 +1,30 @@
+@import '/shared/styles/mixins/containers';
+@import '/shared/styles/vars/indent';
+
+.product {
+  gap: $gap-2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  align-items: center;
+
+  &__image-container {
+    min-height: 400px;
+    position: relative;
+  }
+
+  &__image {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  &__info {
+    font-size: 1.5rem; 
+  }
+
+  &__paragraph {
+    &:not(:first-child) {
+      margin-top: $indent-2;
+    }
+  }
+}

@@ -7,6 +7,9 @@ export async function getProducts(productsSizes: number[]) {
       product: {
         include: {
           images: {
+            include: {
+              image: true
+            },
             take: 1
           },
         },

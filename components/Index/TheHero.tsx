@@ -36,6 +36,7 @@ export default function TheHero() {
 
   useEffect(() => {
     getImagesSizes();
+    document.body.style.overflowX = 'hidden';
     window.addEventListener('resize', getImagesSizes)
 
     setActiveIndex(2);
@@ -45,6 +46,7 @@ export default function TheHero() {
 
     return () => {
       window.removeEventListener('resize', getImagesSizes)
+      document.body.style.overflowX = 'inherit';
       clearInterval(timer)
     };
   }, []);

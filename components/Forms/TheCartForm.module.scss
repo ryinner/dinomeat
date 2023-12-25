@@ -4,6 +4,7 @@
 
 .cart {
   position: sticky;
+  top: $indent-2;
 
   &__inputs {
     padding: $indent-1 $indent-4 $indent-4;
