@@ -3,6 +3,7 @@
 import { SiteUser } from "@/@types/private";
 import { isEmail } from "@/services/lib/validation.service";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
 import styles from './TheCartForm.module.scss';
@@ -25,6 +26,7 @@ export default function TheCartForm({ user, cartSum }: Props) {
 
   const onSubmit: SubmitHandler<Inputs> = (data, e) => {
     e?.preventDefault();
+    toast('Функция оформления заказа находится в разработке');
   };
 
   return (
