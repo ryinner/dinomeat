@@ -7,7 +7,7 @@ import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
 import styles from './TheCartForm.module.scss';
 
-export default function TheCartForm({ user, cartSum, className }: Props) {
+export default function TheCartForm({ user, cartSum }: Props) {
   const {
     register,
     handleSubmit,
@@ -28,27 +28,27 @@ export default function TheCartForm({ user, cartSum, className }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={className}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.cart}>
       <fieldset className={styles.cart__inputs}>
-        <label className={styles.form__label}>
+        <label className={styles.cart__label}>
           ФИО
           <ControlsInput
-            className={styles.form__input}
+            className={styles.cart__input}
             {...register("name", {
               required: "Поле ФИО обязательно для заполнения",
               minLength: 2,
             })}
           />
           {errors.name && (
-            <span className={styles.form__error}>
+            <span className={styles.cart__error}>
               * введите имя длинной не менее 2 символов
             </span>
           )}
         </label>
-        <label className={styles.form__label}>
+        <label className={styles.cart__label}>
           Почта
           <ControlsInput
-            className={styles.form__input}
+            className={styles.cart__input}
             inputMode="email"
             type="email"
             {...register("email", {
@@ -57,15 +57,15 @@ export default function TheCartForm({ user, cartSum, className }: Props) {
             })}
           />
           {errors.email && (
-            <span className={styles.form__error}>
+            <span className={styles.cart__error}>
               * введите почту длинной не менее 2 символов
             </span>
           )}
         </label>
-        <label className={styles.form__label}>
+        <label className={styles.cart__label}>
           Телефон
           <ControlsInput
-            className={styles.form__input}
+            className={styles.cart__input}
             inputMode="tel"
             type="tel"
             {...register("phone", {
@@ -74,50 +74,50 @@ export default function TheCartForm({ user, cartSum, className }: Props) {
             })}
           />
           {errors.phone && (
-            <span className={styles.form__error}>* введите телефон</span>
+            <span className={styles.cart__error}>* введите телефон</span>
           )}
         </label>
-        <label className={styles.form__label}>
+        <label className={styles.cart__label}>
           Город
           <ControlsInput
-            className={styles.form__input}
+            className={styles.cart__input}
             {...register("city", {
               required: "Поле город обязательно для заполнения",
               minLength: 2,
             })}
           />
           {errors.city && (
-            <span className={styles.form__error}>
+            <span className={styles.cart__error}>
               * введите город
             </span>
           )}
         </label>
-        <label className={styles.form__label}>
+        <label className={styles.cart__label}>
           Почтовый код
           <ControlsInput
-            className={styles.form__input}
+            className={styles.cart__input}
             {...register("postal_code", {
               required: "Поле почтовый код обязательно для заполнения",
               minLength: 6,
             })}
           />
           {errors.postal_code && (
-            <span className={styles.form__error}>
+            <span className={styles.cart__error}>
               * введите почтовый код
             </span>
           )}
         </label>
-        <label className={styles.form__label}>
+        <label className={styles.cart__label}>
           Адрес
           <ControlsInput
-            className={styles.form__input}
+            className={styles.cart__input}
             {...register("address", {
               required: "Поле адрес обязательно для заполнения",
               minLength: 2,
             })}
           />
           {errors.address && (
-            <span className={styles.form__error}>
+            <span className={styles.cart__error}>
               * введите адрес код
             </span>
           )}
@@ -128,7 +128,7 @@ export default function TheCartForm({ user, cartSum, className }: Props) {
         <span className={styles.cart__price}>{cartSum} ₽</span>
       </div>
       <div className={styles.cart__controls}>
-        <Button>Оформить заказ</Button>
+        <Button className={styles.cart__buy}>Оформить заказ</Button>
       </div>
     </form>
   );

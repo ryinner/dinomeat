@@ -1,0 +1,29 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/mixins/media';
+
+
+.cart {
+  position: sticky;
+
+  &__inputs {
+    padding: $indent-1 $indent-4 $indent-4;
+  }
+
+  &__label {
+    font-size: 0.75rem; 
+  }
+
+  &__total {
+    margin-top: $indent-4;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__controls {
+    margin-top: $indent-4;
+  }
+
+  &__buy {
+    width: 100%;
+  }
+}

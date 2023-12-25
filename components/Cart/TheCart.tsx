@@ -32,6 +32,7 @@ export default function TheCart({ user }: Props) {
   useEffect(() => {
     if (!isRequested.current && !isCartEmpty) {
       isRequested.current = true;
+      setIsLoading(true);
 
       frontRequest<{ products: ProductCart[] }>(
         `/api/cart?ids=${cart.map((c) => c.id).join("|")}`,
@@ -44,7 +45,7 @@ export default function TheCart({ user }: Props) {
         setIsLoading(false);
       });
     }
-  });
+  }, [isCartEmpty, cart]);
 
   return (
     <div className={styles.cart}>
@@ -59,12 +60,12 @@ export default function TheCart({ user }: Props) {
             <div>Оформить заказ</div>
           </div>
           <div className={styles.cart__content}>
-            <div className={styles.cart__form}>
+            <div className={styles.cart__products}>
               {products.map((p) => (
                 <CartProduct key={p.id} product={p} />
               ))}
             </div>
-            <div className={styles.cart__products}>
+            <div className={styles.cart__form}>
               <TheCartForm user={user} cartSum={cartSum} />
             </div>
           </div>
