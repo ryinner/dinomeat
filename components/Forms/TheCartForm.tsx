@@ -118,7 +118,7 @@ export default function TheCartForm({ user, cartSum }: Props) {
           />
           {errors.address && (
             <span className={styles.cart__error}>
-              * введите адрес код
+              * введите адрес
             </span>
           )}
         </label>

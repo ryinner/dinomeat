@@ -7,11 +7,16 @@
   top: $indent-2;
 
   &__inputs {
-    padding: $indent-1 $indent-4 $indent-4;
+    padding: $indent-4;
   }
 
   &__label {
-    font-size: 0.75rem; 
+    display: block;
+    font-size: 1rem;
+
+    &:not(:first-child) {
+      margin-top: $indent-2;
+    }
   }
 
   &__total {
