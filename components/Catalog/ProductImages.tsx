@@ -90,6 +90,8 @@ export default function ProductImages({ images }: Props) {
               fill={true}
               className={styles.carousel__image}
               onClick={openHandler}
+              quality={100}
+              priority={true}
             />
           </picture>
           <div
@@ -128,6 +130,7 @@ export default function ProductImages({ images }: Props) {
               height={0}
               sizes="100vw"
               style={{ width: '100%', height: 'auto' }}
+              quality={100}
             />
         </picture>
       </div>, document.body)}
