@@ -1,5 +1,6 @@
 @import '/shared/styles/mixins/containers';
 @import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
 
 .product {
   gap: $gap-2;
@@ -26,5 +27,18 @@
     &:not(:first-child) {
       margin-top: $indent-2;
     }
+  }
+
+  &__controls {
+    user-select: none;
+    cursor: pointer;
+
+    color: $primary;
+    background-color: transparent;
+
+    outline: none;
+    border: none;
+
+    font-size: inherit;
   }
 }

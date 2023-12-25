@@ -10,7 +10,7 @@ import CartProduct from "./CartProduct";
 import styles from "./TheCart.module.scss";
 
 export default function TheCart({ user }: Props) {
-  const { cart } = useCart();
+  const { cart, isInCart } = useCart();
   const [products, setProducts] = useState<ProductCart[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const isRequested = useRef(false);
@@ -45,7 +45,11 @@ export default function TheCart({ user }: Props) {
         setIsLoading(false);
       });
     }
-  }, [isCartEmpty, cart]);
+  }, [isCartEmpty, cart, products, isInCart]);
+
+  function removeHandler () {
+    setProducts(products => products.filter(p => isInCart(p.id)));
+  }
 
   return (
     <div className={styles.cart}>
@@ -62,7 +66,7 @@ export default function TheCart({ user }: Props) {
           <div className={styles.cart__content}>
             <div className={styles.cart__products}>
               {products.map((p) => (
-                <CartProduct key={p.id} product={p} />
+                <CartProduct key={p.id} product={p} onRemove={removeHandler} />
               ))}
             </div>
             <div className={styles.cart__form}>
