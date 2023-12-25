@@ -10,7 +10,7 @@
 
   &__input {
     position: relative;
-    z-index: $z-index-content;
+    z-index: $z-index-controls;
 
     padding: 16px 48px 16px 56px;
 
@@ -20,7 +20,7 @@
     border: none;
     outline: none;
 
-    background-color: #B8B4B447;
+    background-color: #b8b4b4;
 
     font-family: inherit;
     color: inherit;
@@ -46,7 +46,7 @@
     transform: translateY(-50%);
 
     cursor: pointer;
-    z-index: $z-index-controls;
+    z-index: $z-index-modal;
   }
 
   &__icon-magnifier {
@@ -66,11 +66,11 @@
 
     width: 100%;
 
-    z-index: $z-index-background;
+    z-index: $z-index-content;
 
     list-style-type: none;
 
-    background-color: #B8B4B447;
+    background-color: #b8b4b4;
 
     padding: 64px 48px 16px 56px;
 
@@ -80,8 +80,6 @@
 
     display: flex;
     gap: $gap-3;
-
-    z-index: $z-index-controls;
 
     &--row {
       flex-direction: row;
