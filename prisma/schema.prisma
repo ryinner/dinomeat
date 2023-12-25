@@ -228,9 +228,40 @@ model ProductSize {
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
-  size    Size    @relation(fields: [sizeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  product Product @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  size                Size                  @relation(fields: [sizeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  product             Product               @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ordersProductsSizes OrdersProductsSizes[]
 
   @@unique([productId, sizeId])
   @@map("products_sizes")
+}
+
+model Order {
+  id         Int    @id @default(autoincrement())
+  username   String
+  email      String
+  phone      String
+  city       String
+  postalCode String @map("postal_code")
+  address    String
+
+  createdAt           DateTime?             @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt           DateTime              @updatedAt @map("updated_at") @db.Timestamp(0)
+  ordersProductsSizes OrdersProductsSizes[]
+
+  @@map("orders")
+}
+
+model OrdersProductsSizes {
+  id            Int @id @default(autoincrement())
+  orderId       Int @map("order_id")
+  productSizeId Int @map("product_size_id")
+
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  order       Order       @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productSize ProductSize @relation(fields: [productSizeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("orders_products_sizes")
 }
