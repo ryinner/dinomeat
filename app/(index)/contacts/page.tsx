@@ -14,11 +14,16 @@ export default function Contacts() {
       <div className={styles.contacts__info}>
         <div className={styles.contacts__text}>
           <div>
-            Наш офис находится в обл. Челябинская, г. Челябинск, ул.
-            Энтузиастов, д. 12, офис 207
+            Наш офис находится в г. Челябинск, ул. Молодогвардейцев, д. 15А, офис 26
           </div>
           <div className={styles["contacts__work-time"]}>
-            Время работы: с 11:00 до 19:00{" "}
+            Время работы:
+          </div>
+          <div className={styles["contacts__work-time"]}>
+            Будние дни: 9:00-18:00
+          </div>
+          <div className={styles["contacts__work-time"]}>
+            Выходные дни: 12:00-17:00
           </div>
         </div>
       </div>

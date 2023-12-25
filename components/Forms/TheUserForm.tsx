@@ -3,6 +3,7 @@
 import { SiteUser } from '@/@types/private';
 import { request } from "@/services/api/api.service";
 import { isEmail } from "@/services/lib/validation.service";
+import { signOut } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -135,6 +136,9 @@ export default function TheUserForm({ user }: Props) {
             </DefaultLink>
             <DefaultLink className={styles.form__link} href="/">
               Главная  <ArrowIcon />
+            </DefaultLink>
+            <DefaultLink className={styles.form__link} href='/' onClick={() => {signOut()}}>
+              Выход
             </DefaultLink>
           </>
         )}
