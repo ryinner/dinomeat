@@ -83,13 +83,18 @@
   &__size {
     cursor: pointer;
 
+    border: 1px solid;
+
     &--selected {
       color: $primary;
+      border-color: $primary;
     }
 
     &--disabled {
       color: $gray-dark;
       cursor: not-allowed;
+
+      border-color: $gray-dark;
 
       user-select: none;
     }
