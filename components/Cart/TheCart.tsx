@@ -60,8 +60,8 @@ export default function TheCart({ user }: Props) {
       ) : (
         <div>
           <div className={styles.cart__header}>
-            <div>Товары:</div>
-            <div>Оформить заказ</div>
+            <div className={styles['cart__header-products']}>Товары:</div>
+            <div className={styles['cart__header-form']}>Оформить заказ</div>
           </div>
           <div className={styles.cart__content}>
             <div className={styles.cart__products}>

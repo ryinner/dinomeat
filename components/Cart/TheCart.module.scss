@@ -1,4 +1,5 @@
 @import '/shared/styles/mixins/containers';
+@import '/shared/styles/mixins/media';
 @import '/shared/styles/vars/indent';
 
 .cart {
@@ -12,6 +13,11 @@
     font-size: 2.25rem;
 
     margin-bottom: $indent-section;
+
+    @include small-tablet {
+      grid-template-columns: 1fr;
+      gap: $gap-6;
+    }
   }
 
   &__footer {
@@ -39,5 +45,11 @@
 
   &__form {
     position: relative;
+  }
+
+  @include small-tablet {
+    &__header-products {
+      display: none;
+    }
   }
 }

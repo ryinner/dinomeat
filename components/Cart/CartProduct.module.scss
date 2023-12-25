@@ -1,4 +1,5 @@
 @import '/shared/styles/mixins/containers';
+@import '/shared/styles/mixins/media';
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
 
@@ -9,9 +10,17 @@
 
   align-items: center;
 
+  @include small-tablet {
+    grid-template-columns: 1fr;
+  }
+
   &__image-container {
     min-height: 400px;
     position: relative;
+
+    @include small-tablet {
+      min-height: 200px;
+    }
   }
 
   &__image {
