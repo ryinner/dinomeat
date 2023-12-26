@@ -69,6 +69,31 @@ export async function createOrder({
   cart: CartItem[];
   order: Prisma.OrderCreateInput;
 }) {
+  const productSizes = cart.map((i) => i.id);
+
+  const sizes = await prisma.productSize.findMany({
+    include: {
+      product: true,
+      size: true,
+    },
+    where: {
+      id: {
+        in: productSizes,
+      },
+    },
+  });
+
+  for (const { id, amount } of sizes) {
+    await prisma.productSize.update({
+      data: {
+        amount: amount - (cart.find(i => i.id === id)?.amount ?? 0)
+      },
+      where: {
+        id
+      }
+    });
+  }
+
   return await prisma.order.create({
     data: {
       ...order,

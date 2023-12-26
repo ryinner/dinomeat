@@ -4,6 +4,7 @@ import { SiteUser } from "@/@types/private";
 import { frontRequest } from '@/services/api/api.service';
 import { isEmail } from "@/services/lib/validation.service";
 import { Order } from '@prisma/client';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
@@ -26,10 +27,12 @@ export default function TheCartForm({ user, cartSum }: Props) {
     },
   });
   const { cart, cleanCart } = useCart();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<Inputs> = (data, e) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data, e) => {
     e?.preventDefault();
-    frontRequest<{ order: Order }>('/api/cart', {
+    setIsLoading(true);
+    await frontRequest<{ order: Order }>('/api/cart', {
       method: 'POST',
       body: JSON.stringify({ cart, order: data })
     }, { withMessage: false }).then(res => {
@@ -37,9 +40,9 @@ export default function TheCartForm({ user, cartSum }: Props) {
       if (id) {
         cleanCart();
       }
-      console.log(id);
       // Перенаправить на Альфу
     });
+    setIsLoading(false);
   };
 
   return (
@@ -144,7 +147,7 @@ export default function TheCartForm({ user, cartSum }: Props) {
         <span className={styles.cart__price}>{cartSum} ₽</span>
       </div>
       <div className={styles.cart__controls}>
-        <Button className={styles.cart__buy}>Оформить заказ</Button>
+        <Button className={styles.cart__buy} disabled={isLoading}>Оформить заказ</Button>
       </div>
     </form>
   );

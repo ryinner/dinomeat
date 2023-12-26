@@ -8,7 +8,7 @@ import styles from './page.module.scss';
 
 async function getData (slug: string) {
   const { product } = (await request<{ product: ProductCatalogShow }>(`/api/products/${slug}`, { next: {
-    revalidate: 10
+    revalidate: 1
   } }));
 
   if (!product) {
