@@ -69,7 +69,7 @@ export function useCart() {
   return useContext(TheCartContext);
 }
 
-interface CartItem {
+export interface CartItem {
   id: number;
   amount: number;
 }
