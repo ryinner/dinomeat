@@ -18,14 +18,14 @@ export default function TheCartForm({ user, cartSum }: Props) {
   } = useForm<Inputs>({
     defaultValues: {
       email: user?.email ?? "",
-      name: user?.name ?? "",
+      username: user?.name ?? "",
       phone: user?.phone ?? "",
       city: "",
-      postal_code: "",
+      postalCode: "",
       address: "",
     },
   });
-  const { cart } = useCart();
+  const { cart, cleanCart } = useCart();
 
   const onSubmit: SubmitHandler<Inputs> = (data, e) => {
     e?.preventDefault();
@@ -34,6 +34,9 @@ export default function TheCartForm({ user, cartSum }: Props) {
       body: JSON.stringify({ cart, order: data })
     }, { withMessage: false }).then(res => {
       const { id } = res.order;
+      if (id) {
+        cleanCart();
+      }
       console.log(id);
       // Перенаправить на Альфу
     });
@@ -46,12 +49,13 @@ export default function TheCartForm({ user, cartSum }: Props) {
           ФИО
           <ControlsInput
             className={styles.cart__input}
-            {...register("name", {
+            {...register("username", {
               required: "Поле ФИО обязательно для заполнения",
               minLength: 2,
             })}
+            autoComplete='name'
           />
-          {errors.name && (
+          {errors.username && (
             <span className={styles.cart__error}>
               * введите имя длинной не менее 2 символов
             </span>
@@ -108,12 +112,12 @@ export default function TheCartForm({ user, cartSum }: Props) {
           Почтовый код
           <ControlsInput
             className={styles.cart__input}
-            {...register("postal_code", {
+            {...register("postalCode", {
               required: "Поле почтовый код обязательно для заполнения",
               minLength: 6,
             })}
           />
-          {errors.postal_code && (
+          {errors.postalCode && (
             <span className={styles.cart__error}>
               * введите почтовый код
             </span>
@@ -154,9 +158,9 @@ interface Props {
 
 interface Inputs {
   email: string;
-  name: string;
+  username: string;
   phone: string;
   city: string;
-  postal_code: string;
+  postalCode: string;
   address: string;
 }

@@ -37,7 +37,7 @@ export async function POST (req: NextRequest) {
     }
   }
 
-  const order = createOrder({
+  const order = await createOrder({
     order: orderInput,
     cart
   });

@@ -10,13 +10,15 @@ export const TheCartContext = createContext<{
   updateCart: (payload: number, amount: number) => void;
   isInCart: (payload: number) => boolean;
   findInCart: (payload: number) => CartItem | undefined;
+  cleanCart: () => void;
 }>({
   cart: [],
   addToCart: () => { },
   updateCart: () => { },
   removeFromCart: () => { },
   isInCart: () => false,
-  findInCart: () => undefined
+  findInCart: () => undefined,
+  cleanCart: () => undefined
 });
 
 export default function TheCartProvider({ children }: Props) {
@@ -56,9 +58,13 @@ export default function TheCartProvider({ children }: Props) {
     return Boolean(findInCart(payload));
   }
 
+  function cleanCart () {
+    setCart([]);
+  }
+
   return (
     <TheCartContext.Provider
-      value={{ cart, addToCart, updateCart, removeFromCart, isInCart, findInCart }}
+      value={{ cart, addToCart, updateCart, removeFromCart, isInCart, findInCart, cleanCart }}
     >
       {children}
     </TheCartContext.Provider>
