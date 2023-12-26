@@ -44,7 +44,14 @@ export async function frontRequest<T>(
             break;
           default:
             const res = await err.json();
-            toast(res.message);
+            if ('message' in res) {
+              toast(res.message);
+            }
+            if ('errors' in res) {
+              res.errors.forEach((e: string) => {
+                toast(e);
+              });
+            }
             break;
         }
       });

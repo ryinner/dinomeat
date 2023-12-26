@@ -1,11 +1,13 @@
 "use client";
 
 import { SiteUser } from "@/@types/private";
+import { frontRequest } from '@/services/api/api.service';
 import { isEmail } from "@/services/lib/validation.service";
+import { Order } from '@prisma/client';
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from 'react-toastify';
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
+import { useCart } from '../TheProviders/TheCartContext';
 import styles from './TheCartForm.module.scss';
 
 export default function TheCartForm({ user, cartSum }: Props) {
@@ -23,10 +25,18 @@ export default function TheCartForm({ user, cartSum }: Props) {
       address: "",
     },
   });
+  const { cart } = useCart();
 
   const onSubmit: SubmitHandler<Inputs> = (data, e) => {
     e?.preventDefault();
-    toast('Функция оформления заказа находится в разработке');
+    frontRequest<{ order: Order }>('/api/cart', {
+      method: 'POST',
+      body: JSON.stringify({ cart, order: data })
+    }, { withMessage: false }).then(res => {
+      const { id } = res.order;
+      console.log(id);
+      // Перенаправить на Альфу
+    });
   };
 
   return (

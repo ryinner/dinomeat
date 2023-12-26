@@ -27,7 +27,7 @@ export async function getProducts(productsSizes: number[]) {
 
 export async function checkIsAvailableForOrder(
   items: CartItem[]
-): Promise<{ isAvailable: boolean; errors: Record<number, string> }> {
+): Promise<{ isAvailable: boolean; errors: string[] }> {
   const productSizes = items.map((i) => i.id);
   const sizes = await prisma.productSize.findMany({
     include: {
@@ -42,18 +42,17 @@ export async function checkIsAvailableForOrder(
   });
 
   let isAvailable: boolean = true;
-  const errorMessage: Record<number, string> = {};
+  const errorMessage: string[] = [];
   for (const i of items) {
     const size = sizes.find((s) => s.id === i.id);
     if (!size) {
       isAvailable = false;
-      errorMessage[i.id] = `Неизвестная ошибка`;
+      errorMessage.push('Неизвестная ошибка');
+      continue;
     }
-    if (size && size.amount < i.amount) {
+    if (size.amount < i.amount) {
       isAvailable = false;
-      errorMessage[
-        i.id
-      ] = `На складе всего ${size.amount} для продукта ${size.product.name} размер: ${size.size.name}`;
+      errorMessage.push(`На складе всего ${size.amount} для продукта ${size.product.name} размер: ${size.size.name}`);
     }
   }
 

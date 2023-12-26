@@ -22,6 +22,7 @@ model User {
   sessions      Session[]
   isAdmin       Boolean   @default(false)
   createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamp(0)
+  Order         Order[]
 
   @@map("users")
 }
@@ -237,17 +238,20 @@ model ProductSize {
 }
 
 model Order {
-  id         Int    @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   username   String
   email      String
   phone      String
   city       String
-  postalCode String @map("postal_code")
+  postalCode String  @map("postal_code")
   address    String
+  userId     String? @map("user_id")
 
-  createdAt           DateTime?             @default(now()) @map("created_at") @db.Timestamp(0)
-  updatedAt           DateTime              @updatedAt @map("updated_at") @db.Timestamp(0)
-  ordersProductsSizes OrdersProductsSizes[]
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  productsSizes OrdersProductsSizes[]
+  user          User?                 @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("orders")
 }
@@ -263,5 +267,6 @@ model OrdersProductsSizes {
   order       Order       @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   productSize ProductSize @relation(fields: [productSizeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
+  @@unique([orderId, productSizeId])
   @@map("orders_products_sizes")
 }
