@@ -72,7 +72,7 @@ export async function createOrder({
   return await prisma.order.create({
     data: {
       ...order,
-      ordersProductsSizes: {
+      productsSizes: {
         createMany: {
           data: cart.map((c) => ({
             productSizeId: c.id,
