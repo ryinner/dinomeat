@@ -83,10 +83,20 @@ export async function createOrder({
     },
   });
 
-  for (const { id, amount } of sizes) {
+  const orderProducts: ({ sum: number; amount: number; productSizeId: number })[] = [];
+  for (const { id, amount, product: { price } } of sizes) {
+    const cartItem = cart.find(i => i.id === id);
+    if (!cartItem) {
+      continue;
+    }
+    orderProducts.push({
+      amount: cartItem.amount,
+      productSizeId: cartItem.id,
+      sum: cartItem.amount * price
+    });
     await prisma.productSize.update({
       data: {
-        amount: amount - (cart.find(i => i.id === id)?.amount ?? 0)
+        amount: amount - cartItem.amount
       },
       where: {
         id
@@ -99,10 +109,7 @@ export async function createOrder({
       ...order,
       productsSizes: {
         createMany: {
-          data: cart.map((c) => ({
-            productSizeId: c.id,
-            amount: c.amount,
-          })),
+          data: orderProducts,
         },
       },
     },

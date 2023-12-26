@@ -257,10 +257,11 @@ model Order {
 }
 
 model OrdersProductsSizes {
-  id            Int @id @default(autoincrement())
-  orderId       Int @map("order_id")
-  productSizeId Int @map("product_size_id")
-  amount        Int @default(1)
+  id            Int   @id @default(autoincrement())
+  orderId       Int   @map("order_id")
+  productSizeId Int   @map("product_size_id")
+  amount        Int   @default(1)
+  sum           Float @default(1)
 
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
