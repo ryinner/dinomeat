@@ -9,5 +9,8 @@ namespace NodeJS {
     NEXT_PUBLIC_YANDEX_MAP: string;
 
     NEXT_PUBLIC_URL: string;
+
+    APLHA_LOGIN: string;
+    APLHA_PASSWORD: string;
   }
 }

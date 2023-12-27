@@ -1,11 +1,13 @@
 "use client";
 
 import { SiteUser } from "@/@types/private";
+import { AlphaApi } from '@/services/api/alpha.service';
 import { frontRequest } from '@/services/api/api.service';
 import { isEmail } from "@/services/lib/validation.service";
 import { Order } from '@prisma/client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 import Button from '../Button/Button';
 import ControlsInput from '../Controls/ControlsInputs';
 import { useCart } from '../TheProviders/TheCartContext';
@@ -28,20 +30,33 @@ export default function TheCartForm({ user, cartSum }: Props) {
   });
   const { cart, cleanCart } = useCart();
   const [isLoading, setIsLoading] = useState(false);
+  const orderId = useRef<number | null>(null);
 
   const onSubmit: SubmitHandler<Inputs> = async (data, e) => {
     e?.preventDefault();
     setIsLoading(true);
-    await frontRequest<{ order: Order }>('/api/cart', {
-      method: 'POST',
-      body: JSON.stringify({ cart, order: data })
-    }, { withMessage: false }).then(res => {
-      const { id } = res.order;
-      if (id) {
-        cleanCart();
+    try {
+      if (orderId.current === null) {
+        const { order: { id } } = (await frontRequest<{ order: Order }>('/api/cart', {
+          method: 'POST',
+          body: JSON.stringify({ cart, order: data })
+        }, { withMessage: false }));
+        orderId.current = id;
       }
-      // Перенаправить на Альфу
-    });
+      await frontRequest<AlphaApi.Rest.Register.Response>('/api/payment', {
+        method: 'POST',
+        body: JSON.stringify({ id: orderId.current })
+      }, {  withMessage: true }).then(res => {
+        if (!res.formUrl || res.formUrl.trim() === '') {
+          toast(res.errorMessage);
+        } else {
+          cleanCart();
+          window.location.replace(res.formUrl);
+        }
+      });
+    } catch (error) {
+      setIsLoading(false);
+    }
     setIsLoading(false);
   };
 
