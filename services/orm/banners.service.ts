@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from '../lib/prisma.service';
+import { deleteImage } from './images.service';
 import { pagination } from './pagination.service';
 
 const LIMIT = 50;
@@ -43,4 +44,19 @@ export async function createBanner (
   bannerDto: Prisma.BannerCreateArgs
 ) {
   return await prisma.banner.create(bannerDto);
+}
+
+export async function deleteBanner (id: number) {
+  const banner = await prisma.banner.findFirstOrThrow({
+    where: {
+      id
+    }
+  });
+
+  await deleteImage(banner.imageId);
+  await prisma.banner.delete({
+    where: {
+      id
+    }
+  });
 }
