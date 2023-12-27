@@ -2,6 +2,11 @@ import { request } from './api.service';
 
 const BASE_URL = 'https://alfa.rbsuat.com/payment/';
 
+/**
+ * @function 
+ * @link https://alfabank.ru/sme/payservice/internet-acquiring/docs/connection-options/api/test-cards/
+ * @link https://alfabank.ru/sme/payservice/internet-acquiring/docs/connection-options/api/rest/
+ */
 export function register (query: AlphaApi.Rest.Register.Request) {
   const { amount, ...body } = query;
 
