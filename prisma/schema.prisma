@@ -182,6 +182,8 @@ model Image {
   createdAt DateTime?      @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamp(0)
   products  ProductImage[]
+  Banner    Banner[]
+  Employeer Employeer[]
 
   @@map("images")
 }
@@ -238,14 +240,16 @@ model ProductSize {
 }
 
 model Order {
-  id         Int     @id @default(autoincrement())
+  id         Int            @id @default(autoincrement())
   username   String
   email      String
   phone      String
   city       String
-  postalCode String  @map("postal_code")
+  postalCode String         @map("postal_code")
   address    String
-  userId     String? @map("user_id")
+  tracker    String?
+  status     OrdersStatuses @default(Created)
+  userId     String?        @map("user_id")
 
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
@@ -254,6 +258,12 @@ model Order {
   user          User?                 @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("orders")
+}
+
+enum OrdersStatuses {
+  Created
+  Completed
+  Declined
 }
 
 model OrdersProductsSizes {
@@ -271,4 +281,30 @@ model OrdersProductsSizes {
 
   @@unique([orderId, productSizeId])
   @@map("orders_products_sizes")
+}
+
+model Banner {
+  id      Int @id @default(autoincrement())
+  imageId Int @map("image_id")
+
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("banners")
+}
+
+model Employeer {
+  id      Int    @id @default(autoincrement())
+  name    String
+  post    String
+  imageId Int    @map("image_id")
+
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  image Image @relation(fields: [imageId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("employeers")
 }
