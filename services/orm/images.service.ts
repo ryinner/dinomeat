@@ -17,7 +17,15 @@ function getProductsImagesPath() {
 }
 
 export function getProductImagesPath(id: number | string): string {
-  return path.join(getProductsImagesPath(), `${id}`);
+  return path.join(getProductsImagesPath(), String(id));
+}
+
+export function getBannersImagesPath (id: number): string {
+  return path.join(getImagesPath(), 'banners', String(id));
+}
+
+export function getEmployersImagesPath (id: number): string {
+  return path.join(getImagesPath(), 'employers', String(id));
 }
 
 interface FileInfo {
