@@ -2,6 +2,7 @@ import { ProductCatalogShow } from '@/@types/private';
 import ProductImages from '@/components/Catalog/ProductImages';
 import ProductMainInfo from '@/components/Catalog/ProductMainInfo';
 import { request } from '@/services/api/api.service';
+import { getUrl } from '@/services/lib/image.service';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import styles from './page.module.scss';
@@ -25,12 +26,20 @@ export async function generateMetadata ({ params: { slug } }: { params: PagePara
   const description = seo?.seo?.description ?? null;
   const keywords = seo?.seo?.keywords ?? null;
   const category = product?.category?.name ?? null;
+  const images = product.images;
 
   return {
     title,
     description,
     keywords,
-    category
+    category,
+    openGraph: {
+      title,
+      description: description ?? undefined,
+      images: images.map(i => getUrl(i.image.url)),
+      type: 'website',
+      siteName: 'dino-meat'
+    }
   }
 }
 
