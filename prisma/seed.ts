@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import { copyFile } from 'fs';
+import path from 'path';
 
 const prisma = new PrismaClient();
 
@@ -146,10 +148,41 @@ async function categories () {
   }
 }
 
+async function banners () {
+  if ((await prisma.banner.findMany()).length === 0) {
+    const files = [
+      path.join(process.cwd(), 'public/index/hero-background-1.webp'),
+      path.join(process.cwd(), 'public/index/hero-background-2.webp'),
+      path.join(process.cwd(), 'public/index/hero-background-3.webp'),
+      path.join(process.cwd(), 'public/index/hero-background-4.webp'),
+      path.join(process.cwd(), 'public/index/hero-background-5.webp'),
+    ];
+
+    for (const index in files) {
+      if (Object.prototype.hasOwnProperty.call(files, index)) {
+        const file = files[index];
+        const toPath = path.join(process.cwd(), `resources/images/banners/${Number(index) + 1}/${index}.webp`);
+        copyFile(file, toPath, () => {});
+        await prisma.banner.create({
+          data: {
+            image: {
+              create: {
+                alt: '',
+                url: toPath.replace(process.cwd(), ''),
+              }
+            }
+          }
+        })
+      }
+    }
+  }
+}
+
 async function main() {
   await sizes();
   await properties();
   await categories();
+  await banners();
 }
 
 main()
