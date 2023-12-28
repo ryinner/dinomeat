@@ -19,6 +19,18 @@ const routes = [
   {
     label: 'Продукты',
     link: '/products'
+  },
+  {
+    label: 'Баннеры',
+    link: '/banners'
+  },
+  {
+    label: 'Сотрудники',
+    link: '/employers'
+  },
+  {
+    label: 'Заказы',
+    link: '/orders'
   }
 ];
 

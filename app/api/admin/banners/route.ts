@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST (req: NextRequest) {
   const session = await getServerSession(authConfig);
+
   if (process.env.NODE_ENV === 'production') {
     if (!session) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
@@ -28,9 +29,12 @@ export async function POST (req: NextRequest) {
     );
   }
 
-  const fileInfo = await writeFile(file, getBannersImagesPath((await getLastBanner())?.id ?? 1));
+  const lastBanner = await getLastBanner();
+  const lastId = lastBanner === null ? 1 : lastBanner.id + 1;
 
-  const banner = createBanner({
+  const fileInfo = await writeFile(file, getBannersImagesPath(lastId));
+
+  const banner = await createBanner({
     data: {
       image: {
         create: {
@@ -39,7 +43,7 @@ export async function POST (req: NextRequest) {
         }
       },
     },
-    select: {
+    include: {
       image: true
     }
   });
