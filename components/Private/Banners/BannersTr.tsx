@@ -1,8 +1,18 @@
 import { BannerWithImage } from '@/@types/private';
+import RemoveIcon from '@/components/Icons/RemoveIcon';
+import { frontRequest } from '@/services/api/api.service';
 import { getUrl } from '@/services/lib/image.service';
 import Image from 'next/image';
 
-export default function BannersTr ({ banner }: Props) {
+export default function BannersTr ({ banner, onRemove }: Props) {
+  function removeHandler () {
+    frontRequest(`/api/admin/banners/${banner.id}`, {
+      method: 'DELETE'
+    }, { withMessage: true }).then(res => {
+      onRemove(banner);
+    });
+  }
+
   return <tr>
     <td>{banner.id}</td>
     <td>
@@ -13,10 +23,13 @@ export default function BannersTr ({ banner }: Props) {
         height={50}
       />
     </td>
-    <td></td>
+    <td>
+      <RemoveIcon onClick={removeHandler} />
+    </td>
   </tr>
 }
 
 interface Props {
   banner: BannerWithImage;
+  onRemove: (banner: BannerWithImage) => void;
 }

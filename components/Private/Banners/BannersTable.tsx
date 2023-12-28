@@ -14,7 +14,7 @@ export default function BannersTable ({ banners: initialBanners }: Props) {
   const form = useRef<HTMLFormElement>(null);
 
   function removeHandler (banner: BannerWithImage) {
-
+    setBanners(banners => banners.filter(b => b.id !== banner.id));
   }
 
   function addHandler () {
@@ -55,7 +55,7 @@ export default function BannersTable ({ banners: initialBanners }: Props) {
       </tr>
     </thead>
     <tbody>
-      {banners.map(b => <BannersTr banner={b} key={b.id} />)}
+      {banners.map(b => <BannersTr banner={b} key={b.id} onRemove={removeHandler} />)}
     </tbody>
   </table>
 }
