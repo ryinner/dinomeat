@@ -5,16 +5,10 @@ import Image from "next/image";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
 import Logo from '../../public/icons/logo.svg';
-import HeroImage1 from "../../public/index/hero-background-1.webp";
-import HeroImage2 from "../../public/index/hero-background-2.webp";
-import HeroImage3 from "../../public/index/hero-background-3.webp";
-import HeroImage4 from "../../public/index/hero-background-4.webp";
-import HeroImage5 from "../../public/index/hero-background-5.webp";
 import styles from './TheHero.module.scss';
 
-const images = [HeroImage5, HeroImage4, HeroImage1, HeroImage3, HeroImage2];
 
-export default function TheHero() {
+export default function TheHero({ images }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const imagesListRef = useRef<HTMLUListElement>(null);
@@ -39,7 +33,7 @@ export default function TheHero() {
     document.body.style.overflowX = 'hidden';
     window.addEventListener('resize', getImagesSizes)
 
-    setActiveIndex(2);
+    setActiveIndex(Math.floor(images.length / 2));
     const timer = setInterval(() => {
       setActiveIndex((activeIndex) => images.length - activeIndex === 1 ? 0 : activeIndex + 1);
     }, 5000);
@@ -49,7 +43,7 @@ export default function TheHero() {
       document.body.style.overflowX = 'inherit';
       clearInterval(timer)
     };
-  }, []);
+  }, [images]);
 
   return (
     <section className={styles.hero}>
@@ -66,7 +60,7 @@ export default function TheHero() {
           ref={imagesListRef}
         >
           {images.map((image, i) => (
-            <li className={styles.hero__slide} key={image.src}>
+            <li className={styles.hero__slide} key={image}>
               <Image src={image} alt='' fill={true} className={styles['hero__slide-image']} />
               <div className={styles.hero__info}>
                 <div className={`${styles.hero__logo} not-mobile`}><Image width={180} src={Logo} alt='Логотип сайта' /> Dinomeät</div>
@@ -83,4 +77,8 @@ export default function TheHero() {
         </motion.ul>
     </section>
   );
+}
+
+interface Props {
+  images: string[];
 }

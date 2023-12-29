@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import { getUrl } from '../lib/image.service';
 import { prisma } from '../lib/prisma.service';
 import { deleteImage } from './images.service';
 import { pagination } from './pagination.service';
@@ -59,4 +60,14 @@ export async function deleteBanner (id: number) {
       id
     }
   });
+}
+
+export async function getBannersImages () {
+  const banners = await prisma.banner.findMany({
+    include: {
+      image: true
+    }
+  });
+
+  return banners.map(b => getUrl(b.image.url));
 }
