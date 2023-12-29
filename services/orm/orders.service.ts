@@ -36,3 +36,23 @@ export async function getOrdersPaginated({
     })
   };
 }
+
+export async function getForEdit (id: number) {
+  return await prisma.order.findFirstOrThrow({
+    include: {
+      productsSizes: {
+        include: {
+          productSize: {
+            include: {
+              product: true,
+              size: true
+            }
+          }
+        }
+      }
+    },
+    where: {
+      id
+    }
+  });
+}
