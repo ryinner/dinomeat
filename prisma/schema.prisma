@@ -295,6 +295,7 @@ model Banner {
   @@map("banners")
 }
 
+// Не стал делать, так как не нужно особо
 model Employeer {
   id      Int    @id @default(autoincrement())
   name    String
