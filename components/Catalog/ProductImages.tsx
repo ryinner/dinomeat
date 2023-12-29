@@ -4,7 +4,7 @@ import { ProductImagesWithImages } from "@/@types/private";
 import { getUrl } from "@/services/lib/image.service";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { createPortal } from 'react-dom';
+import { createPortal } from "react-dom";
 import ArrowLeftCarousel from "../../public/icons/arrow-left-carousel.svg";
 import ArrowRightCarousel from "../../public/icons/arrow-right-carousel.svg";
 import styles from "./ProductImages.module.scss";
@@ -16,6 +16,25 @@ export default function ProductImages({ images }: Props) {
   const touchRef = useRef({ startX: 0, endX: 0 });
 
   const activeItem = images[activeIndex].image;
+
+  const carouselDots = (
+    <ul className={styles.carousel__dots} ref={imagesList}>
+      {images.map((i, index) => (
+        <li
+          key={i.id}
+          onClick={() => handleItem(index)}
+          className={styles.carousel__dot}
+        >
+          <Image
+            src={getUrl(i.image.url)}
+            key={i.id}
+            alt={i.image.alt ?? ""}
+            fill={true}
+          />
+        </li>
+      ))}
+    </ul>
+  );
 
   function handleNext() {
     setActiveIndex((prevIndex) =>
@@ -53,19 +72,19 @@ export default function ProductImages({ images }: Props) {
     touchRef.current = { startX: 0, endX: 0 };
   }
 
-  function openHandler () {
+  function openHandler() {
     setIsOpen(true);
-    const html = document.querySelector('html');
+    const html = document.querySelector("html");
     if (html) {
-      html.style.overflow = 'hidden';
+      html.style.overflow = "hidden";
     }
   }
 
-  function closeHandler () {
+  function closeHandler() {
     setIsOpen(false);
-    const html = document.querySelector('html');
+    const html = document.querySelector("html");
     if (html) {
-      html.style.overflow = 'inherit';
+      html.style.overflow = "inherit";
     }
   }
 
@@ -101,39 +120,34 @@ export default function ProductImages({ images }: Props) {
             <Image src={ArrowRightCarousel} alt="Следующая картинка" />
           </div>
         </div>
-        <div className={styles.carousel__controls}>
-          <ul className={styles.carousel__dots} ref={imagesList}>
-            {images.map((i, index) => (
-              <li
-                key={i.id}
-                onClick={() => handleItem(index)}
-                className={styles.carousel__dot}
-              >
-                <Image
-                  src={getUrl(i.image.url)}
-                  key={i.id}
-                  alt={i.image.alt ?? ""}
-                  fill={true}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className={styles.carousel__controls}>{carouselDots}</div>
       </div>
-      {isOpen && createPortal(<div className={styles.carousel__preview}>
-        <picture className={styles['carousel__preview-container']}>
-          <span className={styles['carousel__preview-close']} onClick={closeHandler}>X</span>
-          <Image
-              src={getUrl(activeItem.url)}
-              alt={activeItem.alt ?? ""}
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: '100%', height: 'auto' }}
-              quality={100}
-            />
-        </picture>
-      </div>, document.body)}
+      {isOpen &&
+        createPortal(
+          <div className={styles.carousel__preview}>
+            <div className={styles["carousel__preview-dots"]}>
+              {carouselDots}
+            </div>
+            <picture className={styles["carousel__preview-container"]}>
+              <span
+                className={styles["carousel__preview-close"]}
+                onClick={closeHandler}
+              >
+                X
+              </span>
+              <Image
+                src={getUrl(activeItem.url)}
+                alt={activeItem.alt ?? ""}
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{ width: "100%", height: "auto" }}
+                quality={100}
+              />
+            </picture>
+          </div>,
+          document.body
+        )}
     </>
   );
 }
