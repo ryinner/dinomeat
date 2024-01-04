@@ -37,7 +37,7 @@ export default function TheCartForm({ user, cartSum }: Props) {
     setIsLoading(true);
     try {
       if (orderId.current === null) {
-        if (data.address.trim() === '') {
+        if (data.address.trim() === '' || data.postalCode.trim() === '') {
           data.address = 'Самовывоз';
           data.postalCode = 'Самовывоз';
         }
