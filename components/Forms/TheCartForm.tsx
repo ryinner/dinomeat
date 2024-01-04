@@ -134,10 +134,6 @@ export default function TheCartForm({ user, cartSum }: Props) {
           Почтовый код (оставить пустым для самовывоза)
           <ControlsInput
             className={styles.cart__input}
-            {...register("postalCode", {
-              required: "Поле почтовый код обязательно для заполнения",
-              minLength: 6,
-            })}
           />
           {errors.postalCode && (
             <span className={styles.cart__error}>
