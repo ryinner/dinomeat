@@ -37,6 +37,10 @@ export default function TheCartForm({ user, cartSum }: Props) {
     setIsLoading(true);
     try {
       if (orderId.current === null) {
+        if (data.address.trim() === '') {
+          data.address = 'Самовывоз';
+          data.postalCode = 'Самовывоз';
+        }
         const { order: { id } } = (await frontRequest<{ order: Order }>('/api/cart', {
           method: 'POST',
           body: JSON.stringify({ cart, order: data })
@@ -127,7 +131,7 @@ export default function TheCartForm({ user, cartSum }: Props) {
           )}
         </label>
         <label className={styles.cart__label}>
-          Почтовый код
+          Почтовый код (оставить пустым для самовывоза)
           <ControlsInput
             className={styles.cart__input}
             {...register("postalCode", {
@@ -142,13 +146,10 @@ export default function TheCartForm({ user, cartSum }: Props) {
           )}
         </label>
         <label className={styles.cart__label}>
-          Адрес
+          Адрес (оставить пустым для самовывоза)
           <ControlsInput
             className={styles.cart__input}
-            {...register("address", {
-              required: "Поле адрес обязательно для заполнения",
-              minLength: 2,
-            })}
+            {...register("address")}
           />
           {errors.address && (
             <span className={styles.cart__error}>
