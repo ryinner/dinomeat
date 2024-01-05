@@ -1,0 +1,16 @@
+@import '/shared/styles/mixins/containers';
+@import '/shared/styles/vars/indent';
+
+.order {
+  margin: $indent-section auto 0;
+  @include site-container;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $gap-5;
+
+  &__heading {
+    font-size: 2.25rem;
+
+    margin-bottom: $indent-section;
+  }
+}

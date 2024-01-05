@@ -1,0 +1,14 @@
+@import '/shared/styles/vars/indent';
+@import '/shared/styles/vars/colors';
+
+.info {
+  &__container {
+    font-size: 1.2rem;
+
+    width: 70%;
+
+    border: 1px solid $black;
+
+    padding: $indent-2 $indent-4;
+  }
+}

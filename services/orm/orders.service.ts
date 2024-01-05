@@ -38,15 +38,19 @@ export async function getOrdersPaginated({
   };
 }
 
-export async function getForEdit (id: number) {
+export async function getForEdit (id: number, images: boolean = false) {
   return await prisma.order.findFirstOrThrow({
     include: {
       productsSizes: {
         include: {
           productSize: {
             include: {
-              product: true,
-              size: true
+              product: {
+                include: {
+                  images
+                }
+              },
+              size: true,
             }
           }
         }
