@@ -7,7 +7,7 @@ export default function OrderEditProducts({ sizes }: Props) {
         <legend>Товары</legend>
         <ul>
           {sizes.map(s => <span key={s.id}>
-            {s.productSize.product.name} {s.productSize.product.article} - {s.amount} - {s.sum} ₽
+            {s.productSize.product.name} {s.productSize.product.article} - {s.amount} шт. - {s.sum} ₽
           </span>)}
         </ul>
       </fieldset>
