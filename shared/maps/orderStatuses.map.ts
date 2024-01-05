@@ -2,12 +2,15 @@ import { OrdersStatuses } from '@prisma/client';
 
 const ordersStatusesMap = {
   [OrdersStatuses.Created]: {
-    name: 'Создан'
+    id: OrdersStatuses.Created,
+    name: 'В обработке'
   },
   [OrdersStatuses.Completed]: {
+    id: OrdersStatuses.Completed,
     name: 'Завершен'
   },
   [OrdersStatuses.Declined]: {
+    id: OrdersStatuses.Declined,
     name: 'Отменен'
   },
 };

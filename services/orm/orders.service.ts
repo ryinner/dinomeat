@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from "../lib/prisma.service";
 import { pagination } from './pagination.service';
 
@@ -55,4 +56,8 @@ export async function getForEdit (id: number) {
       id
     }
   });
+}
+
+export async function updateOrder (orderDto: Prisma.OrderUpdateArgs) {
+  return await prisma.order.update(orderDto);
 }
