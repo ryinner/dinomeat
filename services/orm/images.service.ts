@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { existsSync } from "fs";
+import { existsSync, unlinkSync } from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { prisma } from '../lib/prisma.service';
@@ -52,6 +52,17 @@ export async function writeFile(
     filename: file.name,
     filepath: fullFilePath.replace(process.cwd(), ''),
   };
+}
+
+export async function replaceFile (file: File, filepath: string) {
+  const fileArrayBuffer = await file.arrayBuffer();
+  const fullFilePath = path.join(process.cwd(), filepath);
+
+  if (existsSync(fullFilePath)) {
+    unlinkSync(fullFilePath);
+  }
+
+  await fs.writeFile(fullFilePath, Buffer.from(fileArrayBuffer));
 }
 
 export async function removeFile(filepath: string): Promise<void> {

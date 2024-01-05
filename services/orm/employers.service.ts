@@ -54,3 +54,11 @@ export async function removeEmployer (id: number) {
     }
   });
 }
+
+export async function updateEmployer (updateDto: Prisma.EmployerUpdateArgs) {
+  return prisma.employer.update(updateDto);
+}
+
+export async function findEmployer (findDto: Prisma.EmployerFindFirstArgs) {
+  return prisma.employer.findFirstOrThrow(findDto);
+}
