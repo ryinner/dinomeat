@@ -20,7 +20,7 @@ export default async function Order ({ params: { id } }: Params) {
       <div className={styles.order__heading}>Информация о заказе</div>
       <div className={`${styles.order__heading} not-mobile`}>Товары</div>
       <OrderInfo order={order} />
-      <OrderProducts />
+      <OrderProducts sizes={productsSizes} />
     </section>
   } catch (error) {
     notFound();

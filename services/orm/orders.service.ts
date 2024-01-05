@@ -38,7 +38,7 @@ export async function getOrdersPaginated({
   };
 }
 
-export async function getForEdit (id: number, images: boolean = false) {
+export async function getForEdit (id: number) {
   return await prisma.order.findFirstOrThrow({
     include: {
       productsSizes: {
@@ -47,7 +47,11 @@ export async function getForEdit (id: number, images: boolean = false) {
             include: {
               product: {
                 include: {
-                  images
+                  images: {
+                    include: {
+                      image: true
+                    }
+                  }
                 }
               },
               size: true,

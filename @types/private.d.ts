@@ -8,7 +8,7 @@ export type SizeWithProducts = Size & { products: ProductSize[] }
 export type ProductWithSizes = Product & { sizes: SizeWithProducts[] }
 export type ProductsPropertiesWithPropertyAndValue = ProductProperty & { property: Property; value: Value };
 export type ProductSizeWithSize = ProductSize & { size: Size };
-export type ProductSizeWithSizeAndProduct = ProductSizeWithSize & { product: Product };
+export type ProductSizeWithSizeAndProduct = ProductSizeWithSize & { product: ProductCatalog };
 
 export type ProductEdit = Product & { seo: ProductSeoWithSeo[]; images: ProductImagesWithImages[]; properties: PropertyWithValuesAndProducts[]; sizes: SizeWithProducts[] };
 export type ProductCatalog = Product & { images: ProductImagesWithImages[] };
