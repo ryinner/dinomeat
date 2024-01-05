@@ -5,6 +5,10 @@ export default function OrderEditInfo({ order }: Props) {
     <form>
       <fieldset>
         <legend>Информация заказа</legend>
+        <label>
+          Клиент
+          <input type="text" defaultValue={order.username} />
+        </label>
       </fieldset>
     </form>
   );

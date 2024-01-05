@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     amount,
     returnUrl: `${process.env.NEXT_PUBLIC_URL}/orders/${order.id}`,
     email: order.email,
-    postAddress: `г. ${order.city}, ${order.address}, ${order.postalCode}`
+    postAddress: `г. ${order.city}, ${order.address}`
   });
 
   return NextResponse.json(answer);

@@ -1,5 +1,4 @@
-import OrderEditInfo from '@/components/Private/Orders/OrderEditInfo';
-import OrderEditProducts from '@/components/Private/Orders/OrderEditProducts';
+import OrderEdit from '@/components/Private/Orders/OrderEdit';
 import { getForEdit } from "@/services/orm/orders.service";
 import { Metadata } from "next";
 
@@ -12,10 +11,7 @@ export function generateMetadata({ params: { id } }: Params): Metadata {
 export default async function OrderPage({ params: { id } }: Params) {
   const { productsSizes, ...order } = (await getForEdit(Number(id)));
 
-  return <div>
-      <OrderEditInfo order={order} />
-      <OrderEditProducts sizes={productsSizes} />
-  </div>;
+  return <OrderEdit order={order} sizes={productsSizes} />;
 }
 
 interface Params {

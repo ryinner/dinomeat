@@ -1,0 +1,39 @@
+@import '/shared/styles/vars/indent';
+@import "/shared/styles/vars/border";
+@import "/shared/styles/vars/colors";
+@import "/shared/styles/mixins/media";
+
+.order {
+  gap: $gap-3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include small-tablet {
+    grid-template-columns: 1fr;
+  }
+
+  & fieldset {
+    border: 1px solid $white;
+    border-radius: $border-radius;
+
+    padding: $indent-1 $indent-2;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: $indent-2;
+
+    & legend {
+      margin-left: $indent-4;
+    }
+
+    & label {
+      &:not(:last-child) {
+        margin-bottom: $gap-2;
+      }
+
+      display: grid;
+      grid-template-columns: 150px 1fr;
+    }
+  }
+}

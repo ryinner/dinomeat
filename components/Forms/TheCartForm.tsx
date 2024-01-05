@@ -24,7 +24,6 @@ export default function TheCartForm({ user, cartSum }: Props) {
       username: user?.name ?? "",
       phone: user?.phone ?? "",
       city: "",
-      postalCode: "",
       address: "",
     },
   });
@@ -37,9 +36,8 @@ export default function TheCartForm({ user, cartSum }: Props) {
     setIsLoading(true);
     try {
       if (orderId.current === null) {
-        if (data.address.trim() === '' || data.postalCode.trim() === '') {
+        if (data.address.trim() === '') {
           data.address = 'Самовывоз';
-          data.postalCode = 'Самовывоз';
         }
         const { order: { id } } = (await frontRequest<{ order: Order }>('/api/cart', {
           method: 'POST',
@@ -131,18 +129,7 @@ export default function TheCartForm({ user, cartSum }: Props) {
           )}
         </label>
         <label className={styles.cart__label}>
-          Почтовый код (оставить пустым для самовывоза)
-          <ControlsInput
-            className={styles.cart__input}
-          />
-          {errors.postalCode && (
-            <span className={styles.cart__error}>
-              * введите почтовый код
-            </span>
-          )}
-        </label>
-        <label className={styles.cart__label}>
-          Адрес (оставить пустым для самовывоза)
+          Адрес терминала СДЭК (оставить пустым для самовывоза)
           <ControlsInput
             className={styles.cart__input}
             {...register("address")}
@@ -176,6 +163,5 @@ interface Inputs {
   username: string;
   phone: string;
   city: string;
-  postalCode: string;
   address: string;
 }

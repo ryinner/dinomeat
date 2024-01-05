@@ -245,7 +245,6 @@ model Order {
   email      String
   phone      String
   city       String
-  postalCode String         @map("postal_code")
   address    String
   tracker    String?
   status     OrdersStatuses @default(Created)

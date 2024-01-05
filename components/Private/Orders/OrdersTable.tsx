@@ -31,7 +31,7 @@ export default function OrdersTable ({ orders }: Props) {
         </td>
         <td>{o.email}</td>
         <td>
-          г. {o.city}, {o.address}, {o.postalCode}
+          г. {o.city}, {o.address}
         </td>
         <td>
           {ordersStatusesMap[o.status].name}
