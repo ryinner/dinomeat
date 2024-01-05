@@ -44,5 +44,13 @@ export async function getLastEmployerPosition (): Promise<number> {
     }
   });
 
-  return lastPosition?.position ?? 1;
+  return (lastPosition?.position ?? 0) + 1;
+}
+
+export async function removeEmployer (id: number) {
+  await prisma.employer.delete({
+    where: {
+      id
+    }
+  });
 }

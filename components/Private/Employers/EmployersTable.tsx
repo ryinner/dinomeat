@@ -41,8 +41,8 @@ export default function EmployersTable({ employers: initialEmployers }: Props) {
     }
   }
 
-  function removeHandler () {
-
+  function removeHandler (employer: EmployerWithImage) {
+    setEmployers(employers => employers.filter(e => e.id !== employer.id));
   }
 
   return (
@@ -77,7 +77,7 @@ export default function EmployersTable({ employers: initialEmployers }: Props) {
           </tr>
         )}
         {employers.map((e) => (
-          <EmployersTr employer={e} key={e.id} />
+          <EmployersTr employer={e} key={e.id} onRemove={removeHandler} />
         ))}
       </tbody>
     </table>
