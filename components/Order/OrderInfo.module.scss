@@ -1,5 +1,6 @@
 @import '/shared/styles/vars/indent';
 @import '/shared/styles/vars/colors';
+@import '/shared/styles/mixins/media';
 
 .info {
   &__container {
@@ -10,5 +11,13 @@
     border: 1px solid $black;
 
     padding: $indent-2 $indent-4;
+
+    @include small-tablet {
+      width: 100%;
+    }
+  }
+
+  &__text:not(:last-child) {
+    margin-bottom: $indent-2;
   }
 }

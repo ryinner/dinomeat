@@ -38,11 +38,11 @@ export default function OrderInfo({ order }: Props) {
     <section className={styles.info}>
       <div className={styles.info__container}>
         {infoFields.map((i) => (
-          <div key={i.field}>
+          <div className={styles.info__text} key={i.field}>
             {i.name}: {order[i.field]}
           </div>
         ))}
-        <div>
+        <div className={styles.info__text}>
           Статус: {ordersStatusesMap[order.status].name}
         </div>
       </div>

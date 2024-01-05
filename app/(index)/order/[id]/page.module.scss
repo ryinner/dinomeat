@@ -1,4 +1,5 @@
 @import '/shared/styles/mixins/containers';
+@import '/shared/styles/mixins/media';
 @import '/shared/styles/vars/indent';
 
 .order {
@@ -7,6 +8,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: $gap-5;
+
+  @include small-tablet {
+    grid-template-columns: 1fr;
+  }
 
   &__heading {
     font-size: 2.25rem;

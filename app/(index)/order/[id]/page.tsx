@@ -18,7 +18,7 @@ export default async function Order ({ params: { id } }: Params) {
 
     return <section className={styles.order}>
       <div className={styles.order__heading}>Информация о заказе</div>
-      <div className={styles.order__heading}>Товары</div>
+      <div className={`${styles.order__heading} not-mobile`}>Товары</div>
       <OrderInfo order={order} />
       <OrderProducts />
     </section>
