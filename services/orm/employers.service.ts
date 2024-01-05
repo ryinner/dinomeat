@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import { getUrl } from '../lib/image.service';
 import { prisma } from '../lib/prisma.service';
 import { pagination } from './pagination.service';
 
@@ -61,4 +62,25 @@ export async function updateEmployer (updateDto: Prisma.EmployerUpdateArgs) {
 
 export async function findEmployer (findDto: Prisma.EmployerFindFirstArgs) {
   return prisma.employer.findFirstOrThrow(findDto);
+}
+
+export async function employersForIndex () {
+  const employers = await prisma.employer.findMany({
+    include: {
+      image: true
+    },
+    orderBy: {
+      position: 'asc'
+    },
+    take: 3
+  });
+
+  return employers.map(e => {
+    return {
+      id: e.id,
+      name: e.name,
+      post: e.post,
+      image: getUrl(e.image.url)
+    }
+  })
 }

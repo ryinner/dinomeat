@@ -3,33 +3,10 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Employer1 from "../../public/index/employer-1.webp";
-import Employer2 from "../../public/index/employer-2.webp";
-import Employer3 from "../../public/index/employer-3.webp";
 import styles from "./TheEmployers.module.scss";
 
-const employers = [
-  {
-    id: 1,
-    image: Employer1,
-    name: "Иван",
-    post: "Менеджер",
-  },
-  {
-    id: 2,
-    image: Employer2,
-    name: "Алексей",
-    post: "Генеральный директор",
-  },
-  {
-    id: 3,
-    image: Employer3,
-    name: "Виктория",
-    post: "Менеджер",
-  },
-];
 
-export default function TheEmployers() {
+export default function TheEmployers({ employers }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const imagesListRef = useRef<HTMLUListElement>(null);
@@ -81,7 +58,7 @@ export default function TheEmployers() {
       window.removeEventListener("resize", getImagesSizes);
       clearInterval(timer);
     };
-  }, []);
+  }, [employers]);
 
   return (
     <section className={styles.employers}>
@@ -118,4 +95,13 @@ export default function TheEmployers() {
       </div>
     </section>
   );
+}
+
+interface Props {
+  employers: {
+    id: number;
+    name: string;
+    post: string;
+    image: string;
+  }[];
 }

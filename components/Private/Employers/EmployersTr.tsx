@@ -90,7 +90,7 @@ export default function EmployersTr({ employer, onRemove, onUpdate }: Props) {
               src={`${getUrl(employer.image.url)}?${new Date().getTime()}`}
               alt=""
               width={200}
-              height={200}
+              height={250}
             />
           </td>
           <td>{employer.position}</td>
