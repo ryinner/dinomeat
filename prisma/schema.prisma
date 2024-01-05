@@ -183,7 +183,7 @@ model Image {
   updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamp(0)
   products  ProductImage[]
   Banner    Banner[]
-  Employeer Employeer[]
+  Employer  Employer[]
 
   @@map("images")
 }
@@ -295,17 +295,17 @@ model Banner {
   @@map("banners")
 }
 
-// Не стал делать, так как не нужно особо
-model Employeer {
-  id      Int    @id @default(autoincrement())
-  name    String
-  post    String
-  imageId Int    @map("image_id")
+model Employer {
+  id       Int    @id @default(autoincrement())
+  name     String
+  post     String
+  position Int    @default(0)
+  imageId  Int    @map("image_id")
 
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
   image Image @relation(fields: [imageId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
-  @@map("employeers")
+  @@map("employers")
 }

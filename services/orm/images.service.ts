@@ -24,8 +24,8 @@ export function getBannersImagesPath (id: number): string {
   return path.join(getImagesPath(), 'banners', String(id));
 }
 
-export function getEmployersImagesPath (id: number): string {
-  return path.join(getImagesPath(), 'employers', String(id));
+export function getEmployersImagesPath (name: string): string {
+  return path.join(getImagesPath(), 'employers', name);
 }
 
 interface FileInfo {
