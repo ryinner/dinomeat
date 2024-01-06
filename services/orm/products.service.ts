@@ -125,3 +125,14 @@ export function relateSize (id: number, sizeId: number) {
     }
   });
 }
+
+export async function getAllProducts () {
+  return await prisma.product.findMany({
+    where: {
+      published: true,
+      slug: {
+        not: null
+      }
+    }
+  });
+}
