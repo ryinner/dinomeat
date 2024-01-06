@@ -9,6 +9,8 @@ import styles from "./TheEmployers.module.scss";
 export default function TheEmployers({ employers }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+
   const imagesListRef = useRef<HTMLUListElement>(null);
   const imageSizes = useRef<{ width: number; height: number; gap: number }>({
     width: 0,
@@ -42,21 +44,20 @@ export default function TheEmployers({ employers }: Props) {
     getImagesSizes();
     window.addEventListener("resize", getImagesSizes);
 
-    let timer!: ReturnType<typeof setInterval>;
     if (window.innerWidth < 768) {
       setActiveIndex(1);
-      timer = setInterval(() => {
+      timer.current = setInterval(() => {
         setActiveIndex((activeIndex) =>
           employers.length - activeIndex === 1 ? 0 : activeIndex + 1
         );
       }, 5000);
     } else {
-      clearInterval(timer);
+      clearInterval(timer.current);
     }
 
     return () => {
       window.removeEventListener("resize", getImagesSizes);
-      clearInterval(timer);
+      clearInterval(timer.current);
     };
   }, [employers]);
 
