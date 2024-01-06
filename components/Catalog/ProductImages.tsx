@@ -26,6 +26,7 @@ export default function ProductImages({ images }: Props) {
           className={styles.carousel__dot}
         >
           <Image
+            className={styles['carousel__dots-image']}
             src={getUrl(i.image.url)}
             key={i.id}
             alt={i.image.alt ?? ""}

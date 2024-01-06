@@ -50,6 +50,11 @@
     }
   }
 
+  &__dots-image {
+    object-fit: contain;
+    object-position: center;
+  }
+
   &__dot {
     position: relative;
     height: 128px;

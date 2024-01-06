@@ -22,7 +22,7 @@ export default function Map ({ className }: Props) {
         mapRef.current,
         {
           location: {
-            center: [61.375308, 55.156862],
+            center: [61.331048, 55.201135],
             zoom: 14
           }
         }
@@ -32,7 +32,7 @@ export default function Map ({ className }: Props) {
       const {YMapDefaultMarker} = await ymaps3.import('@yandex/ymaps3-markers@0.0.1');
       map.addChild(
         new YMapDefaultMarker({
-          coordinates: [61.375308, 55.156862],
+          coordinates: [61.331048, 55.201135],
           title: 'Наш офис!',
           color: 'blue'
         })
