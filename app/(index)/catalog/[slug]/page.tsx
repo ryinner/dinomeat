@@ -38,7 +38,8 @@ export async function generateMetadata ({ params: { slug } }: { params: PagePara
       description: description ?? undefined,
       images: images.map(i => getUrl(i.image.url)),
       type: 'website',
-      siteName: 'dino-meat'
+      siteName: 'dino-meat',
+      url: `${process.env.NEXT_PUBLIC_URL}/catalog/${slug}`
     }
   }
 }
@@ -46,8 +47,8 @@ export async function generateMetadata ({ params: { slug } }: { params: PagePara
 export default async function Product ({ params: { slug } }: { params: PageParams }) {
   const product = await getData(slug);
 
-  return <section className={styles.product}>
-    <h1 className={styles.product__heading}>{product.name}</h1>
+  return <section className={styles.product} itemScope itemType="http://schema.org/Product">
+    <h1 className={styles.product__heading} itemProp='name'>{product.name}</h1>
     <div className={styles.product__content}>
       <div className={styles.product__second}>
         <ProductImages images={product.images} />
@@ -57,7 +58,7 @@ export default async function Product ({ params: { slug } }: { params: PageParam
       </div>
       <div className={styles.product__description}>
         <h2 className={styles[`product__heading-second`]}>О товаре</h2>
-        <div dangerouslySetInnerHTML={{ __html: product.description ?? '' }} />
+        <div itemProp='description' dangerouslySetInnerHTML={{ __html: product.description ?? '' }} />
       </div>
     </div>
   </section>;

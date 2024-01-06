@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   description: "Компания dinomeät - лучшая одежда в России.",
   icons: {
     icon: '/icon.png'
-  }
+  },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL)
 };
 
 export const viewport: Viewport = {

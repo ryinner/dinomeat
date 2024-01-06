@@ -30,6 +30,8 @@ export default function ProductImages({ images }: Props) {
             key={i.id}
             alt={i.image.alt ?? ""}
             fill={true}
+            itemProp='image'
+            quality={100}
           />
         </li>
       ))}

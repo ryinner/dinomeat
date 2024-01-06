@@ -57,9 +57,10 @@ export default function ProductMainInfo({ product }: Props) {
 
   return (
     <div className={styles.info}>
-      <div className={styles.info__block}>
+      <div className={styles.info__block} itemProp='offers' itemScope itemType='http://schema.org/Offer'>
         <span>Цена</span>
-        <span className={styles.info__price}>{product.price} ₽</span>
+        <span className={`${styles.info__price} ${styles['info__price--first']}`} itemProp='price'>{product.price}</span> <span className={styles.info__price}>₽</span>
+        <meta itemProp="priceCurrency" content="RUB" />
       </div>
       {product.category?.name && (
         <div className={styles.info__block}>{product.category.name}</div>

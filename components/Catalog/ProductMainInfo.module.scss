@@ -9,7 +9,10 @@
 
   &__price {
     font-size: 2.625rem;
-    margin-left: $indent-5;
+
+    &--first {
+      margin-left: $indent-5;
+    }
   }
 
   &__block {
