@@ -115,7 +115,7 @@ model Property {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   isFilter  Boolean   @default(false) @map("is_filter")
-  itemprop  String?
+  //itemprop  String? - Если понадобится добавить чтобы лучше индекс шел
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamp(0)
 
