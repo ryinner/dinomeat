@@ -10,8 +10,8 @@ import "../globals.scss";
 import { MuseoSansCyrl } from "../styles/fonts";
 
 export const metadata: Metadata = {
-  title: "Dinomeät",
-  description: "Компания dinomeät - лучшая одежда в России.",
+  title: "Dinomeät - магазин обуви и одежды",
+  description: "Мы предлагаем большой выбор Качественной и Оригинальной продукции по доступной цене.",
   icons: {
     icon: '/icon.png'
   },
