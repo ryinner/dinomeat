@@ -8,7 +8,12 @@ import { notFound } from 'next/navigation';
 import styles from './page.module.scss';
 
 async function getData (slug: string) {
-  const { product } = (await request<{ product: ProductCatalogShow }>(`/api/products/${slug}`));
+  const { product } = (await request<{ product: ProductCatalogShow }>(`/api/products/${slug}`, {
+    cache: 'force-cache',
+    next: {
+      revalidate: 0
+    }
+  }));
 
   if (!product) {
     notFound();
