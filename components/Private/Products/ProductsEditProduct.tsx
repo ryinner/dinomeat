@@ -118,6 +118,21 @@ export default function ProductsEditProduct({
     });
   }
 
+  function unPublishProductHandler () {
+    frontRequest(
+      `/api/admin/products/${product.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ data: { published: false } }),
+      },
+      { withMessage: true }
+    ).then(() => {
+      updateProduct((product) => {
+        product.published = false;
+      });
+    });
+  }
+
   function propertyUpdateHandler(
     property: PropertyWithValuesAndProducts,
     valueId?: string
@@ -282,6 +297,11 @@ export default function ProductsEditProduct({
       {!product.published && product.slug !== null && product.slug.length > 0 && (
         <Button type="button" onClick={publishProductHandler}>
           Опубликовать
+        </Button>
+      )}
+      {product.published && (
+        <Button type="button" onClick={unPublishProductHandler}>
+          Снять с публикации
         </Button>
       )}
     </form>

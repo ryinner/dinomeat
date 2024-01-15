@@ -180,7 +180,8 @@ export async function show (slug: string) {
       category: true
     },
     where: {
-      slug
+      slug,
+      published: true
     }
   });
 }
