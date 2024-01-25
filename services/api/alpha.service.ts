@@ -1,6 +1,7 @@
 import { request } from './api.service';
 
-const BASE_URL = 'https://alfa.rbsuat.com/payment/';
+// const BASE_URL = 'https://alfa.rbsuat.com/payment/';
+const BASE_URL = 'https://pay.alfabank.ru/payment/';
 
 /**
  * @function 
