@@ -10,8 +10,8 @@ export async function update (id: number, updateDto: Omit<Prisma.ProductSizeUpda
   })
 }
 
-export function remove (id: number) {
-  return prisma.productSize.delete({
+export async function remove (id: number) {
+  return await prisma.productSize.delete({
     where: {
       id
     }
