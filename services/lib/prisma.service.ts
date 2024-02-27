@@ -9,12 +9,17 @@ export function isPrismaError (error: unknown): error is Prisma.PrismaClientKnow
 
 export enum PrismaErrorsTypes {
   unknown,
-  unique
+  unique,
+  foreignKey
 }
 
 export function getPrismaErrorType (error: Prisma.PrismaClientKnownRequestError): PrismaErrorsTypes {
-  if (error.code === 'P2002') {
-    return PrismaErrorsTypes.unique;
+  switch (error.code) {
+    case 'P2002':
+      return PrismaErrorsTypes.unique;
+    case 'P2003':
+      return PrismaErrorsTypes.foreignKey;
+    default:
+      return PrismaErrorsTypes.unknown;
   }
-  return PrismaErrorsTypes.unknown;
 }

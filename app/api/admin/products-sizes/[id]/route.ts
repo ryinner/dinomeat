@@ -1,4 +1,5 @@
 import { authConfig } from '@/configs/auth.config';
+import { PrismaErrorsTypes, getPrismaErrorType, isPrismaError } from '@/services/lib/prisma.service';
 import { remove, update } from '@/services/orm/productsSizes.service';
 import { userIsAdmin } from '@/services/orm/users.service';
 import { getServerSession } from 'next-auth';
@@ -17,7 +18,16 @@ export async function DELETE (req: NextRequest, { params: { id } }: { params: Pa
     }
   }
 
-  await remove(Number(id));
+  try {
+    await remove(Number(id));
+  } catch (error) {
+    if (isPrismaError(error)) {
+      const errorType = getPrismaErrorType(error);
+      if (errorType === PrismaErrorsTypes.foreignKey) {
+        return NextResponse.json({ message: 'Данный размер привязан к одному из счетов, его нельзя удалить' }, { status: 400 })
+      }
+    }
+  }
 
   return NextResponse.json({ message: 'Сохранено' })
 }
