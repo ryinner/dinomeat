@@ -170,6 +170,11 @@ export async function show (slug: string) {
       sizes: {
         include: {
           size: true
+        },
+        where: {
+          amount: {
+            gt: 0
+          }
         }
       },
       seo: {
